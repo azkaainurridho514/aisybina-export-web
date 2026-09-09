@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contact', function (Blueprint $table) {
+            $table->string('product_heading')->nullable();
+            $table->text('product_subheading')->nullable();
             $table->string('heading')->nullable();
             $table->text('subheading')->nullable();
             $table->string('whatsapp')->nullable();

@@ -12,7 +12,7 @@ class AboutItemController extends Controller
     public function getData()
     {
         return response()->json(
-            AboutItem::orderBy('id')->get()
+            AboutItem::orderBy('created_at', 'asc')->get()
         );
     }
 

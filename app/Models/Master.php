@@ -12,6 +12,7 @@ class Master extends Model
         'icon',
         'website_name',
         'website_description',
+        'website_slug',
         'heading',
         'image',
         'about_heading',

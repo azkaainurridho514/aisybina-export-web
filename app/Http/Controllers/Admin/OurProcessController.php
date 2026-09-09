@@ -12,7 +12,7 @@ class OurProcessController extends Controller
     public function getData()
     {
         return response()->json(
-            OurProcess::orderBy('id')->get()
+            OurProcess::orderBy('created_at', 'asc')->get()
         );
     }
 

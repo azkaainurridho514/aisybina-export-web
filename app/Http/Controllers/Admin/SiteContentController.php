@@ -49,6 +49,7 @@ class SiteContentController extends Controller
             'icon' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'website_name' => 'nullable|string',
             'website_description' => 'nullable|string',
+            'website_slug' => 'nullable|string',
             'heading' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'about_heading' => 'nullable|string',
@@ -80,6 +81,8 @@ class SiteContentController extends Controller
             'footer_product_subheading' => 'nullable|string',
             'footer_product_button' => 'nullable|string',
 
+            'product_heading' => 'nullable|string',
+            'product_subheading' => 'nullable|string',
             'email' => 'nullable|string',
             'whatsapp' => 'nullable|string',
             'tiktok' => 'nullable|string',

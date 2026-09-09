@@ -11,11 +11,7 @@ class ProductPageController extends Controller
     {
         return response()->json([
             'categories' => Category::latest()->get(),
-
-            'products' => Product::with([
-                'category',
-                'images'
-            ])->latest()->get(),
+            'products' => Product::with(['category', 'images'])->latest()->get(),
         ]);
     }
 }

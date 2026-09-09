@@ -11,7 +11,7 @@
     <button class="admin-tab-btn" data-tab="ask_us">Ask Us</button>
     <button class="admin-tab-btn" data-tab="global_reach">Global Reach</button>
     <button class="admin-tab-btn" data-tab="footer">Footer</button>
-    <button class="admin-tab-btn" data-tab="contact">Contact</button>
+    <button class="admin-tab-btn" data-tab="contact">Contact & Product</button>
     </div>
 
     <div class="admin-card" style="padding: 1.5rem;">

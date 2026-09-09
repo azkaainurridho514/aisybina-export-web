@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('master', function (Blueprint $table) {
             $table->string('icon')->nullable();
             $table->string('website_name')->nullable();
+            $table->string('website_slug')->nullable();
             $table->text('website_description')->nullable();
             $table->string('heading')->nullable();
             $table->string('image')->nullable();

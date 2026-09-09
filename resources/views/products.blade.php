@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Products | Aisy Bina Exports</title>
+  <title id="titleWeb"></title>
   <meta name="description" content="Browse the product categories Aisy Bina Exports sources from trusted suppliers across Indonesia.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,1026 +24,20 @@
     <section class="section-tight" style="margin-top: 82px;">
       <div class="container" data-aos="fade-up">
         <span class="pill-tag"><i class="bi bi-box-seam"></i>Our Products</span>
-        <h1 class="mb-3">Browse what we source.</h1>
-        <p class="lead mb-0" style="max-width: 660px;">Five categories, one point of contact. If your product doesn't fit any of them, send us a request at the end of the page.</p>
+        <h1 class="mb-3" id="pageHeading"></h1>
+        <p class="lead mb-0" style="max-width: 660px;" id="pageSubheading"></p>
       </div>
     </section>
 
-    <section class="section pt-0">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-cup-hot"></i>Coffee & Spices</span>
-            <h2 class="mb-2">Coffee & Spices</h2>
-            <p class="mb-0">Beans, ground coffee, and aromatic spices sourced from Indonesia's growing regions.</p>
-          </div>
-        </div>
-        <div class="row gy-4">
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel1" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal1" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Arabica Green Beans">
-                          <i class="bi bi-cup-hot"></i><span>Arabica Green Beans</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal1" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Arabica Green Beans">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel1" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel1" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel1" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Arabica Green Beans</h3><p>Washed arabica green beans from highland growers, sold by the bag or container.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
+    <div id="categoryContainer"></div>
 
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel2" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal2" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Robusta Ground Coffee">
-                          <i class="bi bi-cup-hot"></i><span>Robusta Ground Coffee</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal2" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Robusta Ground Coffee">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel2" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel2" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel2" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Robusta Ground Coffee</h3><p>Roasted and ground robusta packed for retail or bulk private label.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel3" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal3" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Whole Cloves">
-                          <i class="bi bi-flower2"></i><span>Whole Cloves</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal3" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Whole Cloves">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel3" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel3" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel3" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel3" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Whole Cloves</h3><p>Sun-dried whole cloves graded for export, sourced from Maluku and Sulawesi.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section bg-cream-dim">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-tree"></i>Coconut Products</span>
-            <h2 class="mb-2">Coconut Products</h2>
-            <p class="mb-0">Coconut and coconut-derived goods sourced from coastal producer regions.</p>
-          </div>
-        </div>
-        <div class="row gy-4">
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel4" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal4" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Virgin Coconut Oil">
-                          <i class="bi bi-droplet"></i><span>Virgin Coconut Oil</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal4" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Virgin Coconut Oil">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel4" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel4" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel4" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel4" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Virgin Coconut Oil</h3><p>Cold-pressed VCO bottled or drummed for export volumes.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel5" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal5" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Desiccated Coconut">
-                          <i class="bi bi-egg"></i><span>Desiccated Coconut</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal5" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Desiccated Coconut">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel5" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel5" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel5" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel5" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Desiccated Coconut</h3><p>Fine and medium grade desiccated coconut for food manufacturing.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel6" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal6" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Coconut Fiber (Coir)">
-                          <i class="bi bi-bounding-box"></i><span>Coconut Fiber (Coir)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal6" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Coconut Fiber (Coir)">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel6" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel6" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel6" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel6" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Coconut Fiber (Coir)</h3><p>Coir fiber and coir-based products sourced from coastal processors.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-flower1"></i>Agriculture & Food</span>
-            <h2 class="mb-2">Agriculture & Food</h2>
-            <p class="mb-0">Staple crops and processed food items grown and packed across Indonesia.</p>
-          </div>
-        </div>
-        <div class="row gy-4">
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel7" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal7" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Dried Cassava Chips">
-                          <i class="bi bi-basket"></i><span>Dried Cassava Chips</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal7" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Dried Cassava Chips">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel7" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel7" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel7" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel7" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Dried Cassava Chips</h3><p>Sun-dried cassava chips packed for the feed and food industries.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel8" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal8" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Frozen Vegetables">
-                          <i class="bi bi-snow"></i><span>Frozen Vegetables</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal8" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Frozen Vegetables">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel8" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel8" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel8" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel8" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Frozen Vegetables</h3><p>Blast-frozen vegetables packed to buyer specification.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel9" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal9" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Palm Sugar Blocks">
-                          <i class="bi bi-box-seam"></i><span>Palm Sugar Blocks</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal9" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Palm Sugar Blocks">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel9" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel9" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel9" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel9" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Palm Sugar Blocks</h3><p>Traditional palm sugar in block or granulated form.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section bg-cream-dim">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-leaf"></i>Natural Products</span>
-            <h2 class="mb-2">Natural Products</h2>
-            <p class="mb-0">Herbal, botanical, and wellness-adjacent goods sourced from local makers.</p>
-          </div>
-        </div>
-        <div class="row gy-4">
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel10" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal10" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Essential Oils">
-                          <i class="bi bi-droplet-half"></i><span>Essential Oils</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal10" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Essential Oils">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel10" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel10" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel10" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel10" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Essential Oils</h3><p>Steam-distilled essential oils from clove, patchouli, and citronella.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel11" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal11" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Herbal Extracts">
-                          <i class="bi bi-capsule"></i><span>Herbal Extracts</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal11" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Herbal Extracts">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel11" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel11" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel11" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel11" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Herbal Extracts</h3><p>Standardized botanical extracts for wellness and cosmetic use.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel12" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal12" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Dried Herbs">
-                          <i class="bi bi-leaf"></i><span>Dried Herbs</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal12" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Dried Herbs">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel12" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel12" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel12" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel12" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Dried Herbs</h3><p>Sun-dried herbal leaves packed for tea and extract production.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-house-door"></i>Furniture & Handicrafts</span>
-            <h2 class="mb-2">Furniture & Handicrafts</h2>
-            <p class="mb-0">Handmade furniture and craft pieces built by Indonesian workshops.</p>
-          </div>
-        </div>
-        <div class="row gy-4">
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel13" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal13" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Teak Outdoor Furniture">
-                          <i class="bi bi-house-door"></i><span>Teak Outdoor Furniture</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal13" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Teak Outdoor Furniture">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel13" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel13" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel13" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel13" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Teak Outdoor Furniture</h3><p>Solid teak furniture built to order for hospitality and retail.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel14" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal14" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Rattan Baskets">
-                          <i class="bi bi-basket2"></i><span>Rattan Baskets</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal14" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Rattan Baskets">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel14" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel14" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel14" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel14" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Rattan Baskets</h3><p>Handwoven rattan baskets and storage pieces from Central Java.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-
-          <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-            <div class="crop-card">
-              <div class="crop-media">
-                <div id="catProdCarousel15" class="carousel slide crop-carousel" data-bs-ride="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal15" data-slide-index="0" role="button" tabindex="0" aria-label="Preview photo 1 of Bamboo Home Decor">
-                          <i class="bi bi-lamp"></i><span>Bamboo Home Decor</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <div class="frame-wide">
-                        <div class="frame-inner photo-trigger" data-bs-toggle="modal" data-bs-target="#catProdModal15" data-slide-index="1" role="button" tabindex="0" aria-label="Preview photo 2 of Bamboo Home Decor">
-                          <i class="bi bi-image"></i><span>Photo 2 &mdash; placeholder</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#catProdCarousel15" data-bs-slide="prev" aria-label="Previous photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#catProdCarousel15" data-bs-slide="next" aria-label="Next photo">
-                    <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                  </button>
-                  <div class="carousel-indicators crop-indicators">
-                    <button type="button" data-bs-target="#catProdCarousel15" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Photo 1"></button>
-                    <button type="button" data-bs-target="#catProdCarousel15" data-bs-slide-to="1" aria-label="Photo 2"></button>
-                  </div>
-                </div>
-              </div>
-              <div class="crop-body"><h3>Bamboo Home Decor</h3><p>Bamboo decor and lighting pieces made by small workshops.</p><a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="modal fade photo-modal" id="catProdModal1" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal1Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel1" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-cup-hot"></i><span>Arabica Green Beans &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Arabica Green Beans &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel1" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel1" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal1Label" class="carousel-caption-label mb-0">Arabica Green Beans</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal2" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal2Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel2" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-cup-hot"></i><span>Robusta Ground Coffee &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Robusta Ground Coffee &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel2" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel2" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal2Label" class="carousel-caption-label mb-0">Robusta Ground Coffee</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal3" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal3Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel3" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-flower2"></i><span>Whole Cloves &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Whole Cloves &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel3" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel3" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal3Label" class="carousel-caption-label mb-0">Whole Cloves</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal4" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal4Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel4" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-droplet"></i><span>Virgin Coconut Oil &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Virgin Coconut Oil &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel4" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel4" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal4Label" class="carousel-caption-label mb-0">Virgin Coconut Oil</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal5" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal5Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel5" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-egg"></i><span>Desiccated Coconut &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Desiccated Coconut &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel5" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel5" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal5Label" class="carousel-caption-label mb-0">Desiccated Coconut</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal6" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal6Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel6" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-bounding-box"></i><span>Coconut Fiber (Coir) &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Coconut Fiber (Coir) &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel6" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel6" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal6Label" class="carousel-caption-label mb-0">Coconut Fiber (Coir)</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal7" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal7Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel7" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-basket"></i><span>Dried Cassava Chips &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Dried Cassava Chips &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel7" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel7" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal7Label" class="carousel-caption-label mb-0">Dried Cassava Chips</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal8" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal8Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel8" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-snow"></i><span>Frozen Vegetables &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Frozen Vegetables &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel8" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel8" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal8Label" class="carousel-caption-label mb-0">Frozen Vegetables</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal9" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal9Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel9" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-box-seam"></i><span>Palm Sugar Blocks &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Palm Sugar Blocks &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel9" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel9" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal9Label" class="carousel-caption-label mb-0">Palm Sugar Blocks</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal10" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal10Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel10" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-droplet-half"></i><span>Essential Oils &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Essential Oils &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel10" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel10" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal10Label" class="carousel-caption-label mb-0">Essential Oils</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal11" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal11Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel11" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-capsule"></i><span>Herbal Extracts &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Herbal Extracts &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel11" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel11" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal11Label" class="carousel-caption-label mb-0">Herbal Extracts</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal12" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal12Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel12" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-leaf"></i><span>Dried Herbs &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Dried Herbs &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel12" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel12" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal12Label" class="carousel-caption-label mb-0">Dried Herbs</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal13" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal13Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel13" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-house-door"></i><span>Teak Outdoor Furniture &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Teak Outdoor Furniture &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel13" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel13" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal13Label" class="carousel-caption-label mb-0">Teak Outdoor Furniture</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal14" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal14Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel14" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-basket2"></i><span>Rattan Baskets &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Rattan Baskets &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel14" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel14" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal14Label" class="carousel-caption-label mb-0">Rattan Baskets</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade photo-modal" id="catProdModal15" tabindex="-1" aria-hidden="true" aria-labelledby="catProdModal15Label">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body p-0">
-            <div id="catProdModalCarousel15" class="carousel slide" data-bs-ride="false">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-lamp"></i><span>Bamboo Home Decor &mdash; photo 1</span></div></div>
-                </div>
-                <div class="carousel-item">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-image"></i><span>Bamboo Home Decor &mdash; photo 2</span></div></div>
-                </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#catProdModalCarousel15" data-bs-slide="prev" aria-label="Previous photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#catProdModalCarousel15" data-bs-slide="next" aria-label="Next photo">
-                <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-              </button>
-            </div>
-            <p id="catProdModal15Label" class="carousel-caption-label mb-0">Bamboo Home Decor</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="productModalContainer"></div>
 
     <section class="section bg-cream-dim">
       <div class="container text-center container-narrow" data-aos="fade-up">
-        <h2 class="mb-3">Still not seeing the right fit?</h2>
-        <p class="mb-4">Send us your requirements and we'll help you source the right product from Indonesia.</p>
-        <a href="/contact" class="btn btn-forest btn-arrow">Request a Product</a>
+        <h2 class="mb-3" id="ctaHeading"></h2>
+        <p class="mb-4" id="ctaSubheading"></p>
+        <a href="/contact" class="btn btn-forest btn-arrow" id="ctaButton"></a>
       </div>
     </section>
 
@@ -1051,8 +45,7 @@
 
   @include('layouts.footer')
 
-  <a href="https://wa.me/[WHATSAPP_NUMBER]?text=Hello%20Aisy%20Bina%20Exports%2C%20I%20am%20interested%20in%20sourcing%20products%20from%20Indonesia.%20I%20would%20like%20to%20discuss%20my%20requirements."
-     class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <a href="#" id="whatsappFloat" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <i class="bi bi-whatsapp"></i>
   </a>
 
@@ -1060,5 +53,207 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="{{ asset("template/assets/js/script.js") }}"></script>
+  @stack('scripts')
+  <script>
+  $(function () {
+    // Ambil 2 endpoint sekaligus: page_desc/footer/master + categories/products
+    $.when(
+      $.ajax({ url: "/get-data/master/product", method: "GET", dataType: "json" }),
+      $.ajax({ url: "/get-data/products", method: "GET", dataType: "json" })
+    ).done(function (pageRes, productsRes) {
+      const pageData     = pageRes[0];     // { page_desc, footer, master }
+      const productsData = productsRes[0]; // { categories, products }
+      renderProductPage(pageData, productsData);
+    }).fail(function (xhr) {
+      console.error("Gagal ambil data products page:", xhr.status, xhr.responseText);
+    });
+
+    function renderProductPage(pageData, productsData) {
+      const pageDesc    = pageData.page_desc || {};
+      const footer      = pageData.footer || {};
+      const master      = pageData.master || {};
+      const categories  = productsData.categories || [];
+      const products    = productsData.products || [];
+
+      // ===== HERO =====
+      $("#pageHeading").text(pageDesc.product_heading || "Browse what we source.");
+      $("#pageSubheading").text(pageDesc.product_subheading || "");
+
+      // ===== PAGE TITLE =====
+      if (master.website_name) {
+        document.title = "Products | " + master.website_name;
+      }
+
+      // ===== KATEGORI + PRODUK (dikelompokkan) =====
+      let categoryHtml = "";
+      let modalHtml = "";
+      let globalIndex = 0; // index unik untuk id carousel & modal antar semua produk
+
+      categories.forEach(function (category) {
+        const categoryProducts = products.filter(function (p) {
+          return p.category_id === category.id;
+        });
+
+        // skip kategori yang tidak punya produk sama sekali
+        if (categoryProducts.length === 0) return;
+
+        let productsHtml = "";
+
+        categoryProducts.forEach(function (product) {
+          const carouselId = "catProdCarousel" + globalIndex;
+          const modalId     = "catProdModal" + globalIndex;
+          const images = product.images && product.images.length ? product.images : [];
+
+          // ---- Slides card kecil ----
+          let slidesHtml = "";
+          let indicatorsHtml = "";
+
+          if (images.length > 0) {
+            images.forEach(function (img, i) {
+              slidesHtml += `
+                <div class="carousel-item ${i === 0 ? 'active' : ''}">
+                  <div class="frame-wide">
+                    <div class="frame-inner photo-trigger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#${modalId}"
+                        data-slide-index="${i}"
+                        role="button" tabindex="0"
+                        aria-label="Preview photo ${i + 1} of ${product.name}"
+                        style="background:url('${img.path}') center/cover;">
+                    </div>
+                  </div>
+                </div>`;
+              indicatorsHtml += `
+                <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}" aria-label="Photo ${i + 1}"></button>`;
+            });
+          } else {
+            slidesHtml = `
+              <div class="carousel-item active">
+                <div class="frame-wide">
+                  <div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div>
+                </div>
+              </div>`;
+          }
+
+          productsHtml += `
+            <div class="col-6 col-lg-4" data-aos="fade-up">
+              <div class="crop-card">
+                <div class="crop-media">
+                  <div id="${carouselId}" class="carousel slide crop-carousel" data-bs-ride="false">
+                    <div class="carousel-inner">${slidesHtml}</div>
+                    ${images.length > 1 ? `
+                    <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" aria-label="Previous photo">
+                      <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" aria-label="Next photo">
+                      <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
+                    </button>
+                    <div class="carousel-indicators crop-indicators">${indicatorsHtml}</div>` : ''}
+                  </div>
+                </div>
+                <div class="crop-body">
+                  <h3>${product.name}</h3>
+                  <p>${product.description}</p>
+                  <a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>`;
+
+          // ---- Modal foto besar ----
+          let modalSlidesHtml = "";
+          if (images.length > 0) {
+            images.forEach(function (img, i) {
+              modalSlidesHtml += `
+                <div class="carousel-item ${i === 0 ? 'active' : ''}">
+                  <div class="frame-wide">
+                    <div class="frame-inner" style="background:url('${img.path}') center/cover;"></div>
+                  </div>
+                </div>`;
+            });
+          } else {
+            modalSlidesHtml = `
+              <div class="carousel-item active">
+                <div class="frame-wide"><div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div></div>
+              </div>`;
+          }
+
+          modalHtml += `
+            <div class="modal fade photo-modal" id="${modalId}" tabindex="-1" aria-hidden="true" aria-labelledby="${modalId}Label">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                  <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div class="modal-body p-0">
+                    <div id="${modalId}Carousel" class="carousel slide" data-bs-ride="false">
+                      <div class="carousel-inner">${modalSlidesHtml}</div>
+                      ${images.length > 1 ? `
+                      <button class="carousel-control-prev" type="button" data-bs-target="#${modalId}Carousel" data-bs-slide="prev" aria-label="Previous photo">
+                        <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#${modalId}Carousel" data-bs-slide="next" aria-label="Next photo">
+                        <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
+                      </button>` : ''}
+                    </div>
+                    <p id="${modalId}Label" class="carousel-caption-label mb-0">${product.name}</p>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+
+          globalIndex++;
+        });
+
+        // Selang-seling background section (genap = cream-dim, ganjil = putih), meniru desain asli
+        const sectionClass = (categoryHtml.split('<section').length - 1) % 2 === 1 ? '' : ' bg-cream-dim';
+
+        categoryHtml += `
+          <section class="section${sectionClass}">
+            <div class="container">
+              <div class="row mb-4">
+                <div class="col-lg-7" data-aos="fade-up">
+                  <span class="pill-tag"><i class="bi bi-box-seam"></i>${category.name}</span>
+                  <h2 class="mb-2">${category.name}</h2>
+                  <p class="mb-0">${category.description || ''}</p>
+                </div>
+              </div>
+              <div class="row gy-4">${productsHtml}</div>
+            </div>
+          </section>`;
+      });
+
+      $("#categoryContainer").html(categoryHtml);
+      $("#productModalContainer").html(modalHtml);
+
+      // Sinkronkan slide modal dengan slide yang diklik di card
+      $(document).on("click", ".photo-trigger", function () {
+        const targetModal = $(this).data("bs-target");
+        const slideIndex  = $(this).data("slide-index") || 0;
+        const modalCarousel = $(targetModal + " .carousel");
+        const carouselInstance = bootstrap.Carousel.getOrCreateInstance(modalCarousel[0]);
+        carouselInstance.to(slideIndex);
+      });
+
+      // ===== CTA BAWAH =====
+      $("#ctaHeading").text(footer.footer_product_heading || "Still not seeing the right fit?");
+      $("#ctaSubheading").text(footer.footer_product_subheading || "");
+      $("#ctaButton").text(footer.footer_product_button || "Request a Product");
+
+      // ===== WHATSAPP FLOAT =====
+      if (contact.whatsapp) {
+        const waNumber = contact.whatsapp.replace(/[^0-9]/g, "");
+        if (waNumber.startsWith("0")) {
+          waNumber = "62" + waNumber.substring(1);
+        }
+        const waText = encodeURIComponent(
+          `Hello ${master.website_name}, I am interested in sourcing products from Indonesia. I would like to discuss my requirements.`
+        );
+        $("#whatsappFloat").attr("href", `https://wa.me/${waNumber}?text=${waText}`);
+      }
+
+      // ===== NAVBAR & FOOTER =====
+      renderNavbarBrand(master);
+      renderFooter(master, pageDesc); // pageDesc sudah berisi field contact (email, whatsapp, dll)
+    }
+  });
+  </script>
 </body>
 </html>

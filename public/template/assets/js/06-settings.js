@@ -14,6 +14,7 @@ var SETTINGS_FORMS = {
   master: [
     { key: "website_name", label: "Nama Website", type: "text" },
     { key: "website_description", label: "Deskripsi Website", type: "textarea" },
+    { key: "website_slug", label: "Website Slug", type: "text" },
     { key: "icon", label: "Logo Website", type: "image"},
     { key: "heading", label: "Heading", type: "textarea" },
     { key: "image", label: "Gambar Heading", type: "image" },
@@ -50,6 +51,8 @@ var SETTINGS_FORMS = {
     { key: "footer_product_button", label: "Products — Teks Tombol", type: "text" }
   ],
   contact: [
+    { key: "product_heading", label: "Heading Halaman Product", type: "text" },
+    { key: "product_subheading", label: "Subheading Halaman Product", type: "textarea" },
     { key: "heading", label: "Heading Halaman Contact", type: "text" },
     { key: "subheading", label: "Subheading Halaman Contact", type: "textarea" },
     { key: "email", label: "Email", type: "text" },

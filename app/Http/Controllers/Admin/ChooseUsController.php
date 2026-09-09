@@ -12,7 +12,7 @@ class ChooseUsController extends Controller
     public function getData()
     {
         return response()->json(
-            ChooseUs::orderBy('id')->get()
+            ChooseUs::orderBy('created_at', 'asc')->get()
         );
     }
 

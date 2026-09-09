@@ -71,13 +71,11 @@ Route::post('/logout', [AuthController::class, 'logout'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/api/home', [HomeController::class, 'getData']);
+Route::get('/get-data/master/{page}', [HomeController::class, 'getData']);
 
-Route::get('/api/products', [ProductPageController::class, 'getData']);
+Route::get('/get-data/products', [ProductPageController::class, 'getData']);
 
-Route::get('/api/contact', [ContactController::class, 'getData']);
-
-Route::post('/api/inquiry', [ContactController::class, 'submitInquiry']);
+Route::post('/inquiry', [InquiryFormController::class, 'store']);
 
 
 /*

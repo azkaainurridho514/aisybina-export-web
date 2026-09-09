@@ -1007,6 +1007,8 @@ var SETTINGS_FORMS = {
     { key: "footer_product_button", label: "Products — Teks Tombol", type: "text" }
   ],
   contact: [
+    { key: "product_heading", label: "Heading Halaman Product", type: "text" },
+    { key: "product_subheading", label: "Subheading Halaman Product", type: "textarea" },
     { key: "heading", label: "Heading Halaman Contact", type: "text" },
     { key: "subheading", label: "Subheading Halaman Contact", type: "textarea" },
     { key: "email", label: "Email", type: "text" },

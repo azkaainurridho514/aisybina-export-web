@@ -13,28 +13,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="{{ asset("template/assets/css/style.css") }}">
 </head>
 <body>
 
-  <header>
-    <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
-        <div class="container">
-        <a class="navbar-brand" href="/">Aisy Bina<span class="brand-dot">.</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto align-items-lg-center">
-            <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
-            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-            <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a class="btn btn-forest" href="/contact">Get in Touch</a></li>
-            </ul>
-        </div>
-        </div>
-    </nav>
-</header>
+  @include('layouts.navbar')
 
   <main>
 
@@ -683,29 +666,7 @@
 
   </main>
 
-<footer class="bg-forest site-footer pt-5 pb-4">
-    <div class="container">
-        <div class="row gy-4">
-        <div class="col-lg-5">
-            <div class="footer-brand">Aisy Bina.</div>
-            <p class="text-on-forest">Connecting global buyers with quality products from Indonesia.</p>
-        </div>
-        <div class="col-lg-3 col-6">
-            <h4>Links</h4>
-            <ul><li><a href="/">Home</a></li><li><a href="/products">Products</a></li><li><a href="/contact">Contact</a></li></ul>
-        </div>
-        <div class="col-lg-4 col-6">
-            <h4>Contact</h4>
-            <ul>
-            <li>Email<br><a href="mailto:[EMAIL]">[EMAIL]</a></li>
-            <li>WhatsApp<br><a href="#">[WHATSAPP]</a></li>
-            <li>Location<br>Indonesia</li>
-            </ul>
-        </div>
-        </div>
-        <div class="footer-bottom text-center text-on-forest">&copy; 2026 Aisy Bina Exports. All rights reserved.</div>
-    </div>
-</footer>
+  @include('layouts.footer')
 
   <a href="https://wa.me/[WHATSAPP_NUMBER]?text=Hello%20Aisy%20Bina%20Exports%2C%20I%20am%20interested%20in%20sourcing%20products%20from%20Indonesia.%20I%20would%20like%20to%20discuss%20my%20requirements."
      class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
@@ -715,6 +676,6 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="assets/js/script.js"></script>
+  <script src="{{ asset("template/assets/js/script.js") }}"></script>
 </body>
 </html>
