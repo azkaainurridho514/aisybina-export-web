@@ -26,8 +26,11 @@ use App\Http\Controllers\Admin\AboutItemController;
 
 Route::get('/', function () {
     return view('index');
-    });
+});
     
+Route::get('/about', function () {
+    return view('about');
+});
 Route::get('/products', function () {
     return view('products');
 });

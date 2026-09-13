@@ -46,7 +46,7 @@ class SiteContentController extends Controller
         $this->validateTable($table);
 
         $data = $request->validate([
-            'icon' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'website_name' => 'nullable|string',
             'website_description' => 'nullable|string',
             'website_slug' => 'nullable|string',

@@ -20,7 +20,7 @@ class HomeController extends Controller
             case "home":
                 $data = [
                     'master' => DB::table('master')
-                    ->select('website_name', 'website_description', 
+                    ->select('logo', 'website_name', 'website_description', 
                     'heading', 'image', 'about_heading', "about_description",
                     "category_heading", 'category_description', 'choose_us_heading', 'our_process', 'website_slug'
                     )->first(),
@@ -38,20 +38,27 @@ class HomeController extends Controller
                     'contact' => DB::table('contact')->select('email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location')->first(),
                 ];
                 break;
+            case "about":
+                $data = [
+                    'page_desc' => DB::table('contact')->select('email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location')->first(),
+                    'master' => DB::table('master')
+                    ->select('logo', 'website_name', 'website_slug')->first(),
+                ];
+                break;
             case "product":
                 $data = [
                     'page_desc' => DB::table('contact')->select("product_heading", "product_subheading", 'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location')->first(),
                     'footer' => DB::table('footer')->select('footer_product_heading', 'footer_product_subheading', 'footer_product_button')
                     ->first(),
                     'master' => DB::table('master')
-                    ->select('website_name', 'website_slug')->first(),
+                    ->select('logo', 'website_name', 'website_slug')->first(),
                 ];
                 break;
             case "contact":
                 $data = [
                     'bussiness_hours' => BusinessHour::oldest()->get(),
                     'master' => DB::table('master')
-                    ->select('website_name', 'website_slug')->first(),
+                    ->select('logo', 'website_name', 'website_slug')->first(),
                     'contact' => DB::table('contact')->select('heading','subheading','email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location')->first(),
                 ];
                 break;

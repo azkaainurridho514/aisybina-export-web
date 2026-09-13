@@ -14,17 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
         \App\Models\User::create([
             'name' => 'Aisybina Export',
             'email' => 'aisybinaexport@gmail.com',
             "password" => Hash::make("123456")
         ]);
 
-
         DB::table('master')->insert([
-            'icon' => '',
+            'logo' => 'images/website/logo_aisybina.png',
             'website_name' => 'Aisybina Export',
             'website_slug' => 'Connecting global buyers with quality products from Indonesia.',
             'website_description' => 'Aisy Bina Exports finds and vets Indonesian suppliers so international buyers can source with confidence, without spending months on the ground themselves.',

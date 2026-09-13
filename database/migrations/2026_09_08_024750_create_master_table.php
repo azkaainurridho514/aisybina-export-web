@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('master', function (Blueprint $table) {
-            $table->string('icon')->nullable();
+            $table->string('logo')->nullable();
             $table->string('website_name')->nullable();
             $table->string('website_slug')->nullable();
             $table->text('website_description')->nullable();

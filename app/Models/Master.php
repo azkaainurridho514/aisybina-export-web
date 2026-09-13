@@ -9,7 +9,7 @@ class Master extends Model
     protected $table = 'master';
 
     protected $fillable = [
-        'icon',
+        'logo',
         'website_name',
         'website_description',
         'website_slug',

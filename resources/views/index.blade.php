@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="titleWeb"></title>
-  <meta name="description" content="Aisy Bina Exports connects global buyers with quality products sourced from trusted suppliers across Indonesia.">
+  <meta name="description" content="Connects global buyers with quality products sourced from trusted suppliers across Indonesia.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
