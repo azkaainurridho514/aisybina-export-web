@@ -126,7 +126,8 @@ function buildFormFields(cfg, data, stateKey) {
     var html = '<div class="field-group"><label class="field-label">' + f.label + (f.required ? " *" : "") + "</label>";
 
     if (f.type === "textarea") {
-      html += '<textarea class="form-control-admin" data-field="' + f.key + '" rows="3" ' + disabledAttr + " " + requiredAttr + ' placeholder="' + (f.placeholder || "") + '">' + escapeHtml(value) + "</textarea>";
+      html += '<div class="quill-editor" data-field="' + f.key + '" data-value="' + escapeHtml(value) + '" style="min-height: 150px;"></div>';
+      // html += '<textarea class="form-control-admin" data-field="' + f.key + '" rows="3" ' + disabledAttr + " " + requiredAttr + ' placeholder="' + (f.placeholder || "") + '">' + escapeHtml(value) + "</textarea>";
     } else if (f.type === "select") {
       var opts = (typeof f.options === "function" ? f.options() : f.options) || [];
       html += '<select class="form-select-admin" data-field="' + f.key + '" ' + disabledAttr + " " + requiredAttr + ">";
@@ -268,12 +269,14 @@ function openCrudModal(entityKey, id) {
   $("#crudModalTitle").text((id ? (cfg.readOnly ? "Detail " : "Edit ") : "Tambah ") + cfg.label);
   $("#crudModalSave").toggle(!cfg.readOnly);
   $("#crudModalBody").html(loadingRowsHtml());
+  initQuillEditors();
   crudModal.show();
 
   if (id) {
     api.request("get", entityKey, { id: id }).done(function (row) {
       seedGalleryFields(cfg, row, "crud");
       $("#crudModalBody").html(buildFormFields(cfg, row, "crud"));
+      initQuillEditors();
       renderSeededGalleryThumbs(cfg, "crud");
     }).fail(function (err) {
       toastError(err.message);
@@ -282,6 +285,7 @@ function openCrudModal(entityKey, id) {
   } else {
     seedGalleryFields(cfg, {}, "crud");
     $("#crudModalBody").html(buildFormFields(cfg, {}, "crud"));
+    initQuillEditors();
     renderSeededGalleryThumbs(cfg, "crud");
   }
 }
@@ -320,11 +324,31 @@ function renderSeededGalleryThumbs(cfg, stateKey) {
   });
 }
 
+// function collectFormData() {
+//   var data = {};
+//   $("#crudModalBody [data-field]").each(function () {
+//     data[$(this).data("field")] = $(this).val();
+//   });
+//   return data;
+// }
+
 function collectFormData() {
+
   var data = {};
+
   $("#crudModalBody [data-field]").each(function () {
-    data[$(this).data("field")] = $(this).val();
+
+    var field = $(this).data("field");
+
+    if ($(this).hasClass("quill-editor")) {
+      var editor = $(this).data("quill");
+      data[field] = editor ? editor.root.innerHTML : "";
+    } else {
+      data[field] = $(this).val();
+    }
+
   });
+
   return data;
 }
 

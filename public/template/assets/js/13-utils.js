@@ -70,3 +70,30 @@ function normalizeError(xhr) {
   if (!message && xhr && xhr.status === 404) message = "Endpoint atau data tidak ditemukan.";
   return { message: message || (xhr && xhr.statusText) || "Terjadi kesalahan pada server." };
 }
+
+function initQuillEditors() {
+  $(".quill-editor").each(function () {
+    if ($(this).data("quill")) return;
+
+    var editor = new Quill(this, {
+      theme: "snow",
+      modules: {
+        toolbar: [
+          ["bold", "italic", "underline"],
+          [{ header: [2, 3, false] }],
+          [{ list: "ordered" }, { list: "bullet" }],
+          ["link"],
+          ["clean"]
+        ]
+      }
+    });
+
+    var value = $(this).attr("data-value");
+
+    if (value) {
+      editor.root.innerHTML = value;
+    }
+
+    $(this).data("quill", editor);
+  });
+}

@@ -76,7 +76,7 @@
       const products    = productsData.products || [];
 
       // ===== HERO =====
-      $("#pageHeading").text(pageDesc.product_heading || "Browse what we source.");
+      $("#pageHeading").text(pageDesc.product_heading);
       $("#pageSubheading").text(pageDesc.product_subheading || "");
 
       // ===== PAGE TITLE =====
@@ -89,136 +89,149 @@
       let modalHtml = "";
       let globalIndex = 0; // index unik untuk id carousel & modal antar semua produk
 
-      categories.forEach(function (category) {
-        const categoryProducts = products.filter(function (p) {
-          return p.category_id === category.id;
-        });
-
-        // skip kategori yang tidak punya produk sama sekali
-        if (categoryProducts.length === 0) return;
-
-        let productsHtml = "";
-
-        categoryProducts.forEach(function (product) {
-          const carouselId = "catProdCarousel" + globalIndex;
-          const modalId     = "catProdModal" + globalIndex;
-          const images = product.images && product.images.length ? product.images : [];
-
-          // ---- Slides card kecil ----
-          let slidesHtml = "";
-          let indicatorsHtml = "";
-
-          if (images.length > 0) {
-            images.forEach(function (img, i) {
-              slidesHtml += `
-                <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                  <div class="frame-wide">
-                    <div class="frame-inner photo-trigger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#${modalId}"
-                        data-slide-index="${i}"
-                        role="button" tabindex="0"
-                        aria-label="Preview photo ${i + 1} of ${product.name}"
-                        style="background:url('${img.path}') center/cover;">
-                    </div>
-                  </div>
-                </div>`;
-              indicatorsHtml += `
-                <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}" aria-label="Photo ${i + 1}"></button>`;
-            });
-          } else {
-            slidesHtml = `
-              <div class="carousel-item active">
-                <div class="frame-wide">
-                  <div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div>
-                </div>
-              </div>`;
-          }
-
-          productsHtml += `
-            <div class="col-6 col-lg-4" data-aos="fade-up">
-              <div class="crop-card">
-                <div class="crop-media">
-                  <div id="${carouselId}" class="carousel slide crop-carousel" data-bs-ride="false">
-                    <div class="carousel-inner">${slidesHtml}</div>
-                    ${images.length > 1 ? `
-                    <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" aria-label="Previous photo">
-                      <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" aria-label="Next photo">
-                      <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                    </button>
-                    <div class="carousel-indicators crop-indicators">${indicatorsHtml}</div>` : ''}
-                  </div>
-                </div>
-                <div class="crop-body">
-                  <h3>${product.name}</h3>
-                  <p>${product.description}</p>
-                  <a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a>
-                </div>
+      if (categories.length === 0) {
+        categoryHtml = `
+          <section class="section">
+            <div class="container text-center" data-aos="fade-up">
+              <div class="empty-category">
+                <i class="bi bi-box-seam"></i>
+                <p>Belum ada produk yang tersedia saat ini.</p>
               </div>
-            </div>`;
-
-          // ---- Modal foto besar ----
-          let modalSlidesHtml = "";
-          if (images.length > 0) {
-            images.forEach(function (img, i) {
-              modalSlidesHtml += `
-                <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                  <div class="frame-wide">
-                    <div class="frame-inner" style="background:url('${img.path}') center/cover;"></div>
-                  </div>
-                </div>`;
-            });
-          } else {
-            modalSlidesHtml = `
-              <div class="carousel-item active">
-                <div class="frame-wide"><div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div></div>
-              </div>`;
-          }
-
-          modalHtml += `
-            <div class="modal fade photo-modal" id="${modalId}" tabindex="-1" aria-hidden="true" aria-labelledby="${modalId}Label">
-              <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                  <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
-                  <div class="modal-body p-0">
-                    <div id="${modalId}Carousel" class="carousel slide" data-bs-ride="false">
-                      <div class="carousel-inner">${modalSlidesHtml}</div>
-                      ${images.length > 1 ? `
-                      <button class="carousel-control-prev" type="button" data-bs-target="#${modalId}Carousel" data-bs-slide="prev" aria-label="Previous photo">
-                        <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#${modalId}Carousel" data-bs-slide="next" aria-label="Next photo">
-                        <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
-                      </button>` : ''}
-                    </div>
-                    <p id="${modalId}Label" class="carousel-caption-label mb-0">${product.name}</p>
-                  </div>
-                </div>
-              </div>
-            </div>`;
-
-          globalIndex++;
-        });
-
-        // Selang-seling background section (genap = cream-dim, ganjil = putih), meniru desain asli
-        const sectionClass = (categoryHtml.split('<section').length - 1) % 2 === 1 ? '' : ' bg-cream-dim';
-
-        categoryHtml += `
-          <section class="section${sectionClass}">
-            <div class="container">
-              <div class="row mb-4">
-                <div class="col-lg-7" data-aos="fade-up">
-                  <span class="pill-tag"><i class="bi bi-box-seam"></i>${category.name}</span>
-                  <h2 class="mb-2">${category.name}</h2>
-                  <p class="mb-0">${category.description || ''}</p>
-                </div>
-              </div>
-              <div class="row gy-4">${productsHtml}</div>
             </div>
           </section>`;
-      });
+      }else{
+        categories.forEach(function (category) {
+          const categoryProducts = products.filter(function (p) {
+            return p.category_id === category.id;
+          });
+  
+          // skip kategori yang tidak punya produk sama sekali
+          if (categoryProducts.length === 0) return;
+  
+          let productsHtml = "";
+  
+          categoryProducts.forEach(function (product) {
+            const carouselId = "catProdCarousel" + globalIndex;
+            const modalId     = "catProdModal" + globalIndex;
+            const images = product.images && product.images.length ? product.images : [];
+  
+            // ---- Slides card kecil ----
+            let slidesHtml = "";
+            let indicatorsHtml = "";
+  
+            if (images.length > 0) {
+              images.forEach(function (img, i) {
+                slidesHtml += `
+                  <div class="carousel-item ${i === 0 ? 'active' : ''}">
+                    <div class="frame-wide">
+                      <div class="frame-inner photo-trigger"
+                          data-bs-toggle="modal"
+                          data-bs-target="#${modalId}"
+                          data-slide-index="${i}"
+                          role="button" tabindex="0"
+                          aria-label="Preview photo ${i + 1} of ${product.name}"
+                          style="background:url('${img.path}') center/cover;">
+                      </div>
+                    </div>
+                  </div>`;
+                indicatorsHtml += `
+                  <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}" aria-label="Photo ${i + 1}"></button>`;
+              });
+            } else {
+              slidesHtml = `
+                <div class="carousel-item active">
+                  <div class="frame-wide">
+                    <div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div>
+                  </div>
+                </div>`;
+            }
+  
+            productsHtml += `
+              <div class="col-6 col-lg-4" data-aos="fade-up">
+                <div class="crop-card">
+                  <div class="crop-media">
+                    <div id="${carouselId}" class="carousel slide crop-carousel" data-bs-ride="false">
+                      <div class="carousel-inner">${slidesHtml}</div>
+                      ${images.length > 1 ? `
+                      <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" aria-label="Previous photo">
+                        <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" aria-label="Next photo">
+                        <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
+                      </button>
+                      <div class="carousel-indicators crop-indicators">${indicatorsHtml}</div>` : ''}
+                    </div>
+                  </div>
+                  <div class="crop-body">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>`;
+  
+            // ---- Modal foto besar ----
+            let modalSlidesHtml = "";
+            if (images.length > 0) {
+              images.forEach(function (img, i) {
+                modalSlidesHtml += `
+                  <div class="carousel-item ${i === 0 ? 'active' : ''}">
+                    <div class="frame-wide">
+                      <div class="frame-inner" style="background:url('${img.path}') center/cover;"></div>
+                    </div>
+                  </div>`;
+              });
+            } else {
+              modalSlidesHtml = `
+                <div class="carousel-item active">
+                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div></div>
+                </div>`;
+            }
+  
+            modalHtml += `
+              <div class="modal fade photo-modal" id="${modalId}" tabindex="-1" aria-hidden="true" aria-labelledby="${modalId}Label">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+                    <button type="button" class="btn-close modal-close-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-body p-0">
+                      <div id="${modalId}Carousel" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-inner">${modalSlidesHtml}</div>
+                        ${images.length > 1 ? `
+                        <button class="carousel-control-prev" type="button" data-bs-target="#${modalId}Carousel" data-bs-slide="prev" aria-label="Previous photo">
+                          <span class="carousel-arrow"><i class="bi bi-chevron-left"></i></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#${modalId}Carousel" data-bs-slide="next" aria-label="Next photo">
+                          <span class="carousel-arrow"><i class="bi bi-chevron-right"></i></span>
+                        </button>` : ''}
+                      </div>
+                      <p id="${modalId}Label" class="carousel-caption-label mb-0">${product.name}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+  
+            globalIndex++;
+          });
+  
+          // Selang-seling background section (genap = cream-dim, ganjil = putih), meniru desain asli
+          const sectionClass = (categoryHtml.split('<section').length - 1) % 2 === 1 ? '' : ' bg-cream-dim';
+  
+          categoryHtml += `
+            <section class="section${sectionClass}">
+              <div class="container">
+                <div class="row mb-4">
+                  <div class="col-lg-7" data-aos="fade-up">
+                    <span class="pill-tag"><i class="bi bi-box-seam"></i>${category.name}</span>
+                    <h2 class="mb-2">${category.name}</h2>
+                    <p class="mb-0">${category.description || ''}</p>
+                  </div>
+                </div>
+                <div class="row gy-4">${productsHtml}</div>
+              </div>
+            </section>`;
+        });
+      }
+
 
       $("#categoryContainer").html(categoryHtml);
       $("#productModalContainer").html(modalHtml);
@@ -233,13 +246,13 @@
       });
 
       // ===== CTA BAWAH =====
-      $("#ctaHeading").text(footer.footer_product_heading || "Still not seeing the right fit?");
+      $("#ctaHeading").text(footer.footer_product_heading);
       $("#ctaSubheading").text(footer.footer_product_subheading || "");
       $("#ctaButton").text(footer.footer_product_button || "Request a Product");
 
       // ===== WHATSAPP FLOAT =====
-      if (contact.whatsapp) {
-        const waNumber = contact.whatsapp.replace(/[^0-9]/g, "");
+      if (pageDesc.whatsapp) {
+        const waNumber = pageDesc.whatsapp.replace(/[^0-9]/g, "");
         // if (waNumber.startsWith("0")) {
         //   waNumber = "62" + waNumber.substring(1);
         // }

@@ -566,6 +566,7 @@ function openCrudModal(entityKey, id) {
   $("#crudModalTitle").text((id ? (cfg.readOnly ? "Detail " : "Edit ") : "Tambah ") + cfg.label);
   $("#crudModalSave").toggle(!cfg.readOnly);
   $("#crudModalBody").html(loadingRowsHtml());
+
   crudModal.show();
 
   if (id) {
@@ -573,6 +574,7 @@ function openCrudModal(entityKey, id) {
       seedGalleryFields(cfg, row, "crud");
       $("#crudModalBody").html(buildFormFields(cfg, row, "crud"));
       renderSeededGalleryThumbs(cfg, "crud");
+  
     }).fail(function (err) {
       toastError(err.message);
       crudModal.hide();
@@ -581,6 +583,7 @@ function openCrudModal(entityKey, id) {
     seedGalleryFields(cfg, {}, "crud");
     $("#crudModalBody").html(buildFormFields(cfg, {}, "crud"));
     renderSeededGalleryThumbs(cfg, "crud");
+
   }
 }
 

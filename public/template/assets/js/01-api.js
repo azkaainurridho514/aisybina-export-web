@@ -38,6 +38,7 @@ var API_ROUTES = {
 /* Singleton tables yang menggunakan route /admin/site-content/{table}. */
 var SITE_CONTENT_TABLES = [
   "master",
+  "about",
   "ask_us",
   "global_reach",
   "footer",

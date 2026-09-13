@@ -26,9 +26,9 @@
       <div class="container">
         <div class="row align-items-center gy-5">
           <div class="col-lg-6" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-compass"></i>Sourced in Indonesia</span>
-            <h1 id="heroHeading" class="mb-4" style="font-size: clamp(2.4rem, 4.5vw, 3.7rem);"></h1>
-            <p id="heroDescription" class="lead mb-4" style="max-width: 460px;"></p>
+            <span class="pill-tag"><i class="bi bi-compass"></i>Welcome</span>
+            <h1 id="heroHeading" class="mb-4 quill-content" style="font-size: clamp(2.4rem, 4.5vw, 3.7rem);"></h1>
+            <p id="heroDescription" class="lead mb-4 quill-content" style="max-width: 460px;"></p>
             <div>
               <a href="/products" class="btn btn-forest btn-arrow me-2 mb-2">See Our Categories</a>
               <a href="/contact" class="btn btn-outline mb-2">Start an Inquiry</a>
@@ -44,7 +44,7 @@
     </section>
 
     <!-- WHO WE ARE -->
-    <section class="section" id="who-we-are">
+    <section class="section bg-cream-dim" id="who-we-are">
       <div class="container">
         <div class="row gy-4 mb-4">
           <div class="col-lg-6" data-aos="fade-up">
@@ -59,7 +59,7 @@
     </section>
 
     <!-- PRODUCT CATEGORIES -->
-    <section class="section bg-cream-dim" id="products">
+    <section class="section" id="products">
       <div class="container">
         <div class="row mb-5">
           <div class="col-lg-7" data-aos="fade-up">
@@ -74,11 +74,11 @@
     <div id="productModalContainer"></div>
 
     <!-- CUSTOM SOURCING (export tag moment) -->
-    <section class="section bg-forest text-center">
+    <section class="section bg-forest text-center bg-cream-dim">
       <div class="container container-narrow" data-aos="fade-up">
         <div class="export-tag mb-4">
           <span class="tag-eyebrow" id="askUsTitle"></span>
-          <span class="tag-main" id="askUsTagMain"></span>
+          <span class="tag-main quill-content" id="askUsTagMain"></span>
         </div>
         <h2 id="askUsHeading" class="mb-3" style="color: var(--cream);"></h2>
         <p id="askUsDescription" class="text-on-forest mb-4"></p>
@@ -156,6 +156,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
   <script src="{{ asset("template/assets/js/script.js") }}"></script>
   @stack('scripts')
   <script>
@@ -185,13 +186,13 @@
       const chooseUs     = data.choose_us || [];
       const contact      = data.contact || {};
 
-      $("#titleWeb").html(master.website_name|| "");
+      $("#titleWeb").html(DOMPurify.sanitize(master.website_name|| ""));
 
       // ===== HERO =====
-      $("#heroHeading").html(master.heading || "");
-      $("#heroDescription").text(master.website_description || "");
+      $("#heroHeading").html(DOMPurify.sanitize(master.heading || ""));
+      $("#heroDescription").html(DOMPurify.sanitize(master.website_description || ""));
       if (master.image) {
-        $("#heroImageWrap").html(`<img src="${master.image}" alt="${master.website_name || ''}" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`);
+        $("#heroImageWrap").html(DOMPurify.sanitize(`<img src="${master.image}" alt="${master.website_name || ''}" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`));
       }
 
       // ===== WHO WE ARE =====
@@ -328,12 +329,12 @@
           </div>`;
       });
 
-      $("#productList").html(productHtml);
-      $("#productModalContainer").html(modalHtml);
+      $("#productList").html(DOMPurify.sanitize(productHtml));
+      $("#productModalContainer").html(DOMPurify.sanitize(modalHtml));
 
       // ===== ASK US =====
       $("#askUsTitle").text(askUs.ask_us_title || "");
-      $("#askUsTagMain").html(askUs.ask_us_heading || "");
+      $("#askUsTagMain").html(DOMPurify.sanitize(askUs.ask_us_heading || ""));
       $("#askUsHeading").text(askUs.ask_us_heading || "");
       $("#askUsDescription").text(askUs.ask_us_description || "");
       $("#askUsButton").text(askUs.ask_us_button || "");
@@ -352,7 +353,7 @@
             </div>
           </div>`;
       });
-      $("#chooseUsList").html(chooseUsHtml);
+      $("#chooseUsList").html(DOMPurify.sanitize(chooseUsHtml));
 
       // ===== OUR PROCESS =====
       $("#ourProcessHeading").text(master.our_process || "");
@@ -384,7 +385,7 @@
           reachHtml += `<li><i class="bi ${icon || 'bi-check2'}"></i>${label}</li>`;
         }
       });
-      $("#globalReachList").html(reachHtml);
+      $("#globalReachList").html(DOMPurify.sanitize(reachHtml));
 
       // ===== FOOTER / FINAL CTA =====
       $("#finalCtaHeading").text(footer.footer_home_heading || "");

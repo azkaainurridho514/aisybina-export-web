@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ asset("template/assets/css/style-admin.css") }}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
   <style>
     .admin-pagination {
@@ -198,6 +199,7 @@
 
           <div class="admin-tabs">
             <button class="admin-tab-btn active" data-tab="master">Home</button>
+            <button class="admin-tab-btn" data-tab="about">About</button>
             <button class="admin-tab-btn" data-tab="ask_us">Ask Us</button>
             <button class="admin-tab-btn" data-tab="global_reach">Global Reach</button>
             <button class="admin-tab-btn" data-tab="footer">Footer</button>
@@ -206,6 +208,7 @@
 
           <div class="admin-card" style="padding: 1.5rem;">
             <div class="admin-tab-panel active" id="tab-master"><div id="settings-master"></div></div>
+            <div class="admin-tab-panel" id="tab-about"><div id="settings-about"></div></div>
             <div class="admin-tab-panel" id="tab-ask_us"><div id="settings-ask_us"></div></div>
             <div class="admin-tab-panel" id="tab-global_reach"><div id="settings-global_reach"></div></div>
             <div class="admin-tab-panel" id="tab-footer"><div id="settings-footer"></div></div>
@@ -462,7 +465,11 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+
   {{-- <script src="{{asset('template/assets/js/script-admin.js')}}"></script> --}}
+  <script src="{{ asset('template/assets/js/13-utils.js') }}"></script>
   <script src="{{ asset('template/assets/js/00-constants.js') }}"></script>
   <script src="{{ asset('template/assets/js/01-api.js') }}"></script>
   <script src="{{ asset('template/assets/js/02-entities.js') }}"></script>
@@ -476,6 +483,6 @@
   <script src="{{ asset('template/assets/js/10-admin-events.js') }}"></script>
   <script src="{{ asset('template/assets/js/11-login.js') }}"></script>
   <script src="{{ asset('template/assets/js/12-common.js') }}"></script>
-  <script src="{{ asset('template/assets/js/13-utils.js') }}"></script>
+
 </body>
 </html>

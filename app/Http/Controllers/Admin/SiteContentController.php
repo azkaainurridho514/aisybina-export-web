@@ -14,6 +14,7 @@ class SiteContentController extends Controller
      */
     private array $allowedTables = [
         'master',
+        'about',
         'ask_us',
         'global_reach',
         'footer',
@@ -64,6 +65,18 @@ class SiteContentController extends Controller
             'ask_us_description' => 'nullable|string',
             'ask_us_button' => 'nullable|string',
 
+            'intro_title' => 'nullable|string',
+            'intro_description' => 'nullable|string',
+            'image_intro' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'vision_heading' => 'nullable|string',
+            'vision_description' => 'nullable|string',
+            'image_vision' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'mission_heading' => 'nullable|string',
+            'image_mission' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'value_heading' => 'nullable|string',
+            'value_description' => 'nullable|string',
+            'image_value' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+
             'global_reach_title' => 'nullable|string',
             'global_reach_description' => 'nullable|string',
             'global_reach_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
@@ -100,10 +113,6 @@ class SiteContentController extends Controller
         try {
             $existing = DB::table($table)->first();
 
-            /*
-            * Field yang berupa image.
-            * Setiap field hanya menyimpan satu file.
-            */
             $imageFields = [
                 'icon',
                 'image',
@@ -113,36 +122,16 @@ class SiteContentController extends Controller
                 'global_reach_icon_item_3',
             ];
 
-            /*
-            * Path folder upload.
-            */
             $uploadPath = public_path('images/website');
 
-            /*
-            * Pastikan folder tersedia.
-            */
             if (!is_dir($uploadPath)) {
                 mkdir($uploadPath, 0755, true);
             }
 
-            /*
-            * Kalau data sudah ada, proses image yang dikirim.
-            *
-            * Jika image tidak dikirim:
-            * - image lama tetap dipertahankan.
-            *
-            * Jika image baru dikirim:
-            * - hapus file lama.
-            * - simpan file baru.
-            * - update path di database.
-            */
             if ($existing) {
                 foreach ($imageFields as $field) {
                     if ($request->hasFile($field)) {
 
-                        /*
-                        * Hapus file lama.
-                        */
                         $oldPath = $existing->{$field} ?? null;
 
                         if ($oldPath) {
@@ -153,26 +142,17 @@ class SiteContentController extends Controller
                             }
                         }
 
-                        /*
-                        * Upload file baru.
-                        */
                         $image = $request->file($field);
 
                         $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
 
                         $image->move($uploadPath, $filename);
 
-                        /*
-                        * Simpan path relatif ke database.
-                        */
                         $data[$field] = 'images/website/' . $filename;
                     }
                 }
             } else {
-                /*
-                * Data belum ada.
-                * Upload image yang dikirim.
-                */
+              
                 foreach ($imageFields as $field) {
                     if ($request->hasFile($field)) {
 
@@ -187,22 +167,12 @@ class SiteContentController extends Controller
                 }
             }
 
-            /*
-            * Karena field image berupa file upload,
-            * jangan sampai object UploadedFile masuk ke database.
-            *
-            * Hapus field image yang belum dikirim dari $data.
-            * Dengan begitu, pada update image lama tetap dipertahankan.
-            */
             foreach ($imageFields as $field) {
                 if (!$request->hasFile($field)) {
                     unset($data[$field]);
                 }
             }
 
-            /*
-            * Insert atau update data.
-            */
             if (!$existing) {
                 DB::table($table)->insert($data);
             } else {

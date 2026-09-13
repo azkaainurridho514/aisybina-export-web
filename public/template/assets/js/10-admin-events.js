@@ -52,6 +52,7 @@ $(function () {
   });
 
   $("#crudModalSave").on("click", saveCrud);
+  
 
   // settings save buttons (event delegation, rendered dynamically)
   $(document).on("click", "[data-save-settings]", function () {

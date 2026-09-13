@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AboutValue extends Model
 {
     use HasFactory;
+    protected $table = 'about_values';
+
+    protected $fillable = [
+        'title',
+        'description',
+    ];
 }

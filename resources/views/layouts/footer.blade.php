@@ -8,7 +8,12 @@
         </div>
         <div class="col-lg-3 col-6">
             <h4>Links</h4>
-            <ul><li><a href="/">Home</a></li><li><a href="/products">Products</a></li><li><a href="/contact">Contact</a></li></ul>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a>
+                <li><a href="/products">Products</a>
+                </li><li><a href="/contact">Contact</a></li>
+            </ul>
         </div>
         <div class="col-lg-4 col-6">
             <h4>Contact</h4>

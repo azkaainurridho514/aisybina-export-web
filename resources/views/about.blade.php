@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="{{ asset("template/assets/css/style.css") }}">
 
+  <!-- Small, page-scoped tweaks only — nothing here touches style.css. -->
   <style>
     #missionList li { align-items: flex-start; }
     #missionList li i { margin-top: 0.2rem; }
@@ -143,75 +144,64 @@
     }
 
     function renderAbout(data) {
-      var master  = data.master || {};
-      var about   = data.about || {};
-      var contact = data.contact || {};
+      var master        = data.master || {};
+      var about         = data.about || {};
+      var pageDesc       = data.page_desc || {};
+      var aboutMissions = data.about_missions || [];
+      var aboutValues   = data.about_values || [];
 
       // ===== NAVBAR & FOOTER (shared partials, rendered the same way as every other page) =====
       renderNavbarBrand(master);
-      renderFooter(master, contact);
+      renderFooter(master, pageDesc);
 
       // ===== PAGE TITLE =====
       if (master.website_name) {
         document.title = "About | " + master.website_name;
       }
 
-      // ===== HERO =====
-      $("#pageHeading").text(about.heading || "A company built on quality and trust.");
-      $("#pageSubheading").text(about.subheading || "Get to know Aisy Bina Exports — who we are, where we're headed, and the values behind every shipment we send out.");
+      // ===== HERO ===== (no backing columns in `about` — static copy)
+      $("#pageHeading").text(master.about_heading);
+      $("#pageSubheading").text(master.about_description);
 
       // ===== ABOUT COMPANY =====
       $("#introTitle").text(about.intro_title || "Unlimited Creativity, Endless Innovation");
-      var introParagraphs = about.intro_paragraphs && about.intro_paragraphs.length ? about.intro_paragraphs : [
-        "Aisy Bina Exports is an Indonesian export company focused on providing high-quality products across our sourcing categories. We combine traditional values, product knowledge, and a modern, professional approach to serve both local and international buyers.",
-        "With a strong commitment to quality, product authenticity, and professional service, we're here to answer the growing needs of local and international markets.",
-        "We believe that authentic Indonesian products can compete in the global market by prioritizing quality, practicality, and cultural value."
-      ];
+      var introParagraphs = about.intro_description
+        ? about.intro_description.split(/\n\s*\n/)
+        : [];
       $("#introText").html(introParagraphs.map(function (p) { return "<p>" + p + "</p>"; }).join(""));
       renderPhoto("#introPhotoWrap", about.image_intro, "About " + (master.website_name || "us"));
 
-      // ===== OUR VISION =====
-      $("#visionHeading").text(about.vision_heading || "Our Vision");
-      $("#visionText").text(about.vision_text || "To become a trusted export company that delivers original Indonesian products with superior quality — providing added value to our business partners, our consumers, and the global community.");
+      // ===== OUR VISION ===== (no `vision_heading` column — static heading)
+      $("#visionHeading").text("Our Vision");
+      $("#visionText").text(about.vision_description);
       renderPhoto("#visionPhotoWrap", about.image_vision, "Our vision");
 
-      // ===== OUR MISSION =====
-      $("#missionHeading").text(about.mission_heading || "Our Mission");
-      var missionItems = about.mission_items && about.mission_items.length ? about.mission_items : [
-        "Providing export products that are high quality, hygienic, and meet international standards",
-        "Supporting the growth of local Indonesian MSMEs by opening up access to global markets",
-        "Establishing sustainable partnerships based on trust, professionalism, and mutual benefit",
-        "Presenting product innovations that suit the needs of the modern market",
-        "Promoting a positive image of Indonesian products on the international stage"
-      ];
+      // ===== OUR MISSION ===== (no `mission_heading` column — static heading)
+      $("#missionHeading").text("Our Mission");
+      var missionItems = aboutMissions.length ? aboutMissions.map(function (m) { return m.description; }) : [];
       $("#missionList").html(missionItems.map(function (item) {
         return '<li><i class="bi bi-check2-circle"></i><span>' + item + "</span></li>";
       }).join(""));
       renderPhoto("#missionPhotoWrap", about.image_mission, "Our products");
 
-      // ===== OUR VALUE =====
-      $("#valueHeading").text(about.value_heading || "Our Value");
-      $("#valueIntro").text(about.value_intro || "Aisy Bina Exports holds a set of company values that we always maintain to protect the integrity of the business.");
+      // ===== OUR VALUE ===== (no `value_heading` column — static heading)
+      $("#valueHeading").text("Our Value");
+      $("#valueIntro").text(about.value_description);
       renderPhoto("#valuePhotoWrap", about.image_value, "Inside our workshop");
 
-      var values = about.values && about.values.length ? about.values : [
-        { title: "Guaranteed Quality", desc: "Each product goes through a strict selection and supervision process according to export standards." },
-        { title: "Professional & Trusted", desc: "We stay highly focused on business partner satisfaction and maintaining long-term relationships." },
-        { title: "Sustainable Innovation", desc: "We keep adapting to global trends without leaving our local identity behind." },
-        { title: "Social Commitment", desc: "Supporting local workforce empowerment and environmental sustainability." }
-      ];
+      var values = aboutValues.length ? aboutValues : [];
       $("#valueGrid").html(values.map(function (v, idx) {
         return '<div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="' + (idx * 75) + '">' +
           '<div class="value-card">' +
           '<div class="timeline-dot mb-3">' + (idx + 1) + "</div>" +
           "<h3>" + v.title + "</h3>" +
-          "<p>" + v.desc + "</p>" +
+          "<p>" + v.description + "</p>" +
           "</div></div>";
       }).join(""));
 
       // ===== WHATSAPP FLOAT =====
-      if (contact.whatsapp) {
-        var waNumber = contact.whatsapp.replace(/[^0-9]/g, "");
+      if (pageDesc.whatsapp) {
+        var waNumber = pageDesc.whatsapp.replace(/[^0-9]/g, "");
         var waText = encodeURIComponent(
           "Hello " + master.website_name + ", I'd like to know more about your company."
         );

@@ -42,7 +42,10 @@ class HomeController extends Controller
                 $data = [
                     'page_desc' => DB::table('contact')->select('email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location')->first(),
                     'master' => DB::table('master')
-                    ->select('logo', 'website_name', 'website_slug')->first(),
+                    ->select('logo', 'website_name', 'website_slug', 'about_heading', "about_description")->first(),
+                    'about' => DB::table('about')->first(),
+                    'about_missions' => DB::table('about_missions')->get(),
+                    'about_values' => DB::table('about_values')->get(),
                 ];
                 break;
             case "product":

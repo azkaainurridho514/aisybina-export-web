@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
             'name' => 'Aisybina Export',
             'email' => 'aisybinaexport@gmail.com',
-            "password" => Hash::make("123456")
+            "password" => Hash::make("@i5yb!na3xp0r7")
         ]);
 
         DB::table('master')->insert([
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'website_slug' => 'Connecting global buyers with quality products from Indonesia.',
             'website_description' => 'Aisy Bina Exports finds and vets Indonesian suppliers so international buyers can source with confidence, without spending months on the ground themselves.',
             'heading' => 'From the archipelago to your warehouse.',
-            'image' => "",
+            'image' => "images/website/logo_aisybina.png",
             'about_heading' => 'A sourcing partner who does the groundwork for you.',
             'about_description' => 'We spend our time visiting suppliers, checking samples, and negotiating terms — so you can focus on running your own business. Aisy Bina Exports is the bridge between Indonesian producers and buyers abroad.',
             'category_heading' => 'Categories we source.',
@@ -45,7 +46,7 @@ class DatabaseSeeder extends Seeder
         DB::table('global_reach')->insert([
             'global_reach_title' => 'Built for buyers everywhere.',
             'global_reach_description' => 'From first inquiry to final shipment, our process is built to work across time zones and languages.',
-            'global_reach_image' => "",
+            'global_reach_image' => "images/website/logo_aisybina.png",
             'global_reach_item_1' => 'Sourcing Network',
             'global_reach_item_2' => 'Quality Oversight',
             'global_reach_item_3' => 'Export Coordination',
@@ -75,6 +76,66 @@ class DatabaseSeeder extends Seeder
             'facebook' => "",
             'youtube' => "",
             'location' => "Indonesia",
+        ]);
+
+        DB::table('about')->insert([
+            'intro_title' => 'Unlimited Creativity, Endless Innovation',
+            'intro_description' => "Aisybina Export is an Indonesian export company focused on providing high-quality products in the children's fashion and food sectors. We offer a combination of traditional values, educational needs, and modern lifestyles through three main lines: children's Muslim koko shirts, elementary, middle, and high school uniforms, and frozen groceries.\n\nWith a strong commitment to quality, product authenticity, and professional service, Aisybina Export is here to answer the growing needs of local and international markets.\n\nWe believe that authentic Indonesian products are able to compete in the global market by prioritizing quality, practicality, and cultural values.",
+            'image_intro' => "images/website/logo_aisybina.png",
+
+            'vision_description' => 'To become a trusted export company that delivers original Indonesian products with superior quality, thereby providing added value to business partners, consumers, and the global community.',
+            'image_vision' => "images/website/logo_aisybina.png",
+
+            'image_mission' => "images/website/logo_aisybina.png",
+
+            'value_description' => "Aisybina Export has company values that we always maintain to ensure the company's integrity is maintained.",
+            'image_value' => "images/website/logo_aisybina.png",
+        ]);
+
+        DB::table('about_missions')->insert([
+            [
+                'id' => (string) Str::uuid(),
+                'description' => 'Providing export products that are high quality, hygienic, and meet international standards.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'description' => 'Supporting the growth of local Indonesian MSMEs by opening up access to global markets.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'description' => 'Establishing sustainable partnerships based on the principles of trust, professionalism, and mutual benefit.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'description' => 'Presenting product innovations that suit the needs of the modern market.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'description' => 'Promoting a positive image of Indonesian products on the international stage.',
+            ],
+        ]);
+
+        DB::table('about_values')->insert([
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Guaranteed Quality',
+                'description' => 'Each product goes through a strict selection and supervision process according to export standards.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Professional & Trusted',
+                'description' => 'We are highly focused on business partner satisfaction and maintaining long-term relationships.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Sustainable Innovation',
+                'description' => 'Always adapt to global trends without leaving local identity.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Social Commitment',
+                'description' => 'Supporting local workforce empowerment and environmental sustainability.',
+            ],
         ]);
     }
 }

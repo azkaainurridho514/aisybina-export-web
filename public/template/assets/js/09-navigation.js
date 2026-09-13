@@ -14,7 +14,6 @@ function showSection(sectionKey) {
   $(".admin-nav-link").removeClass("active");
   $('.admin-nav-link[data-section="' + sectionKey + '"]').addClass("active");
   $("#adminPageTitle").text($('.admin-nav-link[data-section="' + sectionKey + '"]').data("title") || "Dashboard");
-
   // lazy-render the section's data the first time it's opened
   if (sectionKey === "dashboard") renderDashboardStats();
   if (ENTITIES[sectionKey]) renderTable(sectionKey);

@@ -467,3 +467,33 @@ p { color: var(--forest-soft); }
   font-weight: 600;
   color: var(--forest);
 }
+
+.empty-category {
+  width: 100%;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #999;
+}
+
+.empty-category i {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.empty-category p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.quill-content strong {
+    font-weight: 700;
+}
+
+.quill-content em {
+    font-style: italic;
+}
+
+.quill-content u {
+    text-decoration: underline;
+}
