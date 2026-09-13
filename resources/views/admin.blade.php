@@ -86,6 +86,12 @@
         </div>
 
         <div class="admin-nav-label">Content Blocks</div>
+        <div class="admin-nav-link" data-section="our_mission" data-title="Our Mission">
+          <i class="bi bi-bullseye"></i> Our Mission
+        </div>
+        <div class="admin-nav-link" data-section="our_value" data-title="Our Value">
+          <i class="bi bi-gem"></i> Our Value
+        </div>
         <div class="admin-nav-link" data-section="our_process" data-title="Export Process">
           <i class="bi bi-signpost-split"></i> Export Process
         </div>
@@ -259,6 +265,40 @@
               </div>
             </div>
             <div class="admin-table-wrap" id="table-products"></div>
+          </div>
+        </section>
+
+        <!-- ===================== Our Mission ===================== -->
+        <section class="admin-section" id="section-our_mission">
+          <div class="admin-section-head">
+            <div>
+              <h1>Our Mission</h1>
+              <p>Langkah-langkah proses ekspor yang tampil sebagai timeline di homepage.</p>
+            </div>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <h2>Mission</h2>
+              <button class="btn-admin btn-admin-forest" data-add-entity="our_mission"><i class="bi bi-plus-lg"></i> Tambah</button>
+            </div>
+            <div class="admin-table-wrap" id="table-our_mission"></div>
+          </div>
+        </section>
+
+        <!-- ===================== Our Value ===================== -->
+        <section class="admin-section" id="section-our_value">
+          <div class="admin-section-head">
+            <div>
+              <h1>Our Value</h1>
+              <p>Langkah-langkah proses ekspor yang tampil sebagai timeline di homepage.</p>
+            </div>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <h2>Value</h2>
+              <button class="btn-admin btn-admin-forest" data-add-entity="our_value"><i class="bi bi-plus-lg"></i> Tambah</button>
+            </div>
+            <div class="admin-table-wrap" id="table-our_value"></div>
           </div>
         </section>
 

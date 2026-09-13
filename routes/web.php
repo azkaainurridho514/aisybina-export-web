@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\InquiryFormController;
 use App\Http\Controllers\Admin\BusinessHourController;
 use App\Http\Controllers\Admin\OurProcessController;
+use App\Http\Controllers\Admin\OurMissionController;
+use App\Http\Controllers\Admin\OurValueController;
 use App\Http\Controllers\Admin\ChooseUsController;
 use App\Http\Controllers\Admin\AboutItemController;
 
@@ -228,6 +230,70 @@ Route::middleware('auth')
 
         Route::delete('/business-hours/{id}', [
             BusinessHourController::class,
+            'destroy'
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Our Mission
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/our-mission', [
+            OurMissionController::class,
+            'getData'
+        ]);
+
+        Route::get('/our-mission/{id}', [
+            OurMissionController::class,
+            'show'
+        ]);
+
+        Route::post('/our-mission', [
+            OurMissionController::class,
+            'store'
+        ]);
+
+        Route::put('/our-mission/{id}', [
+            OurMissionController::class,
+            'update'
+        ]);
+
+        Route::delete('/our-mission/{id}', [
+            OurMissionController::class,
+            'destroy'
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Our Value
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/our-value', [
+            OurValueController::class,
+            'getData'
+        ]);
+
+        Route::get('/our-value/{id}', [
+            OurValueController::class,
+            'show'
+        ]);
+
+        Route::post('/our-value', [
+            OurValueController::class,
+            'store'
+        ]);
+
+        Route::put('/our-value/{id}', [
+            OurValueController::class,
+            'update'
+        ]);
+
+        Route::delete('/our-value/{id}', [
+            OurValueController::class,
             'destroy'
         ]);
 

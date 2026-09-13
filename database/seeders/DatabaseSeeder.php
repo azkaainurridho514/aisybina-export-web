@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'website_slug' => 'Connecting global buyers with quality products from Indonesia.',
             'website_description' => 'Aisy Bina Exports finds and vets Indonesian suppliers so international buyers can source with confidence, without spending months on the ground themselves.',
             'heading' => 'From the archipelago to your warehouse.',
-            'image' => "images/website/logo_aisybina.png",
+            'image' => "",
             'about_heading' => 'A sourcing partner who does the groundwork for you.',
             'about_description' => 'We spend our time visiting suppliers, checking samples, and negotiating terms — so you can focus on running your own business. Aisy Bina Exports is the bridge between Indonesian producers and buyers abroad.',
             'category_heading' => 'Categories we source.',
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         DB::table('global_reach')->insert([
             'global_reach_title' => 'Built for buyers everywhere.',
             'global_reach_description' => 'From first inquiry to final shipment, our process is built to work across time zones and languages.',
-            'global_reach_image' => "images/website/logo_aisybina.png",
+            'global_reach_image' => "images/website/img_global_reach.png",
             'global_reach_item_1' => 'Sourcing Network',
             'global_reach_item_2' => 'Quality Oversight',
             'global_reach_item_3' => 'Export Coordination',
@@ -81,15 +81,65 @@ class DatabaseSeeder extends Seeder
         DB::table('about')->insert([
             'intro_title' => 'Unlimited Creativity, Endless Innovation',
             'intro_description' => "Aisybina Export is an Indonesian export company focused on providing high-quality products in the children's fashion and food sectors. We offer a combination of traditional values, educational needs, and modern lifestyles through three main lines: children's Muslim koko shirts, elementary, middle, and high school uniforms, and frozen groceries.\n\nWith a strong commitment to quality, product authenticity, and professional service, Aisybina Export is here to answer the growing needs of local and international markets.\n\nWe believe that authentic Indonesian products are able to compete in the global market by prioritizing quality, practicality, and cultural values.",
-            'image_intro' => "images/website/logo_aisybina.png",
+            'image_intro' => "images/website/img_about_company.png",
 
             'vision_description' => 'To become a trusted export company that delivers original Indonesian products with superior quality, thereby providing added value to business partners, consumers, and the global community.',
-            'image_vision' => "images/website/logo_aisybina.png",
+            'image_vision' => "images/website/img_vision.png",
 
-            'image_mission' => "images/website/logo_aisybina.png",
+            'image_mission' => "images/website/img_mission.png",
 
             'value_description' => "Aisybina Export has company values that we always maintain to ensure the company's integrity is maintained.",
-            'image_value' => "images/website/logo_aisybina.png",
+            'image_value' => "images/website/img_value.png",
+        ]);
+
+        DB::table('choose_us')->insert([
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-shield-check',
+                'title' => 'Supplier Vetting',
+                'description' => 'We check suppliers ourselves before putting them in front of you.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-eyedropper',
+                'title' => 'Sample & Spec Checks',
+                'description' => 'Samples are reviewed against your specification before an order is placed.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-search',
+                'title' => 'Made-to-Order Sourcing',
+                'description' => "Tell us the product and we'll go look for a supplier who can make it.",
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-file-earmark-text',
+                'title' => 'Export Documentation',
+                'description' => 'We help coordinate the paperwork and preparation your shipment needs.',
+            ],
+        ]);
+
+        DB::table('our_process')->insert([
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Share Your Brief',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Sourcing & Shortlisting',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Sample Approval',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Order Confirmation',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'title' => 'Export & Shipping',
+            ],
         ]);
 
         DB::table('about_missions')->insert([

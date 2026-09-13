@@ -140,7 +140,7 @@
 
     function renderPhoto(wrapSelector, src, alt) {
       if (!src) return;
-      $(wrapSelector).html('<img src="' + src + '" alt="' + (alt || "") + '" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">');
+      $(wrapSelector).html('<img src="' + src + '" alt="' + (alt || "") + '" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">');
     }
 
     function renderAbout(data) {

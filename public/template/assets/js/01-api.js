@@ -28,6 +28,8 @@ var API_ROUTES = {
   dashboard: ADMIN_API_BASE + "/dashboard",
   categories: ADMIN_API_BASE + "/categories",
   products: ADMIN_API_BASE + "/products",
+  our_mission: ADMIN_API_BASE + "/our-mission",
+  our_value: ADMIN_API_BASE + "/our-value",
   our_process: ADMIN_API_BASE + "/our-process",
   choose_us: ADMIN_API_BASE + "/choose-us",
   about_item: ADMIN_API_BASE + "/about-items",

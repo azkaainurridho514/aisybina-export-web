@@ -78,6 +78,40 @@ var ENTITIES = {
   },
 
   /* ------------------------------------------------------------------------
+   * Our Mission — /admin/our-mission
+   * Table: our_mission
+   * ------------------------------------------------------------------------ */
+  our_mission: {
+    label: "Tambahkan",
+    labelPlural: "Tambah",
+    icon: "bi-signpost-split",
+    columns: [
+      { key: "description", label: "Description" }
+    ],
+    fields: [
+      { key: "description", label: "Description", type: "textarea", required: true }
+    ]
+  },
+
+  /* ------------------------------------------------------------------------
+   * Our Value — /admin/our-value
+   * Table: our_value
+   * ------------------------------------------------------------------------ */
+  our_value: {
+    label: "Tambahkan",
+    labelPlural: "Tambah",
+    icon: "bi-signpost-split",
+    columns: [
+      { key: "title", label: "Title" },
+      { key: "description", label: "Description" }
+    ],
+    fields: [
+      { key: "title", label: "Title", type: "text", required: true },
+      { key: "description", label: "Description", type: "textarea", required: true },
+    ]
+  },
+
+  /* ------------------------------------------------------------------------
    * Our Process — /admin/our-process
    * Table: our_process
    * ------------------------------------------------------------------------ */
@@ -86,7 +120,7 @@ var ENTITIES = {
     labelPlural: "Proses Ekspor",
     icon: "bi-signpost-split",
     columns: [
-      { key: "title", label: "Judul Langkah" }
+      { key: "title", label: "Judul Langkah" },
     ],
     fields: [
       { key: "title", label: "Judul Langkah", type: "text", required: true }

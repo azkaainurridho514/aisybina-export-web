@@ -23,6 +23,12 @@
     </div>
 
     <div class="admin-nav-label">Content Blocks</div>
+    <div class="admin-nav-link" data-section="our_mission" data-title="Our Mission">
+        <i class="bi bi-signpost-split"></i> Our Mission
+    </div>
+    <div class="admin-nav-link" data-section="our_value" data-title="Our Value">
+        <i class="bi bi-signpost-split"></i> Our Value
+    </div>
     <div class="admin-nav-link" data-section="our_process" data-title="Export Process">
         <i class="bi bi-signpost-split"></i> Export Process
     </div>

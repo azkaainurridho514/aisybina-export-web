@@ -14,6 +14,97 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="{{ asset("template/assets/css/style.css") }}">
+  <style>
+
+    .hero-banner {
+      position: relative;
+      overflow: hidden;
+      min-height: 74vh;
+      display: flex;
+      align-items: center;
+      background-color: var(--forest);
+      background-image: var(--hero-bg-image, none);
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Gradient overlay: strong forest on the text side, fading out toward the
+      photo so the picture still reads clearly on the right/bottom. Works even
+      with no photo set, since it just sits on the forest fallback color. */
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(100deg, rgba(22, 40, 31, 0.94) 0%, rgba(22, 40, 31, 0.78) 40%, rgba(22, 40, 31, 0.25) 70%, rgba(22, 40, 31, 0.05) 100%),
+        linear-gradient(0deg, rgba(22, 40, 31, 0.55) 0%, rgba(22, 40, 31, 0) 35%);
+      z-index: 0;
+    }
+
+    /* Soft blurred gold blob — the one modern accent, kept subtle */
+    .hero-banner-glow {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      top: -140px;
+      right: -120px;
+      background: radial-gradient(circle, rgba(185, 139, 62, 0.4), transparent 70%);
+      filter: blur(6px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-banner .container { position: relative; z-index: 1; }
+    .hero-banner .pill-tag.on-forest { margin-bottom: 1.25rem; }
+
+    /* Outline button readable on a dark/photo background */
+    .btn-outline-light {
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background-color: transparent;
+      border: 1px solid rgba(250, 246, 236, 0.45);
+      color: var(--cream);
+      transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+    .btn-outline-light:hover {
+      border-color: var(--cream);
+      background-color: rgba(250, 246, 236, 0.08);
+      color: var(--cream);
+      transform: translateY(-1px);
+    }
+    .hero-banner-fade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 120px;
+      background: linear-gradient(
+        180deg,
+        rgba(240, 233, 216, 0)     0%,
+        rgba(240, 233, 216, 0.005) 8.3%,
+        rgba(240, 233, 216, 0.035) 16.7%,
+        rgba(240, 233, 216, 0.1)   25%,
+        rgba(240, 233, 216, 0.21)  33.3%,
+        rgba(240, 233, 216, 0.35)  41.7%,
+        rgba(240, 233, 216, 0.5)   50%,
+        rgba(240, 233, 216, 0.65)  58.3%,
+        rgba(240, 233, 216, 0.79)  66.7%,
+        rgba(240, 233, 216, 0.9)   75%,
+        rgba(240, 233, 216, 0.97)  83.3%,
+        rgba(240, 233, 216, 0.995) 91.7%,
+        var(--cream-dim)           100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    @media (max-width: 767.98px) {
+      .hero-banner-fade { height: 80px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -22,21 +113,20 @@
   <main>
 
     <!-- HERO -->
-    <section class="section-tight" style="margin-top: 82px;">
-      <div class="container">
-        <div class="row align-items-center gy-5">
-          <div class="col-lg-6" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-compass"></i>Welcome</span>
-            <h1 id="heroHeading" class="mb-4 quill-content" style="font-size: clamp(2.4rem, 4.5vw, 3.7rem);"></h1>
-            <p id="heroDescription" class="lead mb-4 quill-content" style="max-width: 460px;"></p>
+    <section class="hero-banner section-tight" id="heroBanner" style="margin-top: 82px; --hero-bg-image: url('{{ asset('images/website/bg_header.png') }}');">
+      <div class="hero-banner-overlay"></div>
+      <div class="hero-banner-glow"></div>
+      <div class="hero-banner-fade"></div>
+
+      <div class="container position-relative">
+        <div class="row">
+          <div class="col-lg-7" data-aos="fade-up">
+            <span class="pill-tag on-forest"><i class="bi bi-compass"></i>Welcome</span>
+            <h1 id="heroHeading" class="mb-4 quill-content" style="font-size: clamp(2.4rem, 4.5vw, 3.7rem); color: var(--cream);"></h1>
+            <p id="heroDescription" class="lead mb-4 quill-content text-on-forest" style="max-width: 480px;"></p>
             <div>
-              <a href="/products" class="btn btn-forest btn-arrow me-2 mb-2">See Our Categories</a>
-              <a href="/contact" class="btn btn-outline mb-2">Start an Inquiry</a>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-left">
-            <div class="frame-tall" id="heroImageWrap">
-              {{-- <div class="frame-inner"><i class="bi bi-basket"></i><span>Sourcing &amp; export photography — placeholder</span></div> --}}
+              <a href="/products" class="btn btn-cream btn-arrow me-2 mb-2">See Our Categories</a>
+              <a href="/contact" class="btn btn-outline-light mb-2">Start an Inquiry</a>
             </div>
           </div>
         </div>
@@ -118,13 +208,11 @@
     <section class="section">
       <div class="container">
         <div class="row align-items-center gy-5">
-          <div class="col-lg-6" data-aos="fade-right">
-            <div class="frame-wide">
+          <div class="col-lg-6" data-aos="fade-right" id="globalReachImage">
+            {{-- <div class="frame-wide">
               <div class="frame-inner" id="globalReachImage">
-                {{-- <i class="bi bi-globe-asia-australia"></i>
-                <span>Global export &amp; logistics photography — placeholder</span> --}}
               </div>
-            </div>
+            </div> --}}
           </div>
           <div class="col-lg-6" data-aos="fade-left">
             <span class="pill-tag"><i class="bi bi-signpost-2"></i>Global Reach</span>
@@ -194,6 +282,12 @@
       if (master.image) {
         $("#heroImageWrap").html(DOMPurify.sanitize(`<img src="${master.image}" alt="${master.website_name || ''}" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`));
       }
+
+      // var $hero = document.getElementById("heroBanner");
+      // if (imageUrl) {
+      //   $hero.style.setProperty("--hero-bg-image", 'url("/images/website/bg_header.png")');
+      //   // $hero.style.setProperty("--hero-bg-image", 'url("' + imageUrl + '")');
+      // }
 
       // ===== WHO WE ARE =====
       $("#aboutHeading").text(master.about_heading || "");
@@ -374,7 +468,8 @@
       $("#globalReachTitle").text(globalReach.global_reach_title || "");
       $("#globalReachDescription").text(globalReach.global_reach_description || "");
       if(globalReach.global_reach_image != ""){
-        $("#globalReachImage").append(`<img src="${globalReach.global_reach_image}" alt="" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`);
+        renderPhoto("#globalReachImage", globalReach.global_reach_image, "");
+        // $("#globalReachImage").append(`<img src="${globalReach.global_reach_image}" alt="" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`);
       }
 
       let reachHtml = "";
@@ -408,6 +503,11 @@
       if (master.website_name) {
         document.title = master.website_name;
       }
+    }
+
+    function renderPhoto(wrapSelector, src, alt) {
+      if (!src) return;
+      $(wrapSelector).html('<img src="' + src + '" alt="' + (alt || "") + '" style="width:100%;height:300px;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">');
     }
   });
   </script>
