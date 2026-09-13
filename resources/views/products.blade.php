@@ -240,9 +240,9 @@
       // ===== WHATSAPP FLOAT =====
       if (contact.whatsapp) {
         const waNumber = contact.whatsapp.replace(/[^0-9]/g, "");
-        if (waNumber.startsWith("0")) {
-          waNumber = "62" + waNumber.substring(1);
-        }
+        // if (waNumber.startsWith("0")) {
+        //   waNumber = "62" + waNumber.substring(1);
+        // }
         const waText = encodeURIComponent(
           `Hello ${master.website_name}, I am interested in sourcing products from Indonesia. I would like to discuss my requirements.`
         );
