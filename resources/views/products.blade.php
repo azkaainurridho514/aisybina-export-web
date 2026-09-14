@@ -97,7 +97,7 @@
             <div class="container text-center" data-aos="fade-up">
               <div class="empty-category">
                 <i class="bi bi-box-seam"></i>
-                <p>Belum ada produk yang tersedia saat ini.</p>
+                <p>There are no products available at this time.</p>
               </div>
             </div>
           </section>`;

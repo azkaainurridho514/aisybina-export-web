@@ -502,14 +502,15 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <script src="{{ asset('template/assets/js/13-utils.js') }}"></script>
 
 
   {{-- <script src="{{asset('template/assets/js/script-admin.js')}}"></script> --}}
-  <script src="{{ asset('template/assets/js/13-utils.js') }}"></script>
   <script src="{{ asset('template/assets/js/00-constants.js') }}"></script>
   <script src="{{ asset('template/assets/js/01-api.js') }}"></script>
   <script src="{{ asset('template/assets/js/02-entities.js') }}"></script>

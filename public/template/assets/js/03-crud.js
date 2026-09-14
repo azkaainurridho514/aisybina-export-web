@@ -79,11 +79,16 @@ function renderTable(entityKey) {
 
     var tbody = rows.map(function (row) {
       var cells = cfg.columns.map(function (c) {
-        var val = c.render ? c.render(row) : escapeHtml(String(row[c.key] || "—"));
-        if (c.truncate && !c.render) val = escapeHtml(truncate(String(row[c.key] || ""), 60));
-        return "<td>" + val + "</td>";
-      }).join("");
+          var val = c.render
+              ? c.render(row)
+              : String(row[c.key] || "—");
 
+          if (c.truncate && !c.render) {
+              val = truncate(String(row[c.key] || ""), 60);
+          }
+
+          return "<td>" + renderQuillInline(val) + "</td>";
+      }).join("");
       var actions = '<div class="admin-table-actions">';
       if (cfg.hasDetail) {
         actions += '<button class="btn-icon" data-action="detail" data-entity="' + entityKey + '" data-id="' + row.id + '" title="Lihat Detail"><i class="bi bi-eye"></i></button>';

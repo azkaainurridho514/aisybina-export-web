@@ -188,8 +188,8 @@
       $("#missionHeading").text("Our Mission");
       var missionItems = aboutMissions.length ? aboutMissions.map(function (m) { return m.description; }) : [];
       $("#missionList").html(missionItems.map(
-        function (item) {
-          return '<li><i class="bi bi-check2-circle"></i><span>' + renderQuillInline(item) + "</span></li>";
+        function (item, idx) {
+          return '<li data-aos="fade-up" data-aos-delay="' + (idx * 75) + '"><i class="bi bi-check2-circle"></i><span>' + renderQuillInline(item) + "</span></li>";
       }).join(""));
 
 

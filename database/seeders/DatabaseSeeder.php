@@ -91,6 +91,27 @@ class DatabaseSeeder extends Seeder
             'image_value' => "images/website/img_value.png",
         ]);
 
+        DB::table('about_item')->insert([
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-clipboard-check',
+                'title' => 'Vetted Suppliers',
+                'description' => 'Every supplier we work with has been checked in person before we recommend them.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-chat-dots',
+                'title' => 'Clear Communication',
+                'description' => 'You get straight answers and steady updates from inquiry through shipment.',
+            ],
+            [
+                'id' => (string) Str::uuid(),
+                'icon' => 'bi-sliders2',
+                'title' => 'Sourcing on Request',
+                'description' => "Not on our list yet? We'll go find it if it can be sourced from Indonesia.",
+            ],
+        ]);
+
         DB::table('choose_us')->insert([
             [
                 'id' => (string) Str::uuid(),
