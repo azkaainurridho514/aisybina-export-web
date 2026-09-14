@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link rel="icon" type="image/png" id="iconTab">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -120,6 +120,8 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="{{ asset("template/assets/js/13-utils.js") }}"></script>
   <script src="{{ asset("template/assets/js/script.js") }}"></script>
   @stack('scripts')
   <script>
@@ -161,32 +163,41 @@
 
       // ===== HERO ===== (no backing columns in `about` — static copy)
       $("#pageHeading").text(master.about_heading);
-      $("#pageSubheading").text(master.about_description);
+      // $().text();
+      renderQuillContent("#pageSubheading", master.about_description);
 
       // ===== ABOUT COMPANY =====
       $("#introTitle").text(about.intro_title || "Unlimited Creativity, Endless Innovation");
       var introParagraphs = about.intro_description
         ? about.intro_description.split(/\n\s*\n/)
         : [];
-      $("#introText").html(introParagraphs.map(function (p) { return "<p>" + p + "</p>"; }).join(""));
+      $("#introText").html(
+        introParagraphs.map(function (p) { 
+          return DOMPurify.sanitize("<p>" + p + "</p>");  
+        }
+      ).join(""));
+
       renderPhoto("#introPhotoWrap", about.image_intro, "About " + (master.website_name || "us"));
 
       // ===== OUR VISION ===== (no `vision_heading` column — static heading)
       $("#visionHeading").text("Our Vision");
-      $("#visionText").text(about.vision_description);
+      renderQuillContent("#visionText", about.vision_description);
       renderPhoto("#visionPhotoWrap", about.image_vision, "Our vision");
 
       // ===== OUR MISSION ===== (no `mission_heading` column — static heading)
       $("#missionHeading").text("Our Mission");
       var missionItems = aboutMissions.length ? aboutMissions.map(function (m) { return m.description; }) : [];
-      $("#missionList").html(missionItems.map(function (item) {
-        return '<li><i class="bi bi-check2-circle"></i><span>' + item + "</span></li>";
+      $("#missionList").html(missionItems.map(
+        function (item) {
+          return '<li><i class="bi bi-check2-circle"></i><span>' + renderQuillInline(item) + "</span></li>";
       }).join(""));
+
+
       renderPhoto("#missionPhotoWrap", about.image_mission, "Our products");
 
       // ===== OUR VALUE ===== (no `value_heading` column — static heading)
       $("#valueHeading").text("Our Value");
-      $("#valueIntro").text(about.value_description);
+      renderQuillContent("#valueIntro", about.value_description);
       renderPhoto("#valuePhotoWrap", about.image_value, "Inside our workshop");
 
       var values = aboutValues.length ? aboutValues : [];
@@ -195,7 +206,7 @@
           '<div class="value-card">' +
           '<div class="timeline-dot mb-3">' + (idx + 1) + "</div>" +
           "<h3>" + v.title + "</h3>" +
-          "<p>" + v.description + "</p>" +
+          "<p>" + renderQuillInline(v.description) + "</p>" +
           "</div></div>";
       }).join(""));
 
@@ -206,6 +217,8 @@
           "Hello " + master.website_name + ", I'd like to know more about your company."
         );
         $("#whatsappFloat").attr("href", "https://wa.me/" + waNumber + "?text=" + waText);
+      }else{
+        $("#whatsappFloat").hide();
       }
     }
   });

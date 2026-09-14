@@ -37,6 +37,10 @@
                     src: master.logo || "",
                     alt: master.website_name || ""
                 });
+                $("#iconTab").attr(
+                    "href",
+                    master.logo || ""
+                );
             }
         }
     </script>

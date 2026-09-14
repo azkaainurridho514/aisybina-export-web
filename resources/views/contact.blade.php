@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="titleWeb"></title>
   <meta name="description" content="Get in touch with Aisy Bina Exports to discuss sourcing products from Indonesia for your business.">
-
+  <link rel="icon" type="image/png" id="iconTab">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -74,6 +74,8 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="{{ asset("template/assets/js/13-utils.js") }}"></script>
   <script src="{{ asset("template/assets/js/script.js") }}"></script>
   @stack('scripts')
   <script>
@@ -120,7 +122,8 @@
 
       // ===== HERO =====
       $("#pageHeading").text(contact.heading || "Tell us what you're sourcing.");
-      $("#pageSubheading").text(contact.subheading || "");
+      // $().text();
+      renderQuillContent("#pageSubheading", contact.subheading || "");
 
       // ===== PAGE TITLE =====
       if (master.website_name) {
@@ -216,6 +219,8 @@
           `Hello ${master.website_name}, I am interested in sourcing products from Indonesia. I would like to discuss my requirements.`
         );
         $("#whatsappFloat").attr("href", `https://wa.me/${waNumber}?text=${waText}`);
+      }else{
+        $("#whatsappFloat").hide();
       }
 
 

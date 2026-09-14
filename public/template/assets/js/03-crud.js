@@ -149,25 +149,72 @@ function buildFormFields(cfg, data, stateKey) {
  *  collectFormData()/[data-field] loop still works untouched) while the
  *  real File object lives in `pendingImageFiles` for future multipart send.
  */
+
 function buildImageField(f, value, stateKey) {
-  var previewId = fieldElId("imgprev", stateKey, f.key);
-  var html = '<div class="field-group">';
-  html += '<label class="field-label">' + f.label + (f.required ? " *" : "") + "</label>";
-  html += '<div class="image-upload-box">';
-  html += '<div class="image-upload-preview" id="' + previewId + '">';
-  html += value ? '<img src="' + value + '" alt="preview" />' : '<i class="bi bi-image"></i>';
-  html += "</div>";
-  html += '<div class="image-upload-controls">';
-  html += '<label class="btn-admin btn-admin-outline btn-image-upload-label">';
-  html += '<i class="bi bi-upload"></i> ' + (value ? "Ganti Gambar" : "Pilih Gambar");
-  html += '<input type="file" accept="image/*" class="image-upload-input" data-image-target="' + f.key + '" data-state-key="' + stateKey + '" data-preview-target="' + previewId + '" hidden />';
-  html += "</label>";
-  html += '<div class="field-hint">JPG/PNG/WebP. Yang bisa di masukan.</div>';
-  html += "</div></div>";
-  html += '<input type="hidden" data-field="' + f.key + '" value="' + escapeHtml(value) + '" />';
-  html += "</div>";
-  return html;
+
+    var previewId = fieldElId("imgprev", stateKey, f.key);
+
+    var html = '<div class="field-group">';
+
+    html += '<label class="field-label">'
+        + f.label
+        + (f.required ? " *" : "")
+        + '</label>';
+
+    html += '<div class="image-upload-box">';
+
+    html += '<div class="image-upload-preview" id="' + previewId + '">';
+
+    html += value
+        ? '<img src="' + value + '" alt="preview" />'
+        : '<i class="bi bi-image"></i>';
+
+    html += '</div>';
+
+    html += '<div class="image-upload-controls">';
+
+    html += '<label class="btn-admin btn-admin-outline btn-image-upload-label">';
+
+    html += '<i class="bi bi-upload"></i> '
+        + (value ? "Ganti Gambar" : "Pilih Gambar");
+
+    html += '<input type="file"'
+        + ' accept="image/*"'
+        + ' class="image-upload-input"'
+        + ' data-image-target="' + f.key + '"'
+        + ' data-state-key="' + stateKey + '"'
+        + ' data-preview-target="' + previewId + '"'
+        + ' hidden />';
+
+    html += '</label>';
+
+    html += '<div class="field-hint">JPG/PNG/WebP. Yang bisa di masukan.</div>';
+
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+
+    return html;
 }
+// function buildImageField(f, value, stateKey) {
+//   var previewId = fieldElId("imgprev", stateKey, f.key);
+//   var html = '<div class="field-group">';
+//   html += '<label class="field-label">' + f.label + (f.required ? " *" : "") + "</label>";
+//   html += '<div class="image-upload-box">';
+//   html += '<div class="image-upload-preview" id="' + previewId + '">';
+//   html += value ? '<img src="' + value + '" alt="preview" />' : '<i class="bi bi-image"></i>';
+//   html += "</div>";
+//   html += '<div class="image-upload-controls">';
+//   html += '<label class="btn-admin btn-admin-outline btn-image-upload-label">';
+//   html += '<i class="bi bi-upload"></i> ' + (value ? "Ganti Gambar" : "Pilih Gambar");
+//   html += '<input type="file" accept="image/*" class="image-upload-input" data-image-target="' + f.key + '" data-state-key="' + stateKey + '" data-preview-target="' + previewId + '" hidden />';
+//   html += "</label>";
+//   html += '<div class="field-hint">JPG/PNG/WebP. Yang bisa di masukan.</div>';
+//   html += "</div></div>";
+//   html += '<input type="hidden" data-field="' + f.key + '" value="' + escapeHtml(value) + '" />';
+//   html += "</div>";
+//   return html;
+// }
 
 /** Multi-photo gallery field: renders current pendingGalleryImages[stateKey]
  *  as removable thumbnails + an "add" tile. Used by Products (Add/Edit).

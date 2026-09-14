@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('website_slug')->nullable();
             $table->text('website_description')->nullable();
             $table->string('heading')->nullable();
-            $table->string('image')->nullable();
             $table->string('about_heading')->nullable();
             $table->text('about_description')->nullable();
             $table->string('category_heading')->nullable();

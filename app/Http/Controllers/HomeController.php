@@ -21,7 +21,7 @@ class HomeController extends Controller
                 $data = [
                     'master' => DB::table('master')
                     ->select('logo', 'website_name', 'website_description', 
-                    'heading', 'image', 'about_heading', "about_description",
+                    'heading', 'about_heading', "about_description",
                     "category_heading", 'category_description', 'choose_us_heading', 'our_process', 'website_slug'
                     )->first(),
                     'ask_us' => DB::table('ask_us')->select('ask_us_title',

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="titleWeb"></title>
   <meta name="description" content="Browse the product categories Aisy Bina Exports sources from trusted suppliers across Indonesia.">
-
+  <link rel="icon" type="image/png" id="iconTab">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -52,6 +52,8 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="{{ asset("template/assets/js/13-utils.js") }}"></script>
   <script src="{{ asset("template/assets/js/script.js") }}"></script>
   @stack('scripts')
   <script>
@@ -77,7 +79,7 @@
 
       // ===== HERO =====
       $("#pageHeading").text(pageDesc.product_heading);
-      $("#pageSubheading").text(pageDesc.product_subheading || "");
+      renderQuillContent("#pageSubheading", pageDesc.product_subheading || "");
 
       // ===== PAGE TITLE =====
       if (master.website_name) {
@@ -164,7 +166,7 @@
                   </div>
                   <div class="crop-body">
                     <h3>${product.name}</h3>
-                    <p>${product.description}</p>
+                    <p>${renderQuillInline(product.description)}</p>
                     <a href="/contact" class="crop-link">Start inquiry <i class="bi bi-arrow-right"></i></a>
                   </div>
                 </div>
@@ -223,7 +225,7 @@
                   <div class="col-lg-7" data-aos="fade-up">
                     <span class="pill-tag"><i class="bi bi-box-seam"></i>${category.name}</span>
                     <h2 class="mb-2">${category.name}</h2>
-                    <p class="mb-0">${category.description || ''}</p>
+                    <p class="mb-0">${renderQuillInline(category.description || '')}</p>
                   </div>
                 </div>
                 <div class="row gy-4">${productsHtml}</div>
@@ -247,7 +249,7 @@
 
       // ===== CTA BAWAH =====
       $("#ctaHeading").text(footer.footer_product_heading);
-      $("#ctaSubheading").text(footer.footer_product_subheading || "");
+      renderQuillContent("#ctaSubheading", footer.footer_product_subheading || "");
       $("#ctaButton").text(footer.footer_product_button || "Request a Product");
 
       // ===== WHATSAPP FLOAT =====
@@ -260,6 +262,8 @@
           `Hello ${master.website_name}, I am interested in sourcing products from Indonesia. I would like to discuss my requirements.`
         );
         $("#whatsappFloat").attr("href", `https://wa.me/${waNumber}?text=${waText}`);
+      }else{
+          $("#whatsappFloat").hide();
       }
 
       // ===== NAVBAR & FOOTER =====

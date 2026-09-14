@@ -52,7 +52,6 @@ class SiteContentController extends Controller
             'website_description' => 'nullable|string',
             'website_slug' => 'nullable|string',
             'heading' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'about_heading' => 'nullable|string',
             'about_description' => 'nullable|string',
             'category_heading' => 'nullable|string',
@@ -114,8 +113,7 @@ class SiteContentController extends Controller
             $existing = DB::table($table)->first();
 
             $imageFields = [
-                'icon',
-                'image',
+                'logo',
                 'global_reach_image',
                 'global_reach_icon_item_1',
                 'global_reach_icon_item_2',

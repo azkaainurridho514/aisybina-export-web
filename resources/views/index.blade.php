@@ -9,7 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  
+  <link rel="icon" type="image/png" id="iconTab">
+  
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -121,9 +123,9 @@
       <div class="container position-relative">
         <div class="row">
           <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag on-forest"><i class="bi bi-compass"></i>Welcome</span>
-            <h1 id="heroHeading" class="mb-4 quill-content" style="font-size: clamp(2.4rem, 4.5vw, 3.7rem); color: var(--cream);"></h1>
-            <p id="heroDescription" class="lead mb-4 quill-content text-on-forest" style="max-width: 480px;"></p>
+              <span class="pill-tag on-forest"><i class="bi bi-compass"></i>Welcome</span>
+              <h1 id="heroHeading" class="mb-4" style="font-size: clamp(2.4rem, 4.5vw, 3.7rem); color: var(--cream);"></h1>
+              <p id="heroDescription" class="lead mb-4 text-on-forest" style="max-width: 480px;"></p>
             <div>
               <a href="/products" class="btn btn-cream btn-arrow me-2 mb-2">See Our Categories</a>
               <a href="/contact" class="btn btn-outline-light mb-2">Start an Inquiry</a>
@@ -155,7 +157,7 @@
           <div class="col-lg-7" data-aos="fade-up">
             <span class="pill-tag"><i class="bi bi-box-seam"></i>Our Products</span>
             <h2 id="categoryHeading" class="mb-3"></h2>
-            <p>Each category below represents a network of producers we already work with &mdash; and a starting point if you need something more specific.</p>
+            <p id="categoryDescription"></p>
           </div>
         </div>
         <div class="row gy-4" id="productList"></div>
@@ -168,7 +170,7 @@
       <div class="container container-narrow" data-aos="fade-up">
         <div class="export-tag mb-4">
           <span class="tag-eyebrow" id="askUsTitle"></span>
-          <span class="tag-main quill-content" id="askUsTagMain"></span>
+          <span class="tag-main" id="askUsTagMain"></span>
         </div>
         <h2 id="askUsHeading" class="mb-3" style="color: var(--cream);"></h2>
         <p id="askUsDescription" class="text-on-forest mb-4"></p>
@@ -245,6 +247,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="{{ asset("template/assets/js/13-utils.js") }}"></script>
   <script src="{{ asset("template/assets/js/script.js") }}"></script>
   @stack('scripts')
   <script>
@@ -263,6 +266,7 @@
       }
     });
 
+
     function renderHome(data) {
       const master       = data.master || {};
       const askUs        = data.ask_us || {};
@@ -277,21 +281,22 @@
       $("#titleWeb").html(DOMPurify.sanitize(master.website_name|| ""));
 
       // ===== HERO =====
-      $("#heroHeading").html(DOMPurify.sanitize(master.heading || ""));
-      $("#heroDescription").html(DOMPurify.sanitize(master.website_description || ""));
-      if (master.image) {
-        $("#heroImageWrap").html(DOMPurify.sanitize(`<img src="${master.image}" alt="${master.website_name || ''}" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`));
-      }
+      renderQuillContent(
+          "#heroHeading",
+          master.heading
+      );
 
-      // var $hero = document.getElementById("heroBanner");
-      // if (imageUrl) {
-      //   $hero.style.setProperty("--hero-bg-image", 'url("/images/website/bg_header.png")');
-      //   // $hero.style.setProperty("--hero-bg-image", 'url("' + imageUrl + '")');
-      // }
+      renderQuillContent(
+          "#heroDescription",
+          master.website_description
+      );
 
       // ===== WHO WE ARE =====
       $("#aboutHeading").text(master.about_heading || "");
-      $("#aboutDescription").text(master.about_description || "");
+      renderQuillContent(
+          "#aboutDescription",
+          master.about_description
+      );
 
       let aboutHtml = "";
       aboutItems.forEach(function (item) {
@@ -308,7 +313,10 @@
 
       // ===== PRODUCTS / CATEGORIES =====
       $("#categoryHeading").text(master.category_heading || "");
-      $("#categoryDescription").text(master.category_description || "");
+      renderQuillContent(
+          "#categoryDescription",
+          master.category_description
+      );
 
       let productHtml = "";
       let modalHtml = "";
@@ -423,8 +431,9 @@
           </div>`;
       });
 
-      $("#productList").html(DOMPurify.sanitize(productHtml));
-      $("#productModalContainer").html(DOMPurify.sanitize(modalHtml));
+      // $("#productList").html(DOMPurify.sanitize(productHtml));
+      renderQuillContent("#productList", productHtml)
+      $("#productModalContainer").html(modalHtml);
 
       // ===== ASK US =====
       $("#askUsTitle").text(askUs.ask_us_title || "");
@@ -447,7 +456,7 @@
             </div>
           </div>`;
       });
-      $("#chooseUsList").html(DOMPurify.sanitize(chooseUsHtml));
+      renderQuillContent("#chooseUsList", chooseUsHtml);
 
       // ===== OUR PROCESS =====
       $("#ourProcessHeading").text(master.our_process || "");
@@ -466,7 +475,8 @@
 
       // ===== GLOBAL REACH =====
       $("#globalReachTitle").text(globalReach.global_reach_title || "");
-      $("#globalReachDescription").text(globalReach.global_reach_description || "");
+      renderQuillContent("#globalReachDescription", globalReach.global_reach_description || "")
+
       if(globalReach.global_reach_image != ""){
         renderPhoto("#globalReachImage", globalReach.global_reach_image, "");
         // $("#globalReachImage").append(`<img src="${globalReach.global_reach_image}" alt="" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">`);
@@ -484,19 +494,23 @@
 
       // ===== FOOTER / FINAL CTA =====
       $("#finalCtaHeading").text(footer.footer_home_heading || "");
-      $("#finalCtaSubheading").text(footer.footer_home_subheading || "");
+      renderQuillContent("#finalCtaSubheading", footer.footer_home_subheading || "");
       $("#finalCtaButton").text(footer.footer_home_button || "");
 
       // ===== WHATSAPP FLOAT =====
       if (contact.whatsapp) {
-        const waNumber = contact.whatsapp.replace(/[^0-9]/g, "");
-        // if (waNumber.startsWith("0")) {
-        //   waNumber = "62" + waNumber.substring(1);
-        // }
-        const waText = encodeURIComponent(
-          `Hello ${master.website_name}, I am interested in sourcing products from Indonesia. I would like to discuss my requirements.`
-        );
-        $("#whatsappFloat").attr("href", `https://wa.me/${waNumber}?text=${waText}`);
+          const waNumber = contact.whatsapp.replace(/[^0-9]/g, "");
+
+          const waText = encodeURIComponent(
+              `Hello ${master.website_name}, I am interested in sourcing products from Indonesia. I would like to discuss my requirements.`
+          );
+
+          $("#whatsappFloat").attr(
+              "href",
+              `https://wa.me/${waNumber}?text=${waText}`
+          );
+      }else{
+          $("#whatsappFloat").hide();
       }
 
       // ===== TITLE PAGE (opsional) =====

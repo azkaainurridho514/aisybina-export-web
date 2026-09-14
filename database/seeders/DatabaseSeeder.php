@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
             'website_slug' => 'Connecting global buyers with quality products from Indonesia.',
             'website_description' => 'Aisy Bina Exports finds and vets Indonesian suppliers so international buyers can source with confidence, without spending months on the ground themselves.',
             'heading' => 'From the archipelago to your warehouse.',
-            'image' => "",
             'about_heading' => 'A sourcing partner who does the groundwork for you.',
             'about_description' => 'We spend our time visiting suppliers, checking samples, and negotiating terms — so you can focus on running your own business. Aisy Bina Exports is the bridge between Indonesian producers and buyers abroad.',
             'category_heading' => 'Categories we source.',

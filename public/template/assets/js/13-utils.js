@@ -97,3 +97,61 @@ function initQuillEditors() {
     $(this).data("quill", editor);
   });
 }
+
+
+function renderQuillContent(selector, content) {
+    const $target = $(selector);
+
+    const cleanHtml = DOMPurify.sanitize(content || "");
+
+    const $temp = $("<div>").html(cleanHtml);
+
+    const defaultStyle = $target.attr("style") || "";
+
+    const $quillWrapper = $temp.children().first();
+
+    if ($temp.children().length === 1 && $quillWrapper.is("p")) {
+
+        const quillStyle = $quillWrapper.attr("style") || "";
+
+        const quillClass = $quillWrapper.attr("class") || "";
+
+        if (quillStyle) {
+            $target.attr(
+                "style",
+                defaultStyle.replace(/;?\s*$/, ";") + quillStyle
+            );
+        }
+
+        if (quillClass) {
+            $target.addClass(quillClass);
+        }
+
+        $target.html($quillWrapper.html());
+
+    } else {
+        $target.html(cleanHtml);
+    }
+}
+
+function renderQuillInline(content) {
+    const cleanHtml = DOMPurify.sanitize(content || "");
+    const $temp = $("<div>").html(cleanHtml);
+
+    // Kalau Quill menghasilkan satu <p>, ambil isinya saja
+    if ($temp.children().length === 1 && $temp.children().first().is("p")) {
+        const $p = $temp.children().first();
+
+        // Buang style yang seharusnya mengikuti style parent
+        $p.css({
+            color: "",
+            backgroundColor: "",
+            fontFamily: "",
+            fontSize: ""
+        });
+
+        return $p.html();
+    }
+
+    return cleanHtml;
+}

@@ -25,7 +25,6 @@ var DataLayer = {
   deleteInquiry: function (id) { return api.request("delete", "inquiry_forms", { id: id }); },
 
   updateSiteContent: function (table, formData) { return api.request("update", table, {  formData: formData }); },
-  // updateSiteContent: function (table, data) { return api.request("update", table, { data: data }); },
   
   exportInquiries: function (params) {
     var deferred = $.Deferred();

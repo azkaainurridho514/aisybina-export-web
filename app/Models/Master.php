@@ -14,7 +14,6 @@ class Master extends Model
         'website_description',
         'website_slug',
         'heading',
-        'image',
         'about_heading',
         'about_description',
         'category_heading',

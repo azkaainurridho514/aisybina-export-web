@@ -486,7 +486,7 @@ p { color: var(--forest-soft); }
   font-size: 1rem;
 }
 
-.quill-content strong {
+/* .quill-content strong {
     font-weight: 700;
 }
 
@@ -496,4 +496,4 @@ p { color: var(--forest-soft); }
 
 .quill-content u {
     text-decoration: underline;
-}
+} */

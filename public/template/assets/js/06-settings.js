@@ -18,7 +18,6 @@ var SETTINGS_FORMS = {
     { key: "website_slug", label: "Slug Website", type: "text" },
     { key: "logo", label: "Logo Website", type: "image" },
     { key: "heading", label: "Judul Utama", type: "textarea" },
-    { key: "image", label: "Gambar Judul Utama", type: "image" },
     { key: "about_heading", label: "Judul Section Tentang Kami", type: "text" },
     { key: "about_description", label: "Deskripsi Section Tentang Kami", type: "textarea" },
     { key: "category_heading", label: "Judul Section Produk", type: "text" },
@@ -130,7 +129,6 @@ function saveSettings(entityKey) {
   // field gambar Site Content
   var imageFields = [
     "icon",
-    "image",
     "global_reach_image",
     "global_reach_icon_item_1",
     "global_reach_icon_item_2",
