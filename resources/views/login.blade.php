@@ -12,7 +12,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ asset("template/assets/css/style-admin.css") }}">
+  <link rel="stylesheet" href="{{ asset("assets/css/style-admin.css") }}">
 </head>
 <body>
 
@@ -49,6 +49,6 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="{{ asset("template/assets/js/script-admin.js") }}"></script>
+  <script src="{{ asset("assets/js/script-admin.js") }}"></script>
 </body>
 </html>

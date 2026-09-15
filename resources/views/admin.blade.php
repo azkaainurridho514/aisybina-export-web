@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ asset("template/assets/css/style-admin.css") }}">
+  <link rel="stylesheet" href="{{ asset("assets/css/style-admin.css") }}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
@@ -507,23 +507,23 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="{{ asset('template/assets/js/13-utils.js') }}"></script>
+  <script src="{{ asset('assets/js/13-utils.js') }}"></script>
 
 
-  {{-- <script src="{{asset('template/assets/js/script-admin.js')}}"></script> --}}
-  <script src="{{ asset('template/assets/js/00-constants.js') }}"></script>
-  <script src="{{ asset('template/assets/js/01-api.js') }}"></script>
-  <script src="{{ asset('template/assets/js/02-entities.js') }}"></script>
-  <script src="{{ asset('template/assets/js/03-crud.js') }}"></script>
-  <script src="{{ asset('template/assets/js/04-product-detail.js') }}"></script>
-  <script src="{{ asset('template/assets/js/05-inquiries.js') }}"></script>
-  <script src="{{ asset('template/assets/js/06-settings.js') }}"></script>
-  <script src="{{ asset('template/assets/js/07-data-layer.js') }}"></script>
-  <script src="{{ asset('template/assets/js/08-dashboard.js') }}"></script>
-  <script src="{{ asset('template/assets/js/09-navigation.js') }}"></script>
-  <script src="{{ asset('template/assets/js/10-admin-events.js') }}"></script>
-  <script src="{{ asset('template/assets/js/11-login.js') }}"></script>
-  <script src="{{ asset('template/assets/js/12-common.js') }}"></script>
+  {{-- <script src="{{asset('assets/js/script-admin.js')}}"></script> --}}
+  <script src="{{ asset('assets/js/00-constants.js') }}"></script>
+  <script src="{{ asset('assets/js/01-api.js') }}"></script>
+  <script src="{{ asset('assets/js/02-entities.js') }}"></script>
+  <script src="{{ asset('assets/js/03-crud.js') }}"></script>
+  <script src="{{ asset('assets/js/04-product-detail.js') }}"></script>
+  <script src="{{ asset('assets/js/05-inquiries.js') }}"></script>
+  <script src="{{ asset('assets/js/06-settings.js') }}"></script>
+  <script src="{{ asset('assets/js/07-data-layer.js') }}"></script>
+  <script src="{{ asset('assets/js/08-dashboard.js') }}"></script>
+  <script src="{{ asset('assets/js/09-navigation.js') }}"></script>
+  <script src="{{ asset('assets/js/10-admin-events.js') }}"></script>
+  <script src="{{ asset('assets/js/11-login.js') }}"></script>
+  <script src="{{ asset('assets/js/12-common.js') }}"></script>
 
 </body>
 </html>

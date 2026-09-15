@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-  <link rel="stylesheet" href="{{ asset("template/assets/css/style.css") }}">
+  <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
   <style>
 
     .hero-banner {
@@ -247,8 +247,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
-  <script src="{{ asset("template/assets/js/13-utils.js") }}"></script>
-  <script src="{{ asset("template/assets/js/script.js") }}"></script>
+  <script src="{{ asset("assets/js/13-utils.js") }}"></script>
+  <script src="{{ asset("assets/js/script.js") }}"></script>
   @stack('scripts')
   <script>
   $(function () {
