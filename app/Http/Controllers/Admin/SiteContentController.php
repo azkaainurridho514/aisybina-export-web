@@ -111,16 +111,22 @@ class SiteContentController extends Controller
 
         try {
             $existing = DB::table($table)->first();
+            $isProduction = app()->environment('production');
 
             $imageFields = [
                 'logo',
+                'image_intro',
+                'image_vision',
+                'image_mission',
+                'image_value',
                 'global_reach_image',
                 'global_reach_icon_item_1',
                 'global_reach_icon_item_2',
                 'global_reach_icon_item_3',
             ];
-
-            $uploadPath = public_path('images/website');
+           $uploadPath = $isProduction
+            ? '/home/cery9751/public_html/images/website'
+            : public_path('images/website');
 
             if (!is_dir($uploadPath)) {
                 mkdir($uploadPath, 0755, true);
@@ -133,7 +139,9 @@ class SiteContentController extends Controller
                         $oldPath = $existing->{$field} ?? null;
 
                         if ($oldPath) {
-                            $oldFilePath = public_path($oldPath);
+                        $oldFilePath = $isProduction
+                            ? '/home/cery9751/public_html/' . $oldPath
+                            : public_path($oldPath);
 
                             if (file_exists($oldFilePath)) {
                                 unlink($oldFilePath);

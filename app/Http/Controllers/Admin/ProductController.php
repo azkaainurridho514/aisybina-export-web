@@ -72,7 +72,12 @@ class ProductController extends Controller
              * Upload images ke public/products.
              */
             if ($request->hasFile('images')) {
-                $uploadPath = public_path('images/products');
+
+                $isProduction = app()->environment('production');
+
+                $uploadPath = $isProduction
+                    ? '/home/cery9751/public_html/images/products'
+                    : public_path('images/products');
 
                 // Pastikan folder products tersedia.
                 if (!is_dir($uploadPath)) {
@@ -80,6 +85,7 @@ class ProductController extends Controller
                 }
 
                 foreach ($request->file('images') as $image) {
+
                     $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
 
                     $image->move($uploadPath, $filename);
@@ -141,6 +147,7 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
+            $isProduction = app()->environment('production');
             /**
              * Update data product.
              */
@@ -164,7 +171,9 @@ class ProductController extends Controller
                     $path = $oldImage->getRawOriginal('path');
 
                     if ($path) {
-                        $oldImagePath = public_path($path);
+                        $oldImagePath = $isProduction
+                        ? '/home/cery9751/public_html/' . $path
+                        : public_path($path);
 
                         if (file_exists($oldImagePath)) {
                             unlink($oldImagePath);
@@ -177,13 +186,16 @@ class ProductController extends Controller
                 /**
                  * Upload image baru ke public/products.
                  */
-                $uploadPath = public_path('images/products');
+                $uploadPath = $isProduction
+                    ? '/home/cery9751/public_html/images/products'
+                    : public_path('images/products');
 
                 if (!is_dir($uploadPath)) {
                     mkdir($uploadPath, 0755, true);
                 }
 
                 foreach ($request->file('images') as $image) {
+
                     $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
 
                     $image->move($uploadPath, $filename);
@@ -233,6 +245,7 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
+             $isProduction = app()->environment('production');
             /**
              * Hapus semua image product.
              */
@@ -240,7 +253,9 @@ class ProductController extends Controller
                 $path = $image->getRawOriginal('path');
 
                 if ($path) {
-                    $imagePath = public_path($path);
+                    $imagePath = $isProduction
+                        ? '/home/cery9751/public_html/' . $path
+                        : public_path($path);
 
                     if (file_exists($imagePath)) {
                         unlink($imagePath);
