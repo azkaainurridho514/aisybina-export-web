@@ -497,3 +497,69 @@ p { color: var(--forest-soft); }
 .quill-content u {
     text-decoration: underline;
 } */
+
+
+
+/* // ===================] */
+
+
+/* Grid card (list produk) */
+.frame-square {
+  width: 100%;
+}
+
+.frame-square .frame-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f4f4f4;
+}
+
+.frame-square .frame-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* biar ga zoom/crop */
+  display: block;
+}
+
+/* Modal foto besar */
+.photo-modal .modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal .modal-content {
+  width: auto;
+  max-width: 90vw;
+}
+
+.photo-modal .frame-wide {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal .frame-wide img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.photo-modal .frame-empty {
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f4f4;
+}

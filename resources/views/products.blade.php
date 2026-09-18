@@ -121,29 +121,29 @@
             let slidesHtml = "";
             let indicatorsHtml = "";
   
-            if (images.length > 0) {
-              images.forEach(function (img, i) {
-                slidesHtml += `
-                  <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                    <div class="frame-wide">
-                      <div class="frame-inner photo-trigger"
-                          data-bs-toggle="modal"
-                          data-bs-target="#${modalId}"
-                          data-slide-index="${i}"
-                          role="button" tabindex="0"
-                          aria-label="Preview photo ${i + 1} of ${product.name}"
-                          style="background:url('${img.path}') center/cover;">
+             if (images.length > 0) {
+                images.forEach(function (img, i) {
+                  slidesHtml += `
+                    <div class="carousel-item ${i === 0 ? 'active' : ''}">
+                      <div class="frame-square">
+                        <div class="frame-inner photo-trigger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#${modalId}"
+                            data-slide-index="${i}"
+                            role="button" tabindex="0"
+                            aria-label="Preview photo ${i + 1} of ${product.name}">
+                          <img src="${img.path}" alt="${product.name}" loading="lazy">
+                        </div>
                       </div>
-                    </div>
-                  </div>`;
-                indicatorsHtml += `
-                  <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}" aria-label="Photo ${i + 1}"></button>`;
-              });
+                    </div>`;
+                  indicatorsHtml += `
+                    <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" class="${i === 0 ? 'active' : ''}" aria-label="Photo ${i + 1}"></button>`;
+                });
             } else {
               slidesHtml = `
                 <div class="carousel-item active">
-                  <div class="frame-wide">
-                    <div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div>
+                  <div class="frame-square">
+                    <div class="frame-inner frame-empty"><i class="bi bi-box-seam"></i><span>${product.name}</span></div>
                   </div>
                 </div>`;
             }
@@ -173,20 +173,21 @@
               </div>`;
   
             // ---- Modal foto besar ----
+            
             let modalSlidesHtml = "";
             if (images.length > 0) {
               images.forEach(function (img, i) {
                 modalSlidesHtml += `
                   <div class="carousel-item ${i === 0 ? 'active' : ''}">
                     <div class="frame-wide">
-                      <div class="frame-inner" style="background:url('${img.path}') center/cover;"></div>
+                      <img src="${img.path}" alt="${product.name}" loading="lazy">
                     </div>
                   </div>`;
               });
             } else {
               modalSlidesHtml = `
                 <div class="carousel-item active">
-                  <div class="frame-wide"><div class="frame-inner"><i class="bi bi-box-seam"></i><span>${product.name}</span></div></div>
+                  <div class="frame-wide frame-empty"><i class="bi bi-box-seam"></i><span>${product.name}</span></div>
                 </div>`;
             }
   
