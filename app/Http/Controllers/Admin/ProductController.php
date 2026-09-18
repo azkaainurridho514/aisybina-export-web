@@ -76,7 +76,7 @@ class ProductController extends Controller
                 $isProduction = app()->environment('production');
 
                 $uploadPath = $isProduction
-                    ? '/home/cery9751/public_html/images/products'
+                    ? '/home/aisy8672/public_html/images/products'
                     : public_path('images/products');
 
                 // Pastikan folder products tersedia.
@@ -172,7 +172,7 @@ class ProductController extends Controller
 
                     if ($path) {
                         $oldImagePath = $isProduction
-                        ? '/home/cery9751/public_html/' . $path
+                        ? '/home/aisy8672/public_html/' . $path
                         : public_path($path);
 
                         if (file_exists($oldImagePath)) {
@@ -187,7 +187,7 @@ class ProductController extends Controller
                  * Upload image baru ke public/products.
                  */
                 $uploadPath = $isProduction
-                    ? '/home/cery9751/public_html/images/products'
+                    ? '/home/aisy8672/public_html/images/products'
                     : public_path('images/products');
 
                 if (!is_dir($uploadPath)) {
@@ -254,7 +254,7 @@ class ProductController extends Controller
 
                 if ($path) {
                     $imagePath = $isProduction
-                        ? '/home/cery9751/public_html/' . $path
+                        ? '/home/aisy8672/public_html/' . $path
                         : public_path($path);
 
                     if (file_exists($imagePath)) {

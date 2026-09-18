@@ -125,7 +125,7 @@ class SiteContentController extends Controller
                 'global_reach_icon_item_3',
             ];
            $uploadPath = $isProduction
-            ? '/home/cery9751/public_html/images/website'
+            ? '/home/aisy8672/public_html/images/website'
             : public_path('images/website');
 
             if (!is_dir($uploadPath)) {
@@ -140,7 +140,7 @@ class SiteContentController extends Controller
 
                         if ($oldPath) {
                         $oldFilePath = $isProduction
-                            ? '/home/cery9751/public_html/' . $oldPath
+                            ? '/home/aisy8672/public_html/' . $oldPath
                             : public_path($oldPath);
 
                             if (file_exists($oldFilePath)) {
