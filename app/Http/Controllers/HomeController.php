@@ -31,7 +31,7 @@ class HomeController extends Controller
                     ->first(),
                     'footer' => DB::table('footer')->select('footer_home_heading', 'footer_home_subheading', 'footer_home_button')
                     ->first(),
-                    'products' => Product::with(['category', 'images'])->latest()->take(4)->get(),
+                    'products' => Product::with(['category', 'images'])->inRandomOrder()->limit(6)->get(),
                     'about_item'  => AboutItem::oldest()->get(),
                     'our_process' => OurProcess::oldest()->get(),
                     'choose_us'   => ChooseUs::oldest()->get(),
