@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\OurMission;
 use Illuminate\Http\Request;
@@ -9,11 +10,22 @@ use Illuminate\Support\Str;
 
 class OurMissionController extends Controller
 {
-    public function getData()
+    use PaginatesAdminList;
+
+    /**
+     * Halaman daftar (Blade, dirender server).
+     */
+    public function index()
     {
-        return response()->json(
-            OurMission::orderBy('created_at', 'asc')->get()
-        );
+        $items = OurMission::orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        if ($redirect = $this->lastPageRedirect($items, 'admin.our-mission.index')) {
+            return $redirect;
+        }
+
+        return view('admin.our-mission.index', ['items' => $items]);
     }
 
     public function show(string $id)

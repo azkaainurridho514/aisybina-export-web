@@ -9,39 +9,90 @@ use Illuminate\Support\Str;
 
 class SiteContentController extends Controller
 {
-    /**
-     * Allowed singleton tables.
-     */
-    private array $allowedTables = [
-        'master',
-        'about',
-        'ask_us',
-        'global_reach',
-        'footer',
-        'contact',
-    ];
-
-    /**
-     * Get singleton data.
-     */
-    public function getData(string $table)
+   
+    private function tabs(): array
     {
-        $this->validateTable($table);
-
-        $data = DB::table($table)->first();
-
-        if (!$data) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan.'
-            ], 404);
-        }
-
-        return response()->json($data);
+        return [
+            'master' => ['label' => 'Home', 'fields' => [
+                ['website_name', 'Nama Website', 'text'],
+                ['website_description', 'Deskripsi Website', 'textarea'],
+                ['website_slug', 'Slug Website', 'text'],
+                ['logo', 'Logo Website', 'image'],
+                ['heading', 'Judul Utama', 'textarea'],
+                ['about_heading', 'Judul Section Tentang Kami', 'text'],
+                ['about_description', 'Deskripsi Section Tentang Kami', 'textarea'],
+                ['category_heading', 'Judul Section Produk', 'text'],
+                ['category_description', 'Deskripsi Section Produk', 'textarea'],
+                ['choose_us_heading', 'Judul Mengapa Memilih Kami', 'text'],
+                ['our_process', 'Judul Proses Kami', 'text'],
+            ]],
+            'about' => ['label' => 'About', 'fields' => [
+                ['intro_title', 'Judul Tentang Perusahaan', 'text'],
+                ['intro_description', 'Deskripsi Tentang Perusahaan', 'textarea'],
+                ['image_intro', 'Gambar Tentang Perusahaan', 'image'],
+                ['vision_description', 'Deskripsi Visi', 'textarea'],
+                ['image_vision', 'Gambar Visi', 'image'],
+                ['image_mission', 'Gambar Misi', 'image'],
+                ['value_description', 'Deskripsi Value Kami', 'textarea'],
+                ['image_value', 'Gambar Value Kami', 'image'],
+            ]],
+            'ask_us' => ['label' => 'Ask Us', 'fields' => [
+                ['ask_us_title', 'Label Kecil', 'text'],
+                ['ask_us_heading', 'Judul', 'text'],
+                ['ask_us_description', 'Deskripsi', 'textarea'],
+                ['ask_us_button', 'Teks Tombol', 'text'],
+            ]],
+            'global_reach' => ['label' => 'Global Reach', 'fields' => [
+                ['global_reach_title', 'Label Kecil', 'text'],
+                ['global_reach_description', 'Deskripsi', 'textarea'],
+                ['global_reach_image', 'Gambar Utama', 'image'],
+                ['global_reach_item_1', 'Item 1 — Teks', 'text'],
+                ['global_reach_icon_item_1', 'Item 1 — Ikon', 'image'],
+                ['global_reach_item_2', 'Item 2 — Teks', 'text'],
+                ['global_reach_icon_item_2', 'Item 2 — Ikon', 'image'],
+                ['global_reach_item_3', 'Item 3 — Teks', 'text'],
+                ['global_reach_icon_item_3', 'Item 3 — Ikon', 'image'],
+            ]],
+            'footer' => ['label' => 'Footer', 'fields' => [
+                ['footer_home_heading', 'Judul Footer halaman Home', 'text'],
+                ['footer_home_subheading', 'Subjudul Footer halaman Home', 'textarea'],
+                ['footer_home_button', 'Teks Tombol Footer halaman Home', 'text'],
+                ['footer_product_heading', 'Judul Footer Halaman Produk', 'text'],
+                ['footer_product_subheading', 'Subjudul Footer Halaman Produk', 'textarea'],
+                ['footer_product_button', 'Teks Tombol Footer Halaman Produk', 'text'],
+            ]],
+            'contact' => ['label' => 'Contact', 'fields' => [
+                ['product_heading', 'Judul Halaman Produk', 'text'],
+                ['product_subheading', 'Subjudul Halaman Produk', 'textarea'],
+                ['heading', 'Judul Halaman Kontak', 'text'],
+                ['subheading', 'Subjudul Halaman Kontak', 'textarea'],
+                ['email', 'Email', 'text'],
+                ['whatsapp', 'Nomor WhatsApp', 'text'],
+                ['location', 'Lokasi', 'text'],
+                ['instagram', 'Tautan Instagram', 'text'],
+                ['facebook', 'Tautan Facebook', 'text'],
+                ['tiktok', 'Tautan TikTok', 'text'],
+                ['youtube', 'Tautan YouTube', 'text'],
+            ]],
+        ];
     }
 
-    /**
-     * Update singleton data.
-     */
+    public function index(Request $request)
+    {
+        $tabs   = $this->tabs();
+        $active = (string) $request->query('tab', 'master');
+
+        if (! isset($tabs[$active])) {
+            $active = 'master';
+        }
+
+        return view('admin.site-content.index', [
+            'tabs'   => $tabs,
+            'active' => $active,
+            'data'   => DB::table($active)->first(),
+        ]);
+    }
+
     public function updateData(Request $request, string $table)
     {
         $this->validateTable($table);
@@ -206,7 +257,7 @@ class SiteContentController extends Controller
      */
     private function validateTable(string $table): void
     {
-        if (!in_array($table, $this->allowedTables)) {
+        if (! array_key_exists($table, $this->tabs())) {
             abort(404, 'Table tidak ditemukan.');
         }
     }

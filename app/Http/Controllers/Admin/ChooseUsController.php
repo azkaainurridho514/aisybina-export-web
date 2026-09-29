@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\ChooseUs;
 use Illuminate\Http\Request;
@@ -9,11 +10,22 @@ use Illuminate\Support\Str;
 
 class ChooseUsController extends Controller
 {
-    public function getData()
+    use PaginatesAdminList;
+
+    /**
+     * Halaman daftar (Blade, dirender server).
+     */
+    public function index()
     {
-        return response()->json(
-            ChooseUs::orderBy('created_at', 'asc')->get()
-        );
+        $items = ChooseUs::orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        if ($redirect = $this->lastPageRedirect($items, 'admin.choose-us.index')) {
+            return $redirect;
+        }
+
+        return view('admin.choose-us.index', ['items' => $items]);
     }
 
     public function show(string $id)

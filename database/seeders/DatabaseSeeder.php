@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::create([
             'name' => 'Aisybina Export',
-            'email' => 'aisybinaexport@gmail.com',
+            'email' => 'aisybinaberkahjaya@gmail.com',
             "password" => Hash::make("@i5yb!na3xp0r7")
         ]);
 
@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             'logo' => 'images/website/logo_aisybina.png',
             'website_name' => 'Aisybina Export',
             'website_slug' => 'Connecting global buyers with quality products from Indonesia.',
-            'website_description' => 'Aisy Bina Exports finds and vets Indonesian suppliers so international buyers can source with confidence, without spending months on the ground themselves.',
+            'website_description' => 'AisyBina Exports finds and vets Indonesian suppliers so international buyers can source with confidence, without spending months on the ground themselves.',
             'heading' => 'From the archipelago to your warehouse.',
             'about_heading' => 'A sourcing partner who does the groundwork for you.',
-            'about_description' => 'We spend our time visiting suppliers, checking samples, and negotiating terms — so you can focus on running your own business. Aisy Bina Exports is the bridge between Indonesian producers and buyers abroad.',
+            'about_description' => 'We spend our time visiting suppliers, checking samples, and negotiating terms — so you can focus on running your own business. AisyBina Exports is the bridge between Indonesian producers and buyers abroad.',
             'category_heading' => 'Categories we source.',
             'category_description' => 'Each category below represents a network of producers we already work with — and a starting point if you need something more specific.',
             'choose_us_heading' => 'What working with us looks like.',
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
             "product_heading" => "Browse what we source.",
             "product_subheading" => "Five categories, one point of contact. If your product doesn't fit any of them, send us a request at the end of the page.",
             'whatsapp' => "",
-            'email' => 'aisybinaexport@gmail.com',
+            'email' => 'aisybinaberkahjaya@gmail.com',
             'tiktok' => "",
             'instagram' => "",
             'facebook' => "",

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessHour;
 use Illuminate\Http\Request;
@@ -9,14 +10,22 @@ use Illuminate\Support\Str;
 
 class BusinessHourController extends Controller
 {
-    /**
-     * Get all business hours.
-     */
-    public function getData()
-    {
-        $data = BusinessHour::orderBy('id')->get();
+    use PaginatesAdminList;
 
-        return response()->json($data);
+    /**
+     * Halaman daftar (Blade, dirender server).
+     */
+    public function index()
+    {
+        $items = BusinessHour::orderBy('id')
+            ->paginate(10)
+            ->withQueryString();
+
+        if ($redirect = $this->lastPageRedirect($items, 'admin.business-hours.index')) {
+            return $redirect;
+        }
+
+        return view('admin.business-hours.index', ['items' => $items]);
     }
 
     /**

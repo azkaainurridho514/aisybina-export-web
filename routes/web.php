@@ -18,35 +18,17 @@ use App\Http\Controllers\Admin\OurMissionController;
 use App\Http\Controllers\Admin\OurValueController;
 use App\Http\Controllers\Admin\ChooseUsController;
 use App\Http\Controllers\Admin\AboutItemController;
+use App\Http\Controllers\GuestController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Public Pages
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/', function () {
-    return view('index');
-});
-    
-Route::get('/about', function () {
-    return view('about');
-});
-Route::get('/products', function () {
-    return view('products');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Authentication Pages
-|--------------------------------------------------------------------------
-*/
+Route::get('/', [GuestController::class, 'index'])->name('home');
+Route::get('/about', [GuestController::class, 'about'])->name('about');
+ 
+Route::get('/products', [GuestController::class, 'products'])->name('products');
+Route::get('/products/data', [GuestController::class, 'productsData'])->name('products.data');
+ 
+Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
+Route::post('/inquiry', [GuestController::class, 'storeInquiry'])->name('inquiry.store');
 
 Route::middleware('guest')->group(function () {
 
@@ -60,353 +42,41 @@ Route::middleware('guest')->group(function () {
 });
 
 
-/*
-|--------------------------------------------------------------------------
-| Authentication
-|--------------------------------------------------------------------------
-*/
-
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth');
 
-/*
-|--------------------------------------------------------------------------
-| Public AJAX / API
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/get-data/master/{page}', [HomeController::class, 'getData']);
-
-Route::get('/get-data/products', [ProductPageController::class, 'getData']);
-
-Route::post('/inquiry', [InquiryFormController::class, 'store']);
-
-
-/*
-|--------------------------------------------------------------------------
-| Admin Page
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/admin', function () {
-    return view('admin');
-})->middleware('auth');
-
-
-/*
-|--------------------------------------------------------------------------
-| Admin AJAX / Data
-|--------------------------------------------------------------------------
-*/
-
 Route::middleware('auth')
     ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
 
-        /*
-        |--------------------------------------------------------------------------
-        | Dashboard
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/dashboard', [
-            DashboardController::class,
-            'getData'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Categories
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/categories', [
-            CategoryController::class,
-            'getData'
-        ]);
-
-        Route::get('/categories/{id}', [
-            CategoryController::class,
-            'show'
-        ]);
-
-        Route::post('/categories', [
-            CategoryController::class,
-            'store'
-        ]);
-
-        Route::put('/categories/{id}', [
-            CategoryController::class,
-            'update'
-        ]);
-
-        Route::delete('/categories/{id}', [
-            CategoryController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Products
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/products', [
-            ProductController::class,
-            'getData'
-        ]);
-
-        Route::get('/products/{id}', [
-            ProductController::class,
-            'show'
-        ]);
-
-        Route::post('/products', [
-            ProductController::class,
-            'store'
-        ]);
-
-        Route::put('/products/{id}', [
-            ProductController::class,
-            'update'
-        ]);
-
-        Route::delete('/products/{id}', [
-            ProductController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Inquiries
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/inquiries', [
-            InquiryFormController::class,
-            'getData'
-        ]);
-
-        Route::get('/inquiries/{id}', [
-            InquiryFormController::class,
-            'show'
-        ]);
-
-        Route::delete('/inquiries/{id}', [
-            InquiryFormController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Business Hours
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/business-hours', [
-            BusinessHourController::class,
-            'getData'
-        ]);
-
-        Route::get('/business-hours/{id}', [
-            BusinessHourController::class,
-            'show'
-        ]);
-
-        Route::post('/business-hours', [
-            BusinessHourController::class,
-            'store'
-        ]);
-
-        Route::put('/business-hours/{id}', [
-            BusinessHourController::class,
-            'update'
-        ]);
-
-        Route::delete('/business-hours/{id}', [
-            BusinessHourController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Our Mission
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/our-mission', [
-            OurMissionController::class,
-            'getData'
-        ]);
-
-        Route::get('/our-mission/{id}', [
-            OurMissionController::class,
-            'show'
-        ]);
-
-        Route::post('/our-mission', [
-            OurMissionController::class,
-            'store'
-        ]);
-
-        Route::put('/our-mission/{id}', [
-            OurMissionController::class,
-            'update'
-        ]);
-
-        Route::delete('/our-mission/{id}', [
-            OurMissionController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Our Value
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/our-value', [
-            OurValueController::class,
-            'getData'
-        ]);
-
-        Route::get('/our-value/{id}', [
-            OurValueController::class,
-            'show'
-        ]);
-
-        Route::post('/our-value', [
-            OurValueController::class,
-            'store'
-        ]);
-
-        Route::put('/our-value/{id}', [
-            OurValueController::class,
-            'update'
-        ]);
-
-        Route::delete('/our-value/{id}', [
-            OurValueController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Our Process
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/our-process', [
-            OurProcessController::class,
-            'getData'
-        ]);
-
-        Route::get('/our-process/{id}', [
-            OurProcessController::class,
-            'show'
-        ]);
-
-        Route::post('/our-process', [
-            OurProcessController::class,
-            'store'
-        ]);
-
-        Route::put('/our-process/{id}', [
-            OurProcessController::class,
-            'update'
-        ]);
-
-        Route::delete('/our-process/{id}', [
-            OurProcessController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Choose Us
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/choose-us', [
-            ChooseUsController::class,
-            'getData'
-        ]);
-
-        Route::get('/choose-us/{id}', [
-            ChooseUsController::class,
-            'show'
-        ]);
-
-        Route::post('/choose-us', [
-            ChooseUsController::class,
-            'store'
-        ]);
-
-        Route::put('/choose-us/{id}', [
-            ChooseUsController::class,
-            'update'
-        ]);
-
-        Route::delete('/choose-us/{id}', [
-            ChooseUsController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | About Items
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/about-items', [
-            AboutItemController::class,
-            'getData'
-        ]);
-
-        Route::get('/about-items/{id}', [
-            AboutItemController::class,
-            'show'
-        ]);
-
-        Route::post('/about-items', [
-            AboutItemController::class,
-            'store'
-        ]);
-
-        Route::put('/about-items/{id}', [
-            AboutItemController::class,
-            'update'
-        ]);
-
-        Route::delete('/about-items/{id}', [
-            AboutItemController::class,
-            'destroy'
-        ]);
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Site Content
-        |--------------------------------------------------------------------------
-        */
-
-        Route::get('/site-content/{table}', [
-            SiteContentController::class,
-            'getData'
-        ]);
-
-        Route::put('/site-content/{table}', [
-            SiteContentController::class,
-            'updateData'
-        ]);
+        Route::get('/', fn () => redirect()->route('admin.dashboard'))->name('home');
+
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/site-content', [SiteContentController::class, 'index'])->name('site-content.index');
+        Route::put('/site-content/{table}', [SiteContentController::class, 'updateData'])->name('site-content.update');
+
+        Route::get('/inquiries/export', [InquiryFormController::class, 'export'])->name('inquiries.export');
+        Route::resource('inquiries', InquiryFormController::class)
+            ->only(['index', 'show', 'destroy'])
+            ->parameters(['inquiries' => 'id']);
+
+        $crud = [
+            'categories'     => CategoryController::class,
+            'products'       => ProductController::class,
+            'our-mission'    => OurMissionController::class,
+            'our-value'      => OurValueController::class,
+            'our-process'    => OurProcessController::class,
+            'choose-us'      => ChooseUsController::class,
+            'about-items'    => AboutItemController::class,
+            'business-hours' => BusinessHourController::class,
+        ];
+
+        foreach ($crud as $uri => $controller) {
+            Route::resource($uri, $controller)
+                ->only(['index', 'show', 'store', 'update', 'destroy'])
+                ->parameters([$uri => 'id']);
+        }
     });

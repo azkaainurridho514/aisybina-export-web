@@ -1,55 +1,31 @@
-LOAD ORDER UNTUK admin.blade.php
+STRUKTUR JS ADMIN (setelah refactor ke Blade)
+=============================================
 
-1. 01-api.js
-2. 02-entities.js
-3. 03-crud.js
-4. 04-product-detail.js
-5. 05-inquiries.js
-6. 06-settings.js
-7. 07-data-layer.js
-8. 08-dashboard.js
-9. 09-navigation.js
-10. 10-admin-events.js
-11. 11-login.js
-12. 12-common.js  <-- shared functions sengaja paling bawah
+Layout: resources/views/layouts/admin.blade.php
+Semua halaman admin memuat, berurutan:
+  1. 13-utils.js          toast, confirmDelete, normalizeError, initQuillEditors
+  2. admin/common.js      CSRF, adminRequest, adminUpload, escapeHtml, adminReload,
+                          flash toast, sidebar mobile, logout
+  3. (per halaman, lewat @push('scripts'))
 
-Semua file memakai global scope seperti script-admin.js lama, sehingga tidak
-perlu mengubah kode menjadi ES Module/import. Pastikan urutan <script> sesuai.
+Per halaman:
+  Categories       admin/categories.js
+  Products         admin/products.js
+  Inquiries        admin/inquiries.js        (+ SheetJS lewat @push('vendor'))
+  Site Content     admin/site-content.js
+  Our Mission, Our Value, Export Process, Why Choose Us, About Items,
+  Business Hours   admin/crud.js  + AdminCrud.init({...}) di view masing-masing
+                   (Why Choose Us & About Items juga memuat 00-constants.js
+                    untuk daftar ikon)
 
-Route yang dipakai:
-GET    /admin/dashboard
-GET    /admin/categories
-GET    /admin/categories/{id}
-POST   /admin/categories
-PUT    /admin/categories/{id}
-DELETE /admin/categories/{id}
-GET    /admin/products
-GET    /admin/products/{id}
-POST   /admin/products
-PUT    /admin/products/{id}
-DELETE /admin/products/{id}
-GET    /admin/inquiries
-GET    /admin/inquiries/{id}
-DELETE /admin/inquiries/{id}
-GET    /admin/business-hours
-GET    /admin/business-hours/{id}
-POST   /admin/business-hours
-PUT    /admin/business-hours/{id}
-DELETE /admin/business-hours/{id}
-GET    /admin/our-process
-GET    /admin/our-process/{id}
-POST   /admin/our-process
-PUT    /admin/our-process/{id}
-DELETE /admin/our-process/{id}
-GET    /admin/choose-us
-GET    /admin/choose-us/{id}
-POST   /admin/choose-us
-PUT    /admin/choose-us/{id}
-DELETE /admin/choose-us/{id}
-GET    /admin/about-items
-GET    /admin/about-items/{id}
-POST   /admin/about-items
-PUT    /admin/about-items/{id}
-DELETE /admin/about-items/{id}
-GET    /admin/site-content/{table}
-PUT    /admin/site-content/{table}
+Halaman login masih memakai: 01-api.js, 11-login.js.
+
+DINONAKTIFKAN (seluruh isi dikomentari, aman dihapus setelah dicek):
+  02-entities.js, 03-crud.js, 04-product-detail.js, 05-inquiries.js,
+  06-settings.js, 07-data-layer.js, 08-dashboard.js, 09-navigation.js,
+  10-admin-events.js, 12-common.js
+Sebagian dikomentari:
+  00-constants.js  (ASSET_LIBRARY), 01-api.js (route entity), 13-utils.js
+  (normalizeListResponse, renderQuillContent, renderQuillInline)
+
+Tidak disentuh (halaman publik): script.js, pages/products.js

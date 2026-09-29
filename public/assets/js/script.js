@@ -1,21 +1,10 @@
-/* ==========================================================================
-   Aisy Bina Exports — script.js
-   jQuery is used only for small, simple behaviors:
-   - Navbar background/shadow state on scroll
-   - Smooth scroll for in-page anchor links
-   AOS handles all scroll animation.
-   ========================================================================== */
-
 $(function () {
-
-  // Initialize AOS with light, subtle settings.
   AOS.init({
     duration: 700,
     once: true,
     offset: 80
   });
 
-  // Add a class to the navbar once the page has scrolled a little.
   var $navbar = $("#mainNavbar");
 
   function updateNavbarState() {
@@ -28,8 +17,6 @@ $(function () {
 
   updateNavbarState();
   $(window).on("scroll", updateNavbarState);
-
-  // Smooth scroll for same-page anchor links (e.g. "#products").
   $('a.nav-link[href^="#"], a[href^="#"].smooth-scroll').on("click", function (e) {
     var target = $(this.hash);
     if (target.length) {
@@ -38,8 +25,6 @@ $(function () {
         { scrollTop: target.offset().top - 90 },
         500
       );
-
-      // Collapse mobile navbar after clicking a link.
       var $collapse = $(".navbar-collapse");
       if ($collapse.hasClass("show")) {
         $collapse.collapse("hide");
@@ -48,13 +33,6 @@ $(function () {
   });
 
 });
-
-/* ==========================================================================
-   ADDITION — Product photo preview modal sync
-   When a photo inside a product card carousel is clicked, the preview
-   modal opens showing that same photo instead of always starting at
-   the first slide. Nothing above this line was changed for this update.
-   ========================================================================== */
 
 $(function () {
 

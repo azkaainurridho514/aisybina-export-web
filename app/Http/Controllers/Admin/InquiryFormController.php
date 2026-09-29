@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\InquiryForm;
 use Illuminate\Http\Request;
 
 class InquiryFormController extends Controller
 {
+    use PaginatesAdminList;
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -40,41 +43,65 @@ class InquiryFormController extends Controller
     }
 
     /**
-     * Get all inquiries.
+     * Halaman daftar inquiry (Blade, dirender server) dengan filter.
      */
-    public function getData(Request $request)
+    public function index(Request $request)
     {
-        $fullname = $request->query('fullname');
-        $companyName = $request->query('company_name');
-        $country = $request->query('country');
-        $startDate = $request->query('start_date');
-        $endDate = $request->query('end_date');
+        $filters = $request->only(['fullname', 'company_name', 'country', 'start_date', 'end_date']);
 
-        $perPage = min(
-            (int) $request->query('per_page', 10),
-            100
-        );
-
-        $data = InquiryForm::query()
-            ->when($fullname, function ($query, $fullname) {
-                $query->where('fullname', 'like', '%' . $fullname . '%');
-            })
-            ->when($companyName, function ($query, $companyName) {
-                $query->where('company_name', 'like', '%' . $companyName . '%');
-            })
-            ->when($country, function ($query, $country) {
-                $query->where('country', 'like', '%' . $country . '%');
-            })
-            ->when($startDate, function ($query, $startDate) {
-                $query->whereDate('created_at', '>=', $startDate);
-            })
-            ->when($endDate, function ($query, $endDate) {
-                $query->whereDate('created_at', '<=', $endDate);
-            })
+        $inquiries = $this->filteredQuery($filters)
             ->latest('created_at')
-            ->paginate($perPage);
+            ->paginate(10)
+            ->withQueryString();
 
-        return response()->json($data);
+        if ($redirect = $this->lastPageRedirect($inquiries, 'admin.inquiries.index', $filters)) {
+            return $redirect;
+        }
+
+        return view('admin.inquiries.index', [
+            'inquiries' => $inquiries,
+            'filters'   => $filters,
+        ]);
+    }
+
+    /**
+     * Data untuk export Excel (JSON; file .xlsx dibuat di browser).
+     * Batas 5000 baris agar respons tetap ringan.
+     */
+    public function export(Request $request)
+    {
+        $rows = $this->filteredQuery($request->only(['start_date', 'end_date']))
+            ->latest('created_at')
+            ->limit(5000)
+            ->get()
+            ->map(fn ($r) => [
+                'Tanggal'         => optional($r->created_at)->format('Y-m-d H:i:s'),
+                'Nama'            => $r->fullname,
+                'Perusahaan'      => $r->company_name,
+                'Email'           => $r->email,
+                'WhatsApp'        => $r->whatsapp,
+                'Negara'          => $r->country,
+                'Produk Diminati' => $r->product_interested,
+                'Estimasi Qty'    => $r->estimated_quantity,
+                'Pesan'           => $r->message,
+            ]);
+
+        return response()->json(['data' => $rows]);
+    }
+
+    /**
+     * Query dengan filter yang dipakai daftar dan export.
+     */
+    private function filteredQuery(array $filters)
+    {
+        $like = fn ($value) => '%' . addcslashes((string) $value, '%_\\') . '%';
+
+        return InquiryForm::query()
+            ->when($filters['fullname'] ?? null, fn ($q, $v) => $q->where('fullname', 'like', $like($v)))
+            ->when($filters['company_name'] ?? null, fn ($q, $v) => $q->where('company_name', 'like', $like($v)))
+            ->when($filters['country'] ?? null, fn ($q, $v) => $q->where('country', 'like', $like($v)))
+            ->when($filters['start_date'] ?? null, fn ($q, $v) => $q->whereDate('created_at', '>=', $v))
+            ->when($filters['end_date'] ?? null, fn ($q, $v) => $q->whereDate('created_at', '<=', $v));
     }
 
     /**

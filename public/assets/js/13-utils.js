@@ -6,34 +6,6 @@ var Toast = Swal.mixin({
   timerProgressBar: true
 });
 
-
-
-
-function normalizeListResponse(response) {
-  if (Array.isArray(response)) {
-    return {
-      rows: response,
-      current_page: 1,
-      last_page: 1,
-      per_page: response.length || 10,
-      total: response.length,
-      from: response.length ? 1 : 0,
-      to: response.length
-    };
-  }
-
-  return {
-    rows: Array.isArray(response && response.data) ? response.data : [],
-    current_page: Number(response && response.current_page) || 1,
-    last_page: Number(response && response.last_page) || 1,
-    per_page: Number(response && response.per_page) || 10,
-    total: Number(response && response.total) || 0,
-    from: Number(response && response.from) || 0,
-    to: Number(response && response.to) || 0
-  };
-}
-
-
 function confirmDelete(label) {
   return Swal.fire({
     title: "Hapus data ini?",
@@ -96,62 +68,4 @@ function initQuillEditors() {
 
     $(this).data("quill", editor);
   });
-}
-
-
-function renderQuillContent(selector, content) {
-    const $target = $(selector);
-
-    const cleanHtml = DOMPurify.sanitize(content || "");
-
-    const $temp = $("<div>").html(cleanHtml);
-
-    const defaultStyle = $target.attr("style") || "";
-
-    const $quillWrapper = $temp.children().first();
-
-    if ($temp.children().length === 1 && $quillWrapper.is("p")) {
-
-        const quillStyle = $quillWrapper.attr("style") || "";
-
-        const quillClass = $quillWrapper.attr("class") || "";
-
-        if (quillStyle) {
-            $target.attr(
-                "style",
-                defaultStyle.replace(/;?\s*$/, ";") + quillStyle
-            );
-        }
-
-        if (quillClass) {
-            $target.addClass(quillClass);
-        }
-
-        $target.html($quillWrapper.html());
-
-    } else {
-        $target.html(cleanHtml);
-    }
-}
-
-function renderQuillInline(content) {
-    const cleanHtml = DOMPurify.sanitize(content || "");
-    const $temp = $("<div>").html(cleanHtml);
-
-    // Kalau Quill menghasilkan satu <p>, ambil isinya saja
-    if ($temp.children().length === 1 && $temp.children().first().is("p")) {
-        const $p = $temp.children().first();
-
-        // Buang style yang seharusnya mengikuti style parent
-        $p.css({
-            color: "",
-            backgroundColor: "",
-            fontFamily: "",
-            fontSize: ""
-        });
-
-        return $p.html();
-    }
-
-    return cleanHtml;
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\OurProcess;
 use Illuminate\Http\Request;
@@ -9,11 +10,22 @@ use Illuminate\Support\Str;
 
 class OurProcessController extends Controller
 {
-    public function getData()
+    use PaginatesAdminList;
+
+    /**
+     * Halaman daftar (Blade, dirender server).
+     */
+    public function index()
     {
-        return response()->json(
-            OurProcess::orderBy('created_at', 'asc')->get()
-        );
+        $items = OurProcess::orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        if ($redirect = $this->lastPageRedirect($items, 'admin.our-process.index')) {
+            return $redirect;
+        }
+
+        return view('admin.our-process.index', ['items' => $items]);
     }
 
     public function show(string $id)

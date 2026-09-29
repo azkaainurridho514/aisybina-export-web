@@ -10,13 +10,15 @@ use App\Models\Product;
 
 class DashboardController extends Controller
 {
-    public function getData()
+    public function index()
     {
-        return response()->json([
-            'products' => Product::count(),
-            'categories' => Category::count(),
-            'inquiries' => InquiryForm::count(),
-            'process' => OurProcess::count(),
+        return view('admin.dashboard.index', [
+            'stats' => [
+                'products'   => Product::count(),
+                'categories' => Category::count(),
+                'inquiries'  => InquiryForm::count(),
+                'process'    => OurProcess::count(),
+            ],
         ]);
     }
 }

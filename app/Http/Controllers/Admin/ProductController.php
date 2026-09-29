@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -11,22 +13,32 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    /**
-     * Get all products.
-     */
-    public function getData(Request $request)
-    {
-        $search = $request->query('search');
-        $perPage = $request->query('per_page', 10);
+    use PaginatesAdminList;
 
-        $products = Product::with('category')
-            ->when($search, function ($query, $search) {
-                $query->where('name', 'like', '%' . $search . '%');
+    /**
+     * Halaman daftar produk (Blade, dirender server).
+     */
+    public function index(Request $request)
+    {
+        $search = trim((string) $request->query('search', ''));
+
+        $products = Product::with(['category', 'images'])
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . addcslashes($search, '%_\\') . '%');
             })
             ->latest()
-            ->paginate($perPage);
+            ->paginate(10)
+            ->withQueryString();
 
-        return response()->json($products);
+        if ($redirect = $this->lastPageRedirect($products, 'admin.products.index', ['search' => $search])) {
+            return $redirect;
+        }
+
+        return view('admin.products.index', [
+            'products'   => $products,
+            'search'     => $search,
+            'categories' => Category::orderBy('name')->get(['id', 'name']),
+        ]);
     }
 
     /**

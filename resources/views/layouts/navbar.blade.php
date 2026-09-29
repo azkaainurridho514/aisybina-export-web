@@ -1,9 +1,11 @@
 <header>
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center justify-content-center gap-2" href="/" id="navbarBrand">
-                <img id="navbarLogo" src="" alt="" style="width: 35px; height: 35px; object-fit: contain;">
-                <span id="navbarWebsiteName"></span>
+            <a class="navbar-brand d-flex align-items-center justify-content-center gap-2" href="/">
+                @if (!empty($master->logo))
+                    <img src="{{ $master->logo }}" alt="{{ $master->website_name ?? '' }}" style="width: 35px; height: 35px; object-fit: contain;">
+                @endif
+                <span>{{ $master->website_name ?? '' }}</span>
                 <span class="brand-dot">.</span>
             </a>
 
@@ -27,21 +29,3 @@
         </div>
     </nav>
 </header>
-
-@push('scripts')
-    <script>
-       function renderNavbarBrand(master) {
-            if (master) {
-                $("#navbarWebsiteName").text(master.website_name || "");
-                $("#navbarLogo").attr({
-                    src: master.logo || "",
-                    alt: master.website_name || ""
-                });
-                $("#iconTab").attr(
-                    "href",
-                    master.logo || ""
-                );
-            }
-        }
-    </script>
-@endpush
