@@ -10,12 +10,6 @@ class CategoryController extends Controller
 {
     private const PER_PAGE = 10;
 
-    /**
-     * Halaman daftar kategori (Blade, dirender server).
-     *
-     * Permintaan yang meminta JSON (SPA admin lama) tetap dilayani dengan
-     * format lama, sehingga admin lama masih berfungsi selama masa transisi.
-     */
     public function index(Request $request)
     {
         if ($request->expectsJson()) {
@@ -32,7 +26,6 @@ class CategoryController extends Controller
             ->paginate(self::PER_PAGE)
             ->withQueryString();
 
-        // Halaman kosong setelah hapus data terakhir di halaman ini.
         if ($categories->isEmpty() && $categories->currentPage() > 1) {
             return redirect()->route('admin.categories.index', array_filter([
                 'search' => $search,
@@ -46,9 +39,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Daftar dalam format JSON (dipakai admin lama).
-     */
     protected function getData(Request $request)
     {
         $search  = $request->query('search');
@@ -63,9 +53,6 @@ class CategoryController extends Controller
         return response()->json($data);
     }
 
-    /**
-     * Satu kategori (JSON, untuk mengisi modal edit).
-     */
     public function show(string $id)
     {
         $category = Category::find($id);
@@ -77,9 +64,6 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    /**
-     * Tambah kategori. Cache dibersihkan oleh CategoryObserver.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -95,9 +79,6 @@ class CategoryController extends Controller
         ], 201);
     }
 
-    /**
-     * Ubah kategori. Cache dibersihkan oleh CategoryObserver.
-     */
     public function update(Request $request, string $id)
     {
         $category = Category::find($id);
@@ -119,10 +100,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Hapus kategori. Ditolak bila masih dipakai produk, agar produk dan
-     * file fotonya tidak ikut hilang atau menjadi yatim.
-     */
     public function destroy(string $id)
     {
         $category = Category::find($id);

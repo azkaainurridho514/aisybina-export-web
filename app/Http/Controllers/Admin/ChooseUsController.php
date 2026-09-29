@@ -12,9 +12,6 @@ class ChooseUsController extends Controller
 {
     use PaginatesAdminList;
 
-    /**
-     * Halaman daftar (Blade, dirender server).
-     */
     public function index()
     {
         $items = ChooseUs::orderBy('created_at', 'asc')

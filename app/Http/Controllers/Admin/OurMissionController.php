@@ -12,9 +12,6 @@ class OurMissionController extends Controller
 {
     use PaginatesAdminList;
 
-    /**
-     * Halaman daftar (Blade, dirender server).
-     */
     public function index()
     {
         $items = OurMission::orderBy('created_at', 'asc')

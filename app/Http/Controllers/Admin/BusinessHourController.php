@@ -11,10 +11,6 @@ use Illuminate\Support\Str;
 class BusinessHourController extends Controller
 {
     use PaginatesAdminList;
-
-    /**
-     * Halaman daftar (Blade, dirender server).
-     */
     public function index()
     {
         $items = BusinessHour::orderBy('id')
@@ -28,9 +24,6 @@ class BusinessHourController extends Controller
         return view('admin.business-hours.index', ['items' => $items]);
     }
 
-    /**
-     * Get one business hour.
-     */
     public function show(string $id)
     {
         $businessHour = BusinessHour::find($id);
@@ -44,9 +37,6 @@ class BusinessHourController extends Controller
         return response()->json($businessHour);
     }
 
-    /**
-     * Create business hour.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -68,9 +58,6 @@ class BusinessHourController extends Controller
         ], 201);
     }
 
-    /**
-     * Update business hour.
-     */
     public function update(Request $request, string $id)
     {
         $businessHour = BusinessHour::find($id);
@@ -95,9 +82,6 @@ class BusinessHourController extends Controller
         ]);
     }
 
-    /**
-     * Delete business hour.
-     */
     public function destroy(string $id)
     {
         $businessHour = BusinessHour::find($id);

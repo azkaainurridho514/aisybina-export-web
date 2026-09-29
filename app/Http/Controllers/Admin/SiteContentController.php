@@ -252,9 +252,6 @@ class SiteContentController extends Controller
         }
     }
 
-    /**
-     * Validate singleton table.
-     */
     private function validateTable(string $table): void
     {
         if (! array_key_exists($table, $this->tabs())) {

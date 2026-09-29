@@ -11,10 +11,6 @@ use Illuminate\Support\Str;
 class AboutItemController extends Controller
 {
     use PaginatesAdminList;
-
-    /**
-     * Halaman daftar (Blade, dirender server).
-     */
     public function index()
     {
         $items = AboutItem::orderBy('created_at', 'asc')

@@ -1,9 +1,4 @@
 @php
-  /*
-   | [label, ikon, nama route, pola route aktif]
-   | Nama route mengikuti routes/web.php (admin.<modul>.index). Bila route
-   | belum dibuat, link jatuh ke /admin (yang mengarah ke dashboard).
-   */
   $menu = [
     [
       'label' => null, 'items' => [

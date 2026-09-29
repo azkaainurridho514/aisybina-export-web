@@ -10,9 +10,7 @@ use Illuminate\Support\Str;
 
 class ContactController extends Controller
 {
-    /**
-     * Get contact information.
-     */
+
     public function getData()
     {
         $contact = DB::table('contact')->first();
@@ -29,9 +27,6 @@ class ContactController extends Controller
         ]);
     }
 
-    /**
-     * Submit inquiry form.
-     */
     public function submitInquiry(Request $request)
     {
         $data = $request->validate([

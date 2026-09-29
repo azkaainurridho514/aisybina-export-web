@@ -14,10 +14,6 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     use PaginatesAdminList;
-
-    /**
-     * Halaman daftar produk (Blade, dirender server).
-     */
     public function index(Request $request)
     {
         $search = trim((string) $request->query('search', ''));
@@ -41,9 +37,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Get one product.
-     */
     public function show(string $id)
     {
         $product = Product::with('category', 'images')->find($id);
@@ -57,9 +50,6 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    /**
-     * Create product.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -80,9 +70,6 @@ class ProductController extends Controller
                 'description' => $data['description'] ?? null,
             ]);
 
-            /**
-             * Upload images ke public/products.
-             */
             if ($request->hasFile('images')) {
 
                 $isProduction = app()->environment('production');
@@ -91,7 +78,6 @@ class ProductController extends Controller
                     ? '/home/aisy8672/public_html/images/products'
                     : public_path('images/products');
 
-                // Pastikan folder products tersedia.
                 if (!is_dir($uploadPath)) {
                     mkdir($uploadPath, 0755, true);
                 }
@@ -127,17 +113,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Update product.
-     *
-     * Jika images dikirim:
-     * - hapus semua image lama
-     * - hapus file lama dari public/products
-     * - simpan image baru
-     *
-     * Jika images tidak dikirim:
-     * - image lama tetap dipertahankan
-     */
     public function update(Request $request, string $id)
     {
         $product = Product::find($id);
@@ -160,25 +135,17 @@ class ProductController extends Controller
 
         try {
             $isProduction = app()->environment('production');
-            /**
-             * Update data product.
-             */
+     
             $product->update([
                 'category_id' => $data['category_id'],
                 'name' => $data['name'],
                 'description' => $data['description'] ?? null,
             ]);
 
-            /**
-             * Jika ada images baru:
-             * hapus image lama lalu upload image baru.
-             */
+      
             if ($request->hasFile('images')) {
                 $oldImages = $product->images()->get();
 
-                /**
-                 * Hapus file dan record image lama.
-                 */
                 foreach ($oldImages as $oldImage) {
                     $path = $oldImage->getRawOriginal('path');
 
@@ -195,9 +162,6 @@ class ProductController extends Controller
                     $oldImage->delete();
                 }
 
-                /**
-                 * Upload image baru ke public/products.
-                 */
                 $uploadPath = $isProduction
                     ? '/home/aisy8672/public_html/images/products'
                     : public_path('images/products');
@@ -237,13 +201,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Delete product.
-     *
-     * - hapus semua file image dari public/products
-     * - hapus record image
-     * - hapus product
-     */
     public function destroy(string $id)
     {
         $product = Product::with('images')->find($id);
@@ -258,9 +215,7 @@ class ProductController extends Controller
 
         try {
              $isProduction = app()->environment('production');
-            /**
-             * Hapus semua image product.
-             */
+ 
             foreach ($product->images as $image) {
                 $path = $image->getRawOriginal('path');
 
@@ -277,9 +232,6 @@ class ProductController extends Controller
                 $image->delete();
             }
 
-            /**
-             * Hapus product.
-             */
             $product->delete();
 
             DB::commit();

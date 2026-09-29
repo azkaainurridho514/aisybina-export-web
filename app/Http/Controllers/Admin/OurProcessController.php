@@ -12,9 +12,6 @@ class OurProcessController extends Controller
 {
     use PaginatesAdminList;
 
-    /**
-     * Halaman daftar (Blade, dirender server).
-     */
     public function index()
     {
         $items = OurProcess::orderBy('created_at', 'asc')

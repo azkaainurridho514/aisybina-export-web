@@ -42,9 +42,6 @@ class InquiryFormController extends Controller
         ]);
     }
 
-    /**
-     * Halaman daftar inquiry (Blade, dirender server) dengan filter.
-     */
     public function index(Request $request)
     {
         $filters = $request->only(['fullname', 'company_name', 'country', 'start_date', 'end_date']);
@@ -64,10 +61,6 @@ class InquiryFormController extends Controller
         ]);
     }
 
-    /**
-     * Data untuk export Excel (JSON; file .xlsx dibuat di browser).
-     * Batas 5000 baris agar respons tetap ringan.
-     */
     public function export(Request $request)
     {
         $rows = $this->filteredQuery($request->only(['start_date', 'end_date']))
@@ -89,9 +82,6 @@ class InquiryFormController extends Controller
         return response()->json(['data' => $rows]);
     }
 
-    /**
-     * Query dengan filter yang dipakai daftar dan export.
-     */
     private function filteredQuery(array $filters)
     {
         $like = fn ($value) => '%' . addcslashes((string) $value, '%_\\') . '%';
@@ -104,9 +94,6 @@ class InquiryFormController extends Controller
             ->when($filters['end_date'] ?? null, fn ($q, $v) => $q->whereDate('created_at', '<=', $v));
     }
 
-    /**
-     * Get one inquiry.
-     */
     public function show(string $id)
     {
         $inquiry = InquiryForm::find($id);
@@ -120,9 +107,6 @@ class InquiryFormController extends Controller
         return response()->json($inquiry);
     }
 
-    /**
-     * Delete inquiry.
-     */
     public function destroy(string $id)
     {
         $inquiry = InquiryForm::find($id);

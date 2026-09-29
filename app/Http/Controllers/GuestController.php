@@ -6,7 +6,7 @@ use App\Models\AboutItem;
 use App\Models\BusinessHour;
 use App\Models\Category;
 use App\Models\ChooseUs;
-use App\Models\Inquiry;
+use App\Models\InquiryForm;
 use App\Models\OurProcess;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
@@ -55,9 +55,6 @@ class GuestController extends Controller
         ));
     }
 
-    /**
-     * GET /about — SSR penuh.
-     */
     public function about(): View
     {
         $pageDesc = DB::table('contact')->select(
@@ -75,11 +72,6 @@ class GuestController extends Controller
         return view('about', compact('pageDesc', 'master', 'about', 'aboutMissions', 'aboutValues'));
     }
 
-    /**
-     * GET /products — hanya hero + CTA yang SSR. Katalog produk memang
-     * sengaja dibiarkan AJAX (lihat productsData()), sesuai keputusan
-     * yang diambil sebelumnya untuk halaman ini.
-     */
     public function products(): View
     {
         $pageDesc = DB::table('contact')->select(
@@ -96,10 +88,6 @@ class GuestController extends Controller
         return view('products', compact('pageDesc', 'footer', 'master'));
     }
 
-    /**
-     * GET /products/data — dipanggil AJAX hanya dari halaman /products.
-     * Menggantikan ProductPageController@getData lama.
-     */
     public function productsData(): JsonResponse
     {
         return response()->json([
@@ -108,10 +96,6 @@ class GuestController extends Controller
         ]);
     }
 
-    /**
-     * GET /contact — SSR penuh. Grouping jam operasional dipindah dari
-     * JS ke groupBusinessHours() di bawah.
-     */
     public function contact(): View
     {
         $businessHours = BusinessHour::oldest()->get();
@@ -126,37 +110,28 @@ class GuestController extends Controller
         return view('contact', compact('master', 'contact', 'businessHoursLines'));
     }
 
-    /**
-     * POST /inquiry — submit form tetap AJAX (ini aksi, bukan konten),
-     * supaya user dapat feedback tanpa reload halaman.
-     */
+
     public function storeInquiry(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
+            'fullname' => 'required|string|max:255',
             'company_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:50',
+            'whatsapp' => 'nullable|string|max:50',
             'country' => 'nullable|string|max:100',
-            'product_interest' => 'nullable|string|max:255',
-            'quantity' => 'nullable|string|max:100',
+            'product_interested' => 'nullable|string|max:255',
+            'estimated_quantity' => 'nullable|string|max:100',
             'message' => 'required|string',
         ]);
 
-        Inquiry::create($validated);
+
+        InquiryForm::create($validated);
 
         return response()->json([
             'message' => 'Your inquiry has been successfully submitted. We will contact you shortly.',
         ]);
     }
 
-    /**
-     * Porting dari logika grouping hari di contact.blade.php (dulu ~70
-     * baris JS). Mengelompokkan hari berurutan dengan jam sama jadi satu
-     * baris, mis. "Senin – Jumat, 09:00 – 17:00 WIB".
-     *
-     * @return array<int, string>
-     */
     private function groupBusinessHours(Collection $businessHours): array
     {
         $dayOrder = [

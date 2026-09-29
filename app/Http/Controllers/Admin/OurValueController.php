@@ -12,9 +12,6 @@ class OurValueController extends Controller
 {
     use PaginatesAdminList;
 
-    /**
-     * Halaman daftar (Blade, dirender server).
-     */
     public function index()
     {
         $items = OurValue::orderBy('created_at', 'asc')

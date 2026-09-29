@@ -73,13 +73,13 @@
               <form method="POST" action="{{ route('inquiry.store') }}" id="inquiryForm">
                 @csrf
                 <div class="row g-3">
-                  <div class="col-md-6"><label for="fullName" class="form-label">Full Name</label><input type="text" class="form-control" id="fullName" name="full_name" required></div>
+                  <div class="col-md-6"><label for="fullName" class="form-label">Full Name</label><input type="text" class="form-control" id="fullName" name="fullname" required></div>
                   <div class="col-md-6"><label for="companyName" class="form-label">Company Name</label><input type="text" class="form-control" id="companyName" name="company_name"></div>
                   <div class="col-md-6"><label for="email" class="form-label">Email</label><input type="email" class="form-control" id="email" name="email" required></div>
-                  <div class="col-md-6"><label for="phone" class="form-label">WhatsApp / Phone</label><input type="tel" class="form-control" id="phone" name="phone"></div>
+                  <div class="col-md-6"><label for="phone" class="form-label">WhatsApp / Phone</label><input type="tel" class="form-control" id="phone" name="whatsapp"></div>
                   <div class="col-md-6"><label for="country" class="form-label">Country</label><input type="text" class="form-control" id="country" name="country"></div>
-                  <div class="col-md-6"><label for="productInterest" class="form-label">Product Interested In</label><input type="text" class="form-control" id="productInterest" name="product_interest"></div>
-                  <div class="col-md-6"><label for="quantity" class="form-label">Estimated Quantity</label><input type="text" class="form-control" id="quantity" name="quantity"></div>
+                  <div class="col-md-6"><label for="productInterest" class="form-label">Product Interested In</label><input type="text" class="form-control" id="productInterest" name="product_interested"></div>
+                  <div class="col-md-6"><label for="quantity" class="form-label">Estimated Quantity</label><input type="text" class="form-control" id="quantity" name="estimated_quantity"></div>
                   <div class="col-12"><label for="message" class="form-label">Message</label><textarea class="form-control" id="message" name="message" rows="4" required></textarea></div>
                   <div class="col-12 mt-2"><button type="submit" class="btn btn-forest btn-arrow">Send Inquiry</button></div>
                 </div>
@@ -108,7 +108,6 @@
   <script src="{{ asset('assets/js/script.js') }}"></script>
   @stack('scripts')
   <script>
-    // Cuma submit form inquiry yang tetap AJAX — ini aksi, bukan konten.
     $(function () {
       $("#inquiryForm").on("submit", function (e) {
         e.preventDefault();
@@ -134,6 +133,7 @@
             $form[0].reset();
           },
           error: function (xhr) {
+            console.log(xhr);
             var errorMsg = "Terjadi kesalahan, silakan coba lagi.";
             if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
               errorMsg = Object.values(xhr.responseJSON.errors).flat().join("<br>");
