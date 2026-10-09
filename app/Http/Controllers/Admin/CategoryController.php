@@ -38,6 +38,17 @@ class CategoryController extends Controller
             'search'     => $search,
         ]);
     }
+    
+    public function data()
+    {
+        $items = Category::orderBy('created_at', 'asc')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
+    }
 
     protected function getData(Request $request)
     {

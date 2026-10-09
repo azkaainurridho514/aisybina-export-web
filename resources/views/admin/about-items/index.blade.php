@@ -17,64 +17,24 @@
     </div>
 
     <div class="admin-card">
-      <div class="admin-card-head">
-        <h2>Daftar Item</h2>
-        <button type="button" class="btn-admin btn-admin-forest" data-action="create">
-          <i class="bi bi-plus-lg"></i> Tambah Item
-        </button>
-      </div>
-
-      <div class="admin-table-wrap">
-        @if ($items->isEmpty())
-          <div class="admin-empty">
-            <i class="bi bi-people"></i>
-            <p class="mb-0">Belum ada data about item.</p>
-          </div>
-        @else
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Icon</th>
-                <th>Judul</th>
-                <th>Deskripsi</th>
-                <th style="text-align:right;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($items as $item)
-                <tr>
-                  <td><i class="bi {{ $item->icon }}"></i></td>
-                  <td>{{ $item->title }}</td>
-                  <td>{{ \App\Support\Text::plain($item->description, 60) ?: '—' }}</td>
-                  <td>
-                    <div class="admin-table-actions">
-                      <button type="button" class="btn-icon" data-action="edit" data-id="{{ $item->id }}" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button type="button" class="btn-icon danger" data-action="delete"
-                              data-id="{{ $item->id }}" data-name="{{ $item->title }}" title="Hapus">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-
-          @include('admin.partials.pagination', ['paginator' => $items])
-        @endif
-      </div>
+          <div class="admin-card-head">
+      <h2>About Items</h2>
+      <button type="button" class="btn-admin btn-admin-forest" data-action="create">
+        <i class="bi bi-plus-lg"></i> Tambah
+      </button>
     </div>
-  </section>
+
+    <div class="admin-table-wrap" id="aboutItemsTable" data-list="{{ route('admin.about-items.data') }}"></div>
+  </div>
+</section>
 @endsection
 
 @push('modals')
-  <div class="modal fade" id="aboutItemModal" tabindex="-1" aria-hidden="true" data-endpoint="{{ route('admin.about-items.index') }}">
+  <div class="modal fade" id="aboutItemsModal" tabindex="-1" aria-hidden="true" data-endpoint="{{ route('admin.about-items.index') }}">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-admin">
         <div class="modal-header-admin d-flex align-items-center justify-content-between">
-          <h5 data-role="title">Tambah Item</h5>
+          <h5 data-role="title">Tambah aboutItems</h5>
           <button type="button" class="btn-icon" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
         </div>
 
@@ -82,16 +42,16 @@
           <div class="field-group">
             <label class="field-label">Icon *</label>
             <div class="icon-picker-row">
-              <select class="form-select-admin icon-picker-select" data-field="icon" data-icons data-preview="#aboutItemIconPreview"></select>
-              <div class="icon-picker-preview" id="aboutItemIconPreview"><i class="bi bi-question-circle" style="opacity:.3;"></i></div>
+              <select class="form-select-admin icon-picker-select" data-field="icon" data-icons data-preview="#aboutItemsIconPreview"></select>
+              <div class="icon-picker-preview" id="aboutItemsIconPreview"><i class="bi bi-question-circle" style="opacity:.3;"></i></div>
             </div>
           </div>
           <div class="field-group">
-            <label class="field-label" for="aboutItemTitle">Judul *</label>
-            <input type="text" id="aboutItemTitle" class="form-control-admin" data-field="title" maxlength="255" autocomplete="off">
+            <label class="field-label" for="aboutItemsTitle">Title *</label>
+            <input type="text" id="aboutItemsTitle" class="form-control-admin" data-field="title" maxlength="255" autocomplete="off">
           </div>
           <div class="field-group">
-            <label class="field-label">Deskripsi</label>
+            <label class="field-label">Deskripsi *</label>
             <div class="quill-editor" data-field="description" style="min-height:150px;"></div>
           </div>
         </div>
@@ -105,9 +65,10 @@
   </div>
 @endpush
 
-@push('vendor')
+@push('vendors')
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 
 @push('scripts')
@@ -115,9 +76,18 @@
   <script src="{{ \App\Support\Asset::v('assets/js/admin/crud.js') }}"></script>
   <script>
     AdminCrud.init({
-      modal: '#aboutItemModal',
-      name: 'Item',
+      modal: '#aboutItemsModal',
+      table: '#aboutItemsTable',
+      name: 'Alasan',
       jumpToLastOnCreate: true,
+      perPage: 10,
+      empty: { icon: 'bi-star', text: 'Belum ada data alasan.' },
+      columns: [
+        { label: 'Icon', render: (row, h) => '<i class="bi ' + h.esc(row.icon) + '"></i>' },
+        { label: 'Judul', key: 'title' },
+        { label: 'Deskripsi', render: (row, h) => h.esc(h.plain(row.description, 60)) || '—' }
+      ],
+      deleteName: (row) => row.title,
       fields: [
         { key: 'icon', label: 'Icon', required: true },
         { key: 'title', label: 'Judul', required: true },

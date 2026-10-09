@@ -11,68 +11,31 @@
         <p>Langkah-langkah proses ekspor yang tampil sebagai timeline di homepage.</p>
       </div>
     </div>
-
     <div class="admin-card">
-      <div class="admin-card-head">
-        <h2>Daftar Langkah</h2>
-        <button type="button" class="btn-admin btn-admin-forest" data-action="create">
-          <i class="bi bi-plus-lg"></i> Tambah Langkah
-        </button>
-      </div>
-
-      <div class="admin-table-wrap">
-        @if ($items->isEmpty())
-          <div class="admin-empty">
-            <i class="bi bi-signpost-split"></i>
-            <p class="mb-0">Belum ada data langkah proses.</p>
-          </div>
-        @else
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Judul Langkah</th>
-                <th style="text-align:right;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($items as $item)
-                <tr>
-                  <td>{{ $item->title }}</td>
-                  <td>
-                    <div class="admin-table-actions">
-                      <button type="button" class="btn-icon" data-action="edit" data-id="{{ $item->id }}" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button type="button" class="btn-icon danger" data-action="delete"
-                              data-id="{{ $item->id }}" data-name="{{ $item->title }}" title="Hapus">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-
-          @include('admin.partials.pagination', ['paginator' => $items])
-        @endif
-      </div>
+    <div class="admin-card-head">
+      <h2>Process</h2>
+      <button type="button" class="btn-admin btn-admin-forest" data-action="create">
+        <i class="bi bi-plus-lg"></i> Tambah
+      </button>
     </div>
-  </section>
+
+    <div class="admin-table-wrap" id="processTable" data-list="{{ route('admin.our-process.data') }}"></div>
+  </div>
+</section>
 @endsection
 
 @push('modals')
-  <div class="modal fade" id="processModal" tabindex="-1" aria-hidden="true" data-endpoint="{{ route('admin.our-process.index') }}">
+ <div class="modal fade" id="processModal" tabindex="-1" aria-hidden="true" data-endpoint="{{ route('admin.our-process.index') }}">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-admin">
         <div class="modal-header-admin d-flex align-items-center justify-content-between">
-          <h5 data-role="title">Tambah Langkah Proses</h5>
+          <h5 data-role="title">Tambah process</h5>
           <button type="button" class="btn-icon" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
         </div>
 
         <div class="modal-body-admin">
           <div class="field-group">
-            <label class="field-label" for="processTitle">Judul Langkah *</label>
+            <label class="field-label" for="processTitle">Title *</label>
             <input type="text" id="processTitle" class="form-control-admin" data-field="title" maxlength="255" autocomplete="off">
           </div>
         </div>
@@ -86,15 +49,28 @@
   </div>
 @endpush
 
+@push('vendors')
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+@endpush
+
 @push('scripts')
   <script src="{{ \App\Support\Asset::v('assets/js/admin/crud.js') }}"></script>
   <script>
     AdminCrud.init({
       modal: '#processModal',
-      name: 'Langkah Proses',
+      table: '#processTable',
+      name: 'process',
       jumpToLastOnCreate: true,
+      perPage: 10,
+      empty: { icon: 'bi-bullseye', text: 'Belum ada data process.' },
+      columns: [
+        { label: 'Title', render: (row, h) => h.esc(h.plain(row.title, 120)) || '—' }
+      ],
+      deleteName: (row, h) => h.plain(row.title, 40),
       fields: [
-        { key: 'title', label: 'Judul Langkah', required: true }
+        { key: 'title', label: 'Title', required: true }
       ]
     });
   </script>

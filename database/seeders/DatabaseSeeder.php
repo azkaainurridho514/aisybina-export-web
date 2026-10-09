@@ -7,13 +7,11 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Database\Seeders\ProductCatalogSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function data()
     {
         \App\Models\User::create([
             'name' => 'Aisybina Export',
@@ -207,5 +205,13 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Supporting local workforce empowerment and environmental sustainability.',
             ],
         ]);
+
+        $this->call([
+            ProductCatalogSeeder::class,
+        ]);
     }
-}
+
+    public function run(): void{
+        // $this->data();
+    }
+}   

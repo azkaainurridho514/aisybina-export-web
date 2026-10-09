@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\OurValue;
 use Illuminate\Http\Request;
@@ -10,19 +8,21 @@ use Illuminate\Support\Str;
 
 class OurValueController extends Controller
 {
-    use PaginatesAdminList;
 
     public function index()
     {
+        return view('admin.our-value.index');
+    }
+
+    public function data()
+    {
         $items = OurValue::orderBy('created_at', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
 
-        if ($redirect = $this->lastPageRedirect($items, 'admin.our-value.index')) {
-            return $redirect;
-        }
-
-        return view('admin.our-value.index', ['items' => $items]);
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
     }
 
     public function show(string $id)

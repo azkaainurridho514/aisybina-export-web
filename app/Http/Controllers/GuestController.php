@@ -19,12 +19,6 @@ class GuestController extends Controller
 {
     public function index(): View
     {
-        $master = DB::table('master')->select(
-            'logo', 'website_name', 'website_description',
-            'heading', 'about_heading', 'about_description',
-            'category_heading', 'category_description',
-            'choose_us_heading', 'our_process', 'website_slug'
-        )->first();
 
         $askUs = DB::table('ask_us')->select(
             'ask_us_title', 'ask_us_heading', 'ask_us_description', 'ask_us_button'
@@ -36,56 +30,28 @@ class GuestController extends Controller
             'global_reach_icon_item_1', 'global_reach_icon_item_2', 'global_reach_icon_item_3'
         )->first();
 
-        $footer = DB::table('footer')->select(
-            'footer_home_heading', 'footer_home_subheading', 'footer_home_button'
-        )->first();
-
         $products = Product::with(['category', 'images'])->inRandomOrder()->limit(8)->get();
         $aboutItems = AboutItem::oldest()->get();
         $ourProcess = OurProcess::oldest()->get();
         $chooseUs = ChooseUs::oldest()->get();
-
-        $contact = DB::table('contact')->select(
-            'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'
-        )->first();
         
-        return view('home', compact(
-            'master', 'askUs', 'globalReach', 'footer',
-            'products', 'aboutItems', 'ourProcess', 'chooseUs', 'contact'
+        return view('home', compact('askUs', 'globalReach', 'products', 'aboutItems', 'ourProcess', 'chooseUs',
         ));
     }
 
     public function about(): View
     {
-        $pageDesc = DB::table('contact')->select(
-            'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'
-        )->first();
-
-        $master = DB::table('master')->select(
-            'logo', 'website_name', 'website_slug', 'about_heading', 'about_description'
-        )->first();
 
         $about = DB::table('about')->first();
         $aboutMissions = DB::table('about_missions')->get();
         $aboutValues = DB::table('about_values')->get();
 
-        return view('about', compact('pageDesc', 'master', 'about', 'aboutMissions', 'aboutValues'));
+        return view('about', compact('about', 'aboutMissions', 'aboutValues'));
     }
 
     public function products(): View
     {
-        $pageDesc = DB::table('contact')->select(
-            'product_heading', 'product_subheading',
-            'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'
-        )->first();
-
-        $footer = DB::table('footer')->select(
-            'footer_product_heading', 'footer_product_subheading', 'footer_product_button'
-        )->first();
-
-        $master = DB::table('master')->select('logo', 'website_name', 'website_slug')->first();
-
-        return view('products', compact('pageDesc', 'footer', 'master'));
+        return view('products');
     }
 
     public function productsData(): JsonResponse
@@ -99,15 +65,9 @@ class GuestController extends Controller
     public function contact(): View
     {
         $businessHours = BusinessHour::oldest()->get();
-        $master = DB::table('master')->select('logo', 'website_name', 'website_slug')->first();
-
-        $contact = DB::table('contact')->select(
-            'heading', 'subheading', 'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'
-        )->first();
-
         $businessHoursLines = $this->groupBusinessHours($businessHours);
 
-        return view('contact', compact('master', 'contact', 'businessHoursLines'));
+        return view('contact', compact('businessHoursLines'));
     }
 
 

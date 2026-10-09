@@ -11,18 +11,20 @@ use Illuminate\Support\Str;
 class OurMissionController extends Controller
 {
     use PaginatesAdminList;
-
     public function index()
     {
+        return view('admin.our-mission.index');
+    }
+
+    public function data()
+    {
         $items = OurMission::orderBy('created_at', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
 
-        if ($redirect = $this->lastPageRedirect($items, 'admin.our-mission.index')) {
-            return $redirect;
-        }
-
-        return view('admin.our-mission.index', ['items' => $items]);
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
     }
 
     public function show(string $id)

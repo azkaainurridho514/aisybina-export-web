@@ -15,7 +15,6 @@
         <p>Nilai-nilai perusahaan yang tampil di halaman About.</p>
       </div>
     </div>
-
     <div class="admin-card">
       <div class="admin-card-head">
         <h2>Value</h2>
@@ -24,61 +23,22 @@
         </button>
       </div>
 
-      <div class="admin-table-wrap">
-        @if ($items->isEmpty())
-          <div class="admin-empty">
-            <i class="bi bi-gem"></i>
-            <p class="mb-0">Belum ada data value.</p>
-          </div>
-        @else
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Judul</th>
-                <th>Deskripsi</th>
-                <th style="text-align:right;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($items as $item)
-                <tr>
-                  <td>{{ $item->title }}</td>
-                  <td>{{ \App\Support\Text::plain($item->description, 80) ?: '—' }}</td>
-                  <td>
-                    <div class="admin-table-actions">
-                      <button type="button" class="btn-icon" data-action="edit" data-id="{{ $item->id }}" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button type="button" class="btn-icon danger" data-action="delete"
-                              data-id="{{ $item->id }}" data-name="{{ $item->title }}" title="Hapus">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-
-          @include('admin.partials.pagination', ['paginator' => $items])
-        @endif
-      </div>
+      <div class="admin-table-wrap" id="valueTable" data-list="{{ route('admin.our-value.data') }}"></div>
     </div>
   </section>
 @endsection
 
 @push('modals')
-  <div class="modal fade" id="valueModal" tabindex="-1" aria-hidden="true" data-endpoint="{{ route('admin.our-value.index') }}">
+ <div class="modal fade" id="valueModal" tabindex="-1" aria-hidden="true" data-endpoint="{{ route('admin.our-value.index') }}">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-admin">
         <div class="modal-header-admin d-flex align-items-center justify-content-between">
-          <h5 data-role="title">Tambah Value</h5>
+          <h5 data-role="title">Tambah value</h5>
           <button type="button" class="btn-icon" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
         </div>
-
         <div class="modal-body-admin">
           <div class="field-group">
-            <label class="field-label" for="valueTitle">Judul *</label>
+            <label class="field-label" for="valueTitle">Title *</label>
             <input type="text" id="valueTitle" class="form-control-admin" data-field="title" maxlength="255" autocomplete="off">
           </div>
           <div class="field-group">
@@ -96,7 +56,8 @@
   </div>
 @endpush
 
-@push('vendor')
+@push('vendors')
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
 @endpush
@@ -106,10 +67,18 @@
   <script>
     AdminCrud.init({
       modal: '#valueModal',
-      name: 'Value',
+      table: '#valueTable',
+      name: 'value',
       jumpToLastOnCreate: true,
+      perPage: 10,
+      empty: { icon: 'bi-bullseye', text: 'Belum ada data value.' },
+      columns: [
+        { label: 'Title', render: (row, h) => h.esc(h.plain(row.title, 120)) || '—' },
+        { label: 'Deskripsi', render: (row, h) => h.esc(h.plain(row.description, 120)) || '—' },
+      ],
+      deleteName: (row, h) => h.plain(row.description, 40),
       fields: [
-        { key: 'title', label: 'Judul', required: true },
+        { key: 'title', label: 'Title', required: true },
         { key: 'description', label: 'Deskripsi', required: true }
       ]
     });

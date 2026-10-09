@@ -15,58 +15,17 @@
         <p>Alasan kenapa buyer bekerja sama dengan Aisy Bina Exports.</p>
       </div>
     </div>
-
     <div class="admin-card">
-      <div class="admin-card-head">
-        <h2>Daftar Alasan</h2>
-        <button type="button" class="btn-admin btn-admin-forest" data-action="create">
-          <i class="bi bi-plus-lg"></i> Tambah Alasan
-        </button>
-      </div>
-
-      <div class="admin-table-wrap">
-        @if ($items->isEmpty())
-          <div class="admin-empty">
-            <i class="bi bi-star"></i>
-            <p class="mb-0">Belum ada data alasan.</p>
-          </div>
-        @else
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Icon</th>
-                <th>Judul</th>
-                <th>Deskripsi</th>
-                <th style="text-align:right;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($items as $item)
-                <tr>
-                  <td><i class="bi {{ $item->icon }}"></i></td>
-                  <td>{{ $item->title }}</td>
-                  <td>{{ \App\Support\Text::plain($item->description, 60) ?: '—' }}</td>
-                  <td>
-                    <div class="admin-table-actions">
-                      <button type="button" class="btn-icon" data-action="edit" data-id="{{ $item->id }}" title="Edit">
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      <button type="button" class="btn-icon danger" data-action="delete"
-                              data-id="{{ $item->id }}" data-name="{{ $item->title }}" title="Hapus">
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-
-          @include('admin.partials.pagination', ['paginator' => $items])
-        @endif
-      </div>
+          <div class="admin-card-head">
+      <h2>Choose Us</h2>
+      <button type="button" class="btn-admin btn-admin-forest" data-action="create">
+        <i class="bi bi-plus-lg"></i> Tambah
+      </button>
     </div>
-  </section>
+
+    <div class="admin-table-wrap" id="chooseUsTable" data-list="{{ route('admin.choose-us.data') }}"></div>
+  </div>
+</section>
 @endsection
 
 @push('modals')
@@ -74,7 +33,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-admin">
         <div class="modal-header-admin d-flex align-items-center justify-content-between">
-          <h5 data-role="title">Tambah Alasan</h5>
+          <h5 data-role="title">Tambah chooseUs</h5>
           <button type="button" class="btn-icon" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
         </div>
 
@@ -87,11 +46,11 @@
             </div>
           </div>
           <div class="field-group">
-            <label class="field-label" for="chooseUsTitle">Judul *</label>
+            <label class="field-label" for="chooseUsTitle">Title *</label>
             <input type="text" id="chooseUsTitle" class="form-control-admin" data-field="title" maxlength="255" autocomplete="off">
           </div>
           <div class="field-group">
-            <label class="field-label">Deskripsi</label>
+            <label class="field-label">Deskripsi *</label>
             <div class="quill-editor" data-field="description" style="min-height:150px;"></div>
           </div>
         </div>
@@ -105,9 +64,10 @@
   </div>
 @endpush
 
-@push('vendor')
+@push('vendors')
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 
 @push('scripts')
@@ -116,8 +76,17 @@
   <script>
     AdminCrud.init({
       modal: '#chooseUsModal',
+      table: '#chooseUsTable',
       name: 'Alasan',
       jumpToLastOnCreate: true,
+      perPage: 10,
+      empty: { icon: 'bi-star', text: 'Belum ada data alasan.' },
+      columns: [
+        { label: 'Icon', render: (row, h) => '<i class="bi ' + h.esc(row.icon) + '"></i>' },
+        { label: 'Judul', key: 'title' },
+        { label: 'Deskripsi', render: (row, h) => h.esc(h.plain(row.description, 60)) || '—' }
+      ],
+      deleteName: (row) => row.title,
       fields: [
         { key: 'icon', label: 'Icon', required: true },
         { key: 'title', label: 'Judul', required: true },

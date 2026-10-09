@@ -14,15 +14,18 @@ class ChooseUsController extends Controller
 
     public function index()
     {
+        return view('admin.choose-us.index');
+    }
+
+    public function data()
+    {
         $items = ChooseUs::orderBy('created_at', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
 
-        if ($redirect = $this->lastPageRedirect($items, 'admin.choose-us.index')) {
-            return $redirect;
-        }
-
-        return view('admin.choose-us.index', ['items' => $items]);
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
     }
 
     public function show(string $id)

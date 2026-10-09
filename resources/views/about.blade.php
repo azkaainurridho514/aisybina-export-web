@@ -1,32 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ $master->website_name ? 'About | ' . $master->website_name : 'About' }}</title>
-  <meta name="description" content="Learn about Aisy Bina Exports — our story, vision, mission, and the values that guide how we source products from Indonesia.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="{{ $master->logo ?? '' }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+@extends('layouts.app')
+@section('title', "About")
+@push('styles')
   <style>
     #missionList li { align-items: flex-start; }
     #missionList li i { margin-top: 0.2rem; }
     .value-card { height: 100%; }
   </style>
-</head>
-<body>
-
-  @include('layouts.navbar', ['master' => $master])
-
-  <main>
-
+@endpush
+@section('main')
     <!-- ===================== HERO ===================== -->
     <section class="section-tight" style="margin-top: 82px;">
       <div class="container" data-aos="fade-up">
@@ -146,23 +127,4 @@
         </div>
       </div>
     </section>
-
-  </main>
-
-  @include('layouts.footer', ['master' => $master, 'contact' => $pageDesc])
-
-  <a href="{{ !empty($pageDesc->whatsapp) ? 'https://wa.me/' . preg_replace('/[^0-9]/', '', $pageDesc->whatsapp) . '?text=' . urlencode("Hello " . ($master->website_name ?? '') . ", I'd like to know more about your company.") : '#' }}"
-     id="whatsappFloat"
-     class="whatsapp-float @if (empty($pageDesc->whatsapp)) d-none @endif"
-     target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <i class="bi bi-whatsapp"></i>
-  </a>
-
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="{{ asset('assets/js/script.js') }}"></script>
-  @stack('scripts')
-  <!-- Tidak ada AJAX di halaman ini lagi — semua sudah SSR di atas. -->
-</body>
-</html>
+@endsection

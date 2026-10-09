@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\OurProcess;
 use Illuminate\Http\Request;
@@ -10,19 +9,20 @@ use Illuminate\Support\Str;
 
 class OurProcessController extends Controller
 {
-    use PaginatesAdminList;
-
     public function index()
     {
+        return view('admin.our-process.index');
+    }
+
+    public function data()
+    {
         $items = OurProcess::orderBy('created_at', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
 
-        if ($redirect = $this->lastPageRedirect($items, 'admin.our-process.index')) {
-            return $redirect;
-        }
-
-        return view('admin.our-process.index', ['items' => $items]);
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
     }
 
     public function show(string $id)

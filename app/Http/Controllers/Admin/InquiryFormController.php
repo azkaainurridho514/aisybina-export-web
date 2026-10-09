@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\InquiryForm;
 use Illuminate\Http\Request;
 
 class InquiryFormController extends Controller
 {
-    use PaginatesAdminList;
+    private const FILTERS = ['fullname', 'company_name', 'country', 'start_date', 'end_date'];
 
     public function store(Request $request)
     {
@@ -42,27 +41,44 @@ class InquiryFormController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $filters = $request->only(['fullname', 'company_name', 'country', 'start_date', 'end_date']);
+        return view('admin.inquiries.index');
+    }
 
-        $inquiries = $this->filteredQuery($filters)
-            ->latest('created_at')
-            ->paginate(10)
-            ->withQueryString();
+    // GET /admin/data/inquiries?page=1&fullname=&company_name=&country=&start_date=&end_date=
+    public function data(Request $request)
+    {
+        $request->validate([
+            'start_date' => 'nullable|date',
+            'end_date'   => 'nullable|date',
+        ]);
 
-        if ($redirect = $this->lastPageRedirect($inquiries, 'admin.inquiries.index', $filters)) {
-            return $redirect;
+        $query = $this->filteredQuery($request->only(self::FILTERS))
+            ->latest('created_at');
+
+        $inquiries = (clone $query)->paginate(10);
+
+        // halaman melebihi batas (misal setelah hapus data terakhir di halaman itu)
+        if ($inquiries->isEmpty() && $inquiries->currentPage() > 1) {
+            $inquiries = (clone $query)->paginate(10, ['*'], 'page', $inquiries->lastPage());
         }
 
-        return view('admin.inquiries.index', [
-            'inquiries' => $inquiries,
-            'filters'   => $filters,
+        $inquiries->through(fn ($row) => $this->withDateLabel($row));
+
+        return response()->json([
+            'success' => true,
+            'data'    => $inquiries,
         ]);
     }
 
     public function export(Request $request)
     {
+        $request->validate([
+            'start_date' => 'nullable|date',
+            'end_date'   => 'nullable|date',
+        ]);
+
         $rows = $this->filteredQuery($request->only(['start_date', 'end_date']))
             ->latest('created_at')
             ->limit(5000)
@@ -94,6 +110,14 @@ class InquiryFormController extends Controller
             ->when($filters['end_date'] ?? null, fn ($q, $v) => $q->whereDate('created_at', '<=', $v));
     }
 
+    // Tanggal diformat di server agar mengikuti timezone aplikasi (bukan timezone browser)
+    private function withDateLabel(InquiryForm $row): InquiryForm
+    {
+        $row->setAttribute('created_at_label', optional($row->created_at)->format('d/m/Y H:i'));
+
+        return $row;
+    }
+
     public function show(string $id)
     {
         $inquiry = InquiryForm::find($id);
@@ -104,7 +128,7 @@ class InquiryFormController extends Controller
             ], 404);
         }
 
-        return response()->json($inquiry);
+        return response()->json($this->withDateLabel($inquiry));
     }
 
     public function destroy(string $id)

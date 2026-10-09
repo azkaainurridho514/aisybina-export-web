@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Concerns\PaginatesAdminList;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
@@ -13,27 +12,31 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    use PaginatesAdminList;
-    public function index(Request $request)
+    public function index()
+    {   
+        $categories = Category::latest()->get();
+        return view('admin.products.index', compact('categories'));
+    }
+
+    public function data(Request $request)
     {
         $search = trim((string) $request->query('search', ''));
 
         $products = Product::with(['category', 'images'])
             ->when($search !== '', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . addcslashes($search, '%_\\') . '%');
+                $query->where(
+                    'name',
+                    'like',
+                    '%' . addcslashes($search, '%_\\') . '%'
+                );
             })
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-        if ($redirect = $this->lastPageRedirect($products, 'admin.products.index', ['search' => $search])) {
-            return $redirect;
-        }
-
-        return view('admin.products.index', [
-            'products'   => $products,
-            'search'     => $search,
-            'categories' => Category::orderBy('name')->get(['id', 'name']),
+        return response()->json([
+            'success' => true,
+            'data' => $products,
         ]);
     }
 

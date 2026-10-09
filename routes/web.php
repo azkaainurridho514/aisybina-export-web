@@ -19,11 +19,20 @@ use App\Http\Controllers\Admin\OurValueController;
 use App\Http\Controllers\Admin\ChooseUsController;
 use App\Http\Controllers\Admin\AboutItemController;
 use App\Http\Controllers\GuestController;
+use App\Models\Product;
 
 
 Route::get('/', [GuestController::class, 'index'])->name('home');
 Route::get('/about', [GuestController::class, 'about'])->name('about');
- 
+
+Route::get('/sitemap.xml', function () {
+    $products = Product::latest()->get();
+
+    return response()
+        ->view('sitemap', compact('products'))
+        ->header('Content-Type', 'application/xml');
+});
+
 Route::get('/products', [GuestController::class, 'products'])->name('products');
 Route::get('/products/data', [GuestController::class, 'productsData'])->name('products.data');
  
@@ -55,13 +64,27 @@ Route::middleware('auth')
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+       
         Route::get('/site-content', [SiteContentController::class, 'index'])->name('site-content.index');
         Route::put('/site-content/{table}', [SiteContentController::class, 'updateData'])->name('site-content.update');
 
         Route::get('/inquiries/export', [InquiryFormController::class, 'export'])->name('inquiries.export');
         Route::resource('inquiries', InquiryFormController::class)
             ->only(['index', 'show', 'destroy'])
-            ->parameters(['inquiries' => 'id']);
+            ->parameters(['inquiries' => 'id']);       
+
+        Route::prefix('data')->group(function () {
+            Route::get('/our-mission', [OurMissionController::class, 'data'])->name('our-mission.data');
+            Route::get('/categories', [CategoryController::class, 'data'])->name('categories.data');
+            Route::get('/products', [ProductController::class, 'data'])->name('products.data');
+            Route::get('/our-value', [OurValueController::class, 'data'])->name('our-value.data');
+            Route::get('/our-process', [OurProcessController::class, 'data'])->name('our-process.data');
+            Route::get('/choose-us', [ChooseUsController::class, 'data'])->name('choose-us.data');
+            Route::get('/about-items', [AboutItemController::class, 'data'])->name('about-items.data');
+            Route::get('/business-hours', [BusinessHourController::class, 'data'])->name('business-hours.data');
+            Route::get('/site-content', [SiteContentController::class, 'data'])->name('site-content.data');
+            Route::get('/inquiries', [InquiryFormController::class, 'data'])->name('inquiries.data');
+        });
 
         $crud = [
             'categories'     => CategoryController::class,
@@ -73,6 +96,8 @@ Route::middleware('auth')
             'about-items'    => AboutItemController::class,
             'business-hours' => BusinessHourController::class,
         ];
+
+
 
         foreach ($crud as $uri => $controller) {
             Route::resource($uri, $controller)

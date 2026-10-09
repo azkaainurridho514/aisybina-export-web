@@ -1,8 +1,10 @@
 $(function () {
   var $modalEl = $("#productModal");
-  if (!$modalEl.length) return;
+  var $wrap = $("#productTable");
+  if (!$modalEl.length || !$wrap.length) return;
 
   var endpoint = $modalEl.data("endpoint");
+  var listUrl = $wrap.data("list");
   var modal = new bootstrap.Modal($modalEl[0]);
   var detailModal = new bootstrap.Modal($("#productDetailModal")[0]);
   var $title = $("#productModalTitle");
@@ -10,9 +12,25 @@ $(function () {
   var $category = $("#productCategory");
   var $gallery = $("#productGallery");
   var $save = $("#productSave");
+  var $search = $("#productSearch");
+  var $reset = $("#productSearchReset");
   var saveLabel = '<i class="bi bi-check2"></i> Simpan';
   var editingId = null;
   var gallery = [];
+
+  var state = { page: 1, last: 1, search: "" };
+  var rows = [];
+  var reqId = 0;
+
+  // ===== Toast sukses (kanan atas) =====
+  var Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true
+  });
+  function toastSuccess(msg) { Toast.fire({ icon: "success", title: msg }); }
 
   initQuillEditors();
   var quill = $("#productDescription").data("quill");
@@ -31,6 +49,116 @@ $(function () {
     return path.charAt(0) === "/" ? path : "/" + path.replace(/^\/+/, "");
   }
 
+  function plain(html, limit) {
+    var t = $("<div>").html(DOMPurify.sanitize(html || "")).text().replace(/\s+/g, " ").trim();
+    return limit && t.length > limit ? t.slice(0, limit) + "…" : t;
+  }
+
+  // ===== Tabel (dirender dari AJAX GET) =====
+  function pageItem(p, label, disabled, active) {
+    return '<li class="page-item' + (disabled ? " disabled" : "") + (active ? " active" : "") +
+      '"><a class="page-link" href="#" data-page="' + p + '">' + label + "</a></li>";
+  }
+
+  function renderPagination() {
+    var last = state.last, cur = state.page;
+    if (last <= 1) return "";
+
+    var html = '<nav class="mt-3"><ul class="pagination justify-content-end mb-0">';
+    html += pageItem(cur - 1, "&laquo;", cur === 1, false);
+
+    var prev = 0;
+    for (var i = 1; i <= last; i++) {
+      if (i === 1 || i === last || Math.abs(i - cur) <= 2) {
+        if (i - prev > 1) html += '<li class="page-item disabled"><span class="page-link">&hellip;</span></li>';
+        html += pageItem(i, i, false, i === cur);
+        prev = i;
+      }
+    }
+
+    html += pageItem(cur + 1, "&raquo;", cur === last, false);
+    return html + "</ul></nav>";
+  }
+
+  function render() {
+    if (!rows.length) {
+      $wrap.html(
+        '<div class="admin-empty"><i class="bi bi-box-seam"></i><p class="mb-0">' +
+        (state.search ? "Tidak ada hasil untuk pencarian ini." : "Belum ada data produk.") +
+        "</p></div>"
+      );
+      return;
+    }
+
+    var html = '<table class="admin-table"><thead><tr>' +
+      "<th>Foto</th><th>Nama</th><th>Kategori</th><th>Deskripsi</th>" +
+      '<th style="text-align:right;">Aksi</th></tr></thead><tbody>';
+
+    rows.forEach(function (p) {
+      var first = (p.images || []).filter(function (pi) { return pi && pi.path; })[0];
+      var cover = first ? imageUrl(first.path) : "";
+      var id = escapeHtml(p.id);
+
+      html += "<tr>" +
+        '<td><div class="admin-thumb">' +
+        (cover ? '<img src="' + escapeHtml(cover) + '" alt="">' : '<i class="bi bi-box-seam"></i>') +
+        "</div></td>" +
+        "<td>" + escapeHtml(p.name) + "</td>" +
+        "<td>" + (p.category ? escapeHtml(p.category.name) : "—") + "</td>" +
+        "<td>" + (escapeHtml(plain(p.description, 60)) || "—") + "</td>" +
+        '<td><div class="admin-table-actions">' +
+        '<button type="button" class="btn-icon" data-action="detail" data-id="' + id + '" title="Lihat Detail"><i class="bi bi-eye"></i></button>' +
+        '<button type="button" class="btn-icon" data-action="edit" data-id="' + id + '" title="Edit"><i class="bi bi-pencil"></i></button>' +
+        '<button type="button" class="btn-icon danger" data-action="delete" data-id="' + id + '" data-name="' + escapeHtml(p.name) + '" title="Hapus"><i class="bi bi-trash3"></i></button>' +
+        "</div></td></tr>";
+    });
+
+    $wrap.html(html + "</tbody></table>" + renderPagination());
+  }
+
+  // ===== AJAX GET: daftar produk (awal, search, pagination, setelah simpan/hapus) =====
+  function load() {
+    var id = ++reqId;
+    var qs = $.param({ page: state.page, search: state.search });
+
+    return adminRequest("GET", listUrl + "?" + qs)
+      .done(function (res) {
+        if (id !== reqId) return;
+        var p = res.data || res;
+        rows = p.data || [];
+        state.page = p.current_page || 1;
+        state.last = p.last_page || 1;
+        render();
+      })
+      .fail(function (xhr) {
+        if (id === reqId) toastError(xhr.message || "Gagal memuat data.");
+      });
+  }
+
+  $wrap.html('<div class="admin-empty"><i class="bi bi-arrow-repeat spin"></i><p class="mb-0">Memuat data...</p></div>');
+  load();
+
+  $wrap.on("click", "[data-page]", function (e) {
+    e.preventDefault();
+    if ($(this).closest(".page-item").hasClass("disabled")) return;
+    state.page = parseInt($(this).attr("data-page"), 10);
+    load();
+  });
+
+  // ===== Pencarian =====
+  function doSearch() {
+    state.search = $.trim($search.val());
+    state.page = 1;
+    $reset.css("display", state.search ? "" : "none");
+    load();
+  }
+
+  var searchTimer;
+  $("#productSearchForm").on("submit", function (e) { e.preventDefault(); clearTimeout(searchTimer); doSearch(); });
+  $search.on("input", function () { clearTimeout(searchTimer); searchTimer = setTimeout(doSearch, 400); });
+  $reset.on("click", function (e) { e.preventDefault(); $search.val(""); doSearch(); });
+
+  // ===== Galeri foto (UI sama seperti sebelumnya) =====
   function renderGallery() {
     var html = gallery.map(function (img, i) {
       return '<div class="gallery-thumb">' +
@@ -73,7 +201,7 @@ $(function () {
   $("#imageLightbox").on("click", function (e) { if (e.target === this) closeLightbox(); });
   $(document).on("keydown", function (e) { if (e.key === "Escape") closeLightbox(); });
 
-
+  // ===== Modal tambah / edit =====
   function openModal(row) {
     editingId = row ? row.id : null;
     $title.text(row ? "Edit Produk" : "Tambah Produk");
@@ -93,6 +221,7 @@ $(function () {
 
   $(document).on("click", '[data-action="create"]', function () { openModal(null); });
 
+  // ===== AJAX GET: detail untuk edit =====
   $(document).on("click", '[data-action="edit"]', function () {
     var $btn = $(this).prop("disabled", true);
 
@@ -101,7 +230,7 @@ $(function () {
       .fail(function (xhr) { toastError(xhr.message); })
       .always(function () { $btn.prop("disabled", false); });
   });
-  
+
   function buildFormData() {
     var fd = new FormData();
     fd.append("name", $.trim($name.val()));
@@ -128,6 +257,7 @@ $(function () {
     });
   }
 
+  // ===== AJAX POST / PUT: simpan =====
   function save() {
     if (!$.trim($name.val())) {
       toastError("Nama produk wajib diisi.");
@@ -149,7 +279,19 @@ $(function () {
       .then(function (fd) {
         return adminUpload(isEdit ? "PUT" : "POST", url, fd)
           .done(function (res) {
-            adminReload(res.message || "Data berhasil disimpan.", isEdit ? null : window.location.pathname);
+            var msg = res.message || "Data berhasil disimpan.";
+
+            if (!isEdit) {
+              // sama seperti sebelumnya: tambah data kembali ke halaman 1 tanpa filter
+              state.page = 1;
+              state.search = "";
+              $search.val("");
+              $reset.css("display", "none");
+            }
+
+            modal.hide();
+            $save.prop("disabled", false).html(saveLabel);
+            load().done(function () { toastSuccess(msg); });
           });
       })
       .catch(function (err) {
@@ -163,6 +305,7 @@ $(function () {
     if (e.key === "Enter") { e.preventDefault(); save(); }
   });
 
+  // ===== Detail (baca saja) =====
   function detailHtml(row) {
     var images = (row.images || []).filter(function (pi) { return pi && pi.path; }).map(function (pi) { return imageUrl(pi.path); });
     var id = "productDetailCarousel";
@@ -226,6 +369,7 @@ $(function () {
       });
   });
 
+  // ===== AJAX DELETE =====
   $(document).on("click", '[data-action="delete"]', function () {
     var id = $(this).attr("data-id");
 
@@ -233,7 +377,10 @@ $(function () {
       if (!ok) return;
 
       adminRequest("DELETE", endpoint + "/" + encodeURIComponent(id))
-        .done(function (res) { adminReload(res.message || "Data berhasil dihapus."); })
+        .done(function (res) {
+          var msg = res.message || "Data berhasil dihapus.";
+          load().done(function () { toastSuccess(msg); });  // server otomatis mundur halaman jika kosong
+        })
         .fail(function (xhr) { toastError(xhr.message); });
     });
   });

@@ -13,15 +13,18 @@ class BusinessHourController extends Controller
     use PaginatesAdminList;
     public function index()
     {
-        $items = BusinessHour::orderBy('id')
-            ->paginate(10)
-            ->withQueryString();
+        return view('admin.business-hours.index');
+    }
 
-        if ($redirect = $this->lastPageRedirect($items, 'admin.business-hours.index')) {
-            return $redirect;
-        }
+    public function data()
+    {
+        $items = BusinessHour::orderBy('created_at', 'asc')
+            ->get();
 
-        return view('admin.business-hours.index', ['items' => $items]);
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
     }
 
     public function show(string $id)

@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\View\Composers\MasterComposer;
+use App\View\Composers\FooterViewComposer;
+use App\View\Composers\ContactComposer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class SiteContentController extends Controller
 {
-   
+    private const CACHE_CLEARERS = [
+        'master'  => MasterComposer::class,
+        'footer'  => FooterViewComposer::class,
+        'contact' => ContactComposer::class,
+    ];
     private function tabs(): array
     {
         return [
@@ -89,7 +97,17 @@ class SiteContentController extends Controller
         return view('admin.site-content.index', [
             'tabs'   => $tabs,
             'active' => $active,
-            'data'   => DB::table($active)->first(),
+        ]);
+    }
+
+    public function data(Request $request)
+    {
+        $tab = (string) $request->query('tab', 'master');
+        $this->validateTable($tab);
+
+        return response()->json([
+            'success' => true,
+            'data'    => DB::table($tab)->first(),
         ]);
     }
 
@@ -97,159 +115,119 @@ class SiteContentController extends Controller
     {
         $this->validateTable($table);
 
-        $data = $request->validate([
-            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'website_name' => 'nullable|string',
-            'website_description' => 'nullable|string',
-            'website_slug' => 'nullable|string',
-            'heading' => 'nullable|string',
-            'about_heading' => 'nullable|string',
-            'about_description' => 'nullable|string',
-            'category_heading' => 'nullable|string',
-            'category_description' => 'nullable|string',
-            'choose_us_heading' => 'nullable|string',
-            'our_process' => 'nullable|string',
+        $data = $request->validate($this->rules($table));
 
-            'ask_us_title' => 'nullable|string',
-            'ask_us_heading' => 'nullable|string',
-            'ask_us_description' => 'nullable|string',
-            'ask_us_button' => 'nullable|string',
+        $imageKeys = $this->imageKeys($table);
 
-            'intro_title' => 'nullable|string',
-            'intro_description' => 'nullable|string',
-            'image_intro' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'vision_heading' => 'nullable|string',
-            'vision_description' => 'nullable|string',
-            'image_vision' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'mission_heading' => 'nullable|string',
-            'image_mission' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'value_heading' => 'nullable|string',
-            'value_description' => 'nullable|string',
-            'image_value' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+        foreach ($imageKeys as $key) {
+            unset($data[$key]);
+        }
 
-            'global_reach_title' => 'nullable|string',
-            'global_reach_description' => 'nullable|string',
-            'global_reach_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'global_reach_item_1' => 'nullable|string',
-            'global_reach_item_2' => 'nullable|string',
-            'global_reach_item_3' => 'nullable|string',
-            'global_reach_icon_item_1' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'global_reach_icon_item_2' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'global_reach_icon_item_3' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+        $existing = DB::table($table)->first();
+        $base     = $this->basePath();
+        $dir      = $base . '/images/website';
 
-            'footer_home_heading' => 'nullable|string',
-            'footer_home_subheading' => 'nullable|string',
-            'footer_home_button' => 'nullable|string',
-            'footer_product_heading' => 'nullable|string',
-            'footer_product_subheading' => 'nullable|string',
-            'footer_product_button' => 'nullable|string',
-
-            'product_heading' => 'nullable|string',
-            'product_subheading' => 'nullable|string',
-            'email' => 'nullable|string',
-            'whatsapp' => 'nullable|string',
-            'tiktok' => 'nullable|string',
-            'instagram' => 'nullable|string',
-            'facebook' => 'nullable|string',
-            'youtube' => 'nullable|string',
-            'location' => 'nullable|string',
-            'subheading' => 'nullable|string',
-        ]);
-
-       
+        $newFiles = [];
+        $oldFiles = [];  
 
         DB::beginTransaction();
 
         try {
-            $existing = DB::table($table)->first();
-            $isProduction = app()->environment('production');
-
-            $imageFields = [
-                'logo',
-                'image_intro',
-                'image_vision',
-                'image_mission',
-                'image_value',
-                'global_reach_image',
-                'global_reach_icon_item_1',
-                'global_reach_icon_item_2',
-                'global_reach_icon_item_3',
-            ];
-           $uploadPath = $isProduction
-            ? '/home/aisy8672/public_html/images/website'
-            : public_path('images/website');
-
-            if (!is_dir($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
+            if (! is_dir($dir)) {
+                mkdir($dir, 0755, true);
             }
+
+            foreach ($imageKeys as $key) {
+                if (! $request->hasFile($key)) {
+                    continue;
+                }
+
+                $image    = $request->file($key);
+                $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
+
+                $image->move($dir, $filename);
+
+                $newFiles[]  = $dir . '/' . $filename;
+                $data[$key]  = 'images/website/' . $filename;
+
+                if ($existing && ! empty($existing->{$key})) {
+                    $oldFiles[] = $base . '/' . ltrim($existing->{$key}, '/');
+                }
+            }
+
+            $now = now();
 
             if ($existing) {
-                foreach ($imageFields as $field) {
-                    if ($request->hasFile($field)) {
-
-                        $oldPath = $existing->{$field} ?? null;
-
-                        if ($oldPath) {
-                        $oldFilePath = $isProduction
-                            ? '/home/aisy8672/public_html/' . $oldPath
-                            : public_path($oldPath);
-
-                            if (file_exists($oldFilePath)) {
-                                unlink($oldFilePath);
-                            }
-                        }
-
-                        $image = $request->file($field);
-
-                        $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
-
-                        $image->move($uploadPath, $filename);
-
-                        $data[$field] = 'images/website/' . $filename;
-                    }
-                }
+                DB::table($table)->update($data + ['updated_at' => $now]);
             } else {
-              
-                foreach ($imageFields as $field) {
-                    if ($request->hasFile($field)) {
-
-                        $image = $request->file($field);
-
-                        $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
-
-                        $image->move($uploadPath, $filename);
-
-                        $data[$field] = 'images/website/' . $filename;
+                DB::table($table)->insert($data + ['created_at' => $now, 'updated_at' => $now]);
+            }
+            DB::afterCommit(function () use ($table) {
+                try {
+                    if (isset(self::CACHE_CLEARERS[$table])) {
+                        self::CACHE_CLEARERS[$table]::clearCache();
                     }
+                } catch (\Throwable $e) {
+                    report($e); 
                 }
-            }
-
-            foreach ($imageFields as $field) {
-                if (!$request->hasFile($field)) {
-                    unset($data[$field]);
-                }
-            }
-
-            if (!$existing) {
-                DB::table($table)->insert($data);
-            } else {
-                DB::table($table)->update($data);
-            }
-
+            });
             DB::commit();
-
-            return response()->json([
-                'message' => 'Data berhasil disimpan.',
-                'data' => DB::table($table)->first(),
-            ]);
         } catch (\Throwable $e) {
             DB::rollBack();
 
+            foreach ($newFiles as $file) {
+                if (is_file($file)) {
+                    @unlink($file);
+                }
+            }
+
+            report($e);
+
             return response()->json([
                 'message' => 'Gagal menyimpan data.',
-                'error' => $e->getMessage(),
+                'error'   => config('app.debug') ? $e->getMessage() : null,
             ], 500);
         }
+
+        foreach ($oldFiles as $file) {
+            if (is_file($file)) {
+                @unlink($file);
+            }
+        }
+        
+        return response()->json([
+            'message' => 'Data berhasil disimpan.',
+            'data'    => DB::table($table)->first(),
+        ]);
+    }
+
+    private function rules(string $table): array
+    {
+        $rules = [];
+
+        foreach ($this->tabs()[$table]['fields'] as [$key, , $type]) {
+            $rules[$key] = match ($type) {
+                'image'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+                'textarea' => 'nullable|string',
+                default    => 'nullable|string|max:255',
+            };
+        }
+
+        return $rules;
+    }
+
+    private function imageKeys(string $table): array
+    {
+        $images = array_filter($this->tabs()[$table]['fields'], fn ($f) => $f[2] === 'image');
+
+        return array_values(array_column($images, 0));
+    }
+
+    private function basePath(): string
+    {
+        return app()->environment('production')
+            ? '/home/aisy8672/public_html'
+            : public_path();
     }
 
     private function validateTable(string $table): void

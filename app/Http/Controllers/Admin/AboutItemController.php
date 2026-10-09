@@ -10,18 +10,22 @@ use Illuminate\Support\Str;
 
 class AboutItemController extends Controller
 {
+
     use PaginatesAdminList;
     public function index()
     {
+        return view('admin.about-items.index');
+    }
+
+    public function data()
+    {
         $items = AboutItem::orderBy('created_at', 'asc')
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
 
-        if ($redirect = $this->lastPageRedirect($items, 'admin.about-items.index')) {
-            return $redirect;
-        }
-
-        return view('admin.about-items.index', ['items' => $items]);
+        return response()->json([
+            'success' => true,
+            'data' => $items,
+        ]);
     }
 
     public function show(string $id)
