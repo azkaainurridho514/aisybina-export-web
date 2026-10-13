@@ -35,6 +35,12 @@
           'admin.products.index', 
           'admin.products.*'
         ],
+        [
+          'Options', 
+          'bi-list-check', 
+          'admin.options.index', 
+          'admin.options.*'
+        ],
       ]
     ],
     [ 

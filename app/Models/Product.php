@@ -17,6 +17,11 @@ class Product extends Model
         'name',
         'description',
     ];
+    
+    public function productOptions()
+    {
+        return $this->hasMany(ProductOption::class, 'product_id');
+    }
 
     public function category()
     {
@@ -35,6 +40,8 @@ class Product extends Model
             }
         });
     }
+    
+
     
     protected static function generateUniqueSlug(
         string $name,
@@ -58,5 +65,10 @@ class Product extends Model
         }
 
         return $slug;
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

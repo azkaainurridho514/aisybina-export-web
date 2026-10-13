@@ -24,7 +24,7 @@
           <div class="col-lg-5" data-aos="fade-right">
             <div class="frame-tall">
               @if (!empty($about->image_intro))
-                <img src="{{ $about->image_intro }}" alt="About {{ $master->website_name ?? 'us' }}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
+                <img src="{{ asset($about->image_intro) }}" alt="About {{ $master->website_name ?? 'us' }}" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
               @else
                 <div class="frame-inner"><i class="bi bi-image"></i><span>Company photo</span></div>
               @endif
@@ -56,7 +56,7 @@
           <div class="col-lg-6">
             <div class="frame-wide">
               @if (!empty($about->image_vision))
-                <img src="{{ $about->image_vision }}" alt="Our vision" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
+                <img src="{{ asset($about->image_vision) }}" alt="Our vision" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
               @else
                 <div class="frame-inner"><i class="bi bi-image"></i><span>Vision photo</span></div>
               @endif
@@ -73,7 +73,7 @@
           <div class="col-lg-5" data-aos="fade-right">
             <div class="frame-square">
               @if (!empty($about->image_mission))
-                <img src="{{ $about->image_mission }}" alt="Our products" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
+                <img src="{{ asset($about->image_mission) }}" alt="Our products" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
               @else
                 <div class="frame-inner"><i class="bi bi-image"></i><span>Product photo</span></div>
               @endif
@@ -107,7 +107,7 @@
           <div class="col-lg-5">
             <div class="frame-wide">
               @if (!empty($about->image_value))
-                <img src="{{ $about->image_value }}" alt="Inside our workshop" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
+                <img src="{{ asset($about->image_value) }}" alt="Inside our workshop" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius) var(--radius) var(--radius) 4px;">
               @else
                 <div class="frame-inner"><i class="bi bi-image"></i><span>Workshop photo</span></div>
               @endif

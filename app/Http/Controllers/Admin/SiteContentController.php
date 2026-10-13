@@ -76,6 +76,7 @@ class SiteContentController extends Controller
                 ['subheading', 'Subjudul Halaman Kontak', 'textarea'],
                 ['email', 'Email', 'text'],
                 ['whatsapp', 'Nomor WhatsApp', 'text'],
+                ['response_time', 'Respon Time', 'text'],
                 ['location', 'Lokasi', 'text'],
                 ['instagram', 'Tautan Instagram', 'text'],
                 ['facebook', 'Tautan Facebook', 'text'],
@@ -162,16 +163,15 @@ class SiteContentController extends Controller
             } else {
                 DB::table($table)->insert($data + ['created_at' => $now, 'updated_at' => $now]);
             }
-            DB::afterCommit(function () use ($table) {
-                try {
-                    if (isset(self::CACHE_CLEARERS[$table])) {
-                        self::CACHE_CLEARERS[$table]::clearCache();
-                    }
-                } catch (\Throwable $e) {
-                    report($e); 
-                }
-            });
             DB::commit();
+
+            try {
+                if (isset(self::CACHE_CLEARERS[$table])) {
+                    self::CACHE_CLEARERS[$table]::clearCache();
+                }
+            } catch (\Throwable $e) {
+                report($e);
+            }
         } catch (\Throwable $e) {
             DB::rollBack();
 

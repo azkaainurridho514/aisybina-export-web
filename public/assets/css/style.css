@@ -38,9 +38,12 @@ body {
   font-family: var(--font-body);
   color: var(--forest);
   background-color: var(--cream);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   line-height: 1.7;
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 a { color: inherit; }
@@ -141,9 +144,27 @@ p { color: var(--forest-soft); }
 .navbar-nav .nav-link { font-weight: 500; color: var(--forest-soft); padding: 0.5rem 1rem; }
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: var(--forest); }
 
-/* Photo frame — placeholder for real photography -----------------------------
-   Asymmetric rounding gives it a distinct silhouette rather than a generic
-   uniform-radius card. Replace .frame-inner with a real <img> in Laravel. */
+@media (max-width: 991.98px) {
+  #mainNavbar .navbar-brand {
+    min-width: 0;
+    flex: 1 1 auto;
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+    justify-content: flex-start;
+  }
+
+  #mainNavbar .navbar-brand span:not(.brand-dot) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #mainNavbar .navbar-toggler {
+    flex-shrink: 0;
+  }
+}
+
+
 .frame-inner {
   background-color: var(--cream-dim);
   border: 1px solid var(--line);
@@ -355,9 +376,9 @@ p { color: var(--forest-soft); }
 .whatsapp-float:hover { color: var(--cream); background-color: var(--gold); transform: scale(1.06); }
 
 /* Contact page ------------------------------------------------------------------------ */
-.contact-row { border-top: 1px solid var(--line); padding: 1.3rem 0; }
+.contact-row { border-top: 1px solid var(--line); padding: 0.5rem 0; }
 .contact-row:last-child { border-bottom: 1px solid var(--line); }
-.contact-row .label { display: block; font-size: 0.82rem; color: var(--forest-soft); margin-bottom: 0.3rem; }
+.contact-row .label { display: block; font-size: 0.82rem; color: var(--forest-soft); margin-bottom: 0.1rem; }
 .contact-row .value { font-weight: 600; font-size: 1.02rem; }
 
 .inquiry-form { background-color: var(--cream-dim); border-radius: var(--radius); padding: 2rem; }
@@ -563,3 +584,4 @@ p { color: var(--forest-soft); }
   justify-content: center;
   background: #f4f4f4;
 }
+

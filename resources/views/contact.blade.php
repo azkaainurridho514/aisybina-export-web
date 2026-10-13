@@ -8,11 +8,9 @@
       <p class="lead mb-0" style="max-width: 660px;">{!! quill_inline($contact->subheading ?? '') !!}</p>
     </div>
   </section>
-
   <section class="section pt-0">
     <div class="container">
       <div class="row gy-5">
-
         <div class="col-lg-5" data-aos="fade-right">
           <h2 class="mb-4">Contact information</h2>
           <div id="contactInfoList">
@@ -36,6 +34,13 @@
                 <span class="value">{{ $contact->location }}</span>
               </div>
             @endif
+            
+            @if (!empty($contact->response_time))
+              <div class="contact-row">
+                  <span class="label">Response Time</span>
+                  <span class="value">{{ $contact->response_time ?? '-' }}</span>
+              </div>
+            @endif
 
             @if (count($businessHoursLines))
               <div class="contact-row">
@@ -43,6 +48,8 @@
                 <span class="value">{!! implode('<br>', array_map('e', $businessHoursLines)) !!}</span>
               </div>
             @endif
+
+           
           </div>
         </div>
 
@@ -53,11 +60,17 @@
               @csrf
               <div class="row g-3">
                 <div class="col-md-6"><label for="fullName" class="form-label">Full Name</label><input type="text" class="form-control" id="fullName" name="fullname" required></div>
-                <div class="col-md-6"><label for="companyName" class="form-label">Company Name</label><input type="text" class="form-control" id="companyName" name="company_name"></div>
+                <div class="col-md-6"><label for="companyName" class="form-label">Website Or Name Your Company</label><input type="text" class="form-control" id="companyName" name="company_name"></div>
                 <div class="col-md-6"><label for="email" class="form-label">Email</label><input type="email" class="form-control" id="email" name="email" required></div>
                 <div class="col-md-6"><label for="phone" class="form-label">WhatsApp / Phone</label><input type="tel" class="form-control" id="phone" name="whatsapp"></div>
                 <div class="col-md-6"><label for="country" class="form-label">Country</label><input type="text" class="form-control" id="country" name="country"></div>
-                <div class="col-md-6"><label for="productInterest" class="form-label">Product Interested In</label><input type="text" class="form-control" id="productInterest" name="product_interested"></div>
+                {{-- <div class="col-md-6"><label for="productInterest" class="form-label">Product Interested In</label><input type="text" class="form-control" id="productInterest" name="product_interested"></div> --}}
+
+                <div class="col-md-6">
+                  <label for="productInterest" class="form-label">Product Interested In</label>
+                  <input type="text" class="form-control" id="productInterest" name="product_interested"
+                        value="{{ old('product_interested', request('product')) }}">
+                </div>
                 <div class="col-md-6"><label for="quantity" class="form-label">Estimated Quantity</label><input type="text" class="form-control" id="quantity" name="estimated_quantity"></div>
                 <div class="col-12"><label for="message" class="form-label">Message</label><textarea class="form-control" id="message" name="message" rows="4" required></textarea></div>
                 <div class="col-12 mt-2"><button type="submit" class="btn btn-forest btn-arrow">Send Inquiry</button></div>
@@ -65,7 +78,6 @@
             </form>
           </div>
         </div>
-
       </div>
     </div>
   </section>

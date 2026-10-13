@@ -18,8 +18,19 @@ use App\Http\Controllers\Admin\OurMissionController;
 use App\Http\Controllers\Admin\OurValueController;
 use App\Http\Controllers\Admin\ChooseUsController;
 use App\Http\Controllers\Admin\AboutItemController;
+use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\GuestController;
 use App\Models\Product;
+
+use Illuminate\Support\Facades\Artisan;
+use App\View\Composers\MasterComposer;
+
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    MasterComposer::clearCache();
+
+    return 'Cache cleared successfully!';
+});
 
 
 Route::get('/', [GuestController::class, 'index'])->name('home');
@@ -34,7 +45,9 @@ Route::get('/sitemap.xml', function () {
 });
 
 Route::get('/products', [GuestController::class, 'products'])->name('products');
-Route::get('/products/data', [GuestController::class, 'productsData'])->name('products.data');
+
+Route::get('/product/{product}', [GuestController::class, 'product'])->name('product');
+Route::get('/category/{category}', [GuestController::class, 'category'])->name('category');
  
 Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
 Route::post('/inquiry', [GuestController::class, 'storeInquiry'])->name('inquiry.store');
@@ -77,6 +90,7 @@ Route::middleware('auth')
             Route::get('/our-mission', [OurMissionController::class, 'data'])->name('our-mission.data');
             Route::get('/categories', [CategoryController::class, 'data'])->name('categories.data');
             Route::get('/products', [ProductController::class, 'data'])->name('products.data');
+            Route::get('/options', [OptionController::class, 'data'])->name('options.data');
             Route::get('/our-value', [OurValueController::class, 'data'])->name('our-value.data');
             Route::get('/our-process', [OurProcessController::class, 'data'])->name('our-process.data');
             Route::get('/choose-us', [ChooseUsController::class, 'data'])->name('choose-us.data');
@@ -95,6 +109,7 @@ Route::middleware('auth')
             'choose-us'      => ChooseUsController::class,
             'about-items'    => AboutItemController::class,
             'business-hours' => BusinessHourController::class,
+            'options'        => OptionController::class,
         ];
 
 

@@ -123,7 +123,7 @@
               <div class="value-icon"><i class="bi {{ $item->icon ?: 'bi-check2' }}"></i></div>
               <div>
                 <h3>{{ $item->title ?? '' }}</h3>
-                <p>{{ $item->description ?? '' }}</p>
+                <p>{!! $item->description ?? '' !!}</p>
               </div>
             </div>
           @endforeach
@@ -162,7 +162,7 @@
                                    data-slide-index="{{ $i }}"
                                    role="button" tabindex="0"
                                    aria-label="Preview photo {{ $i + 1 }} of {{ $product->name }}">
-                                <img src="{{ $img->path }}" alt="{{ $product->name }}" loading="lazy">
+                                <img src="{{ asset($img->path) }}" alt="{{ $product->name }}" loading="lazy">
                               </div>
                             </div>
                           </div>
@@ -193,7 +193,7 @@
                 <div class="crop-body">
                   <h3>{{ $product->name }}</h3>
                   <p>{!! $product->description !!}</p>
-                  <a href="/products" class="crop-link">View category <i class="bi bi-arrow-right"></i></a>
+                  <a href="/product/{{ $product->slug }}" class="crop-link">View detail <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -219,7 +219,7 @@
                       @foreach ($images as $i => $img)
                         <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
                           <div class="frame-wide">
-                            <img src="{{ $img->path }}" alt="{{ $product->name }}" loading="lazy">
+                            <img src="{{ asset($img->path) }}" alt="{{ $product->name }}" loading="lazy">
                           </div>
                         </div>
                       @endforeach
@@ -274,7 +274,7 @@
               <div class="reason">
                 <div class="value-icon"><i class="bi {{ $item->icon ?: 'bi-check2' }}"></i></div>
                 <h3>{{ $item->title ?? '' }}</h3>
-                <p>{{ $item->description ?? '' }}</p>
+                <p>{!! $item->description ?? '' !!}</p>
               </div>
             </div>
           @endforeach
@@ -311,7 +311,7 @@
         <div class="row align-items-center gy-5">
           <div class="col-lg-6" data-aos="fade-right">
             @if (!empty($globalReach->global_reach_image))
-              <img src="{{ $globalReach->global_reach_image }}" alt="" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">
+              <img src="{{ asset($globalReach->global_reach_image) }}" alt="" class="w-100 h-100" style="object-fit:cover; border-radius: 10px;">
             @endif
           </div>
           <div class="col-lg-6" data-aos="fade-left">

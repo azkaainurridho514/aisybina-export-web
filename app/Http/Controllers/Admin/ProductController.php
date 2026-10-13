@@ -9,13 +9,25 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Option;
 
 class ProductController extends Controller
 {
+    private function syncOptions(Product $product, array $optionIds): void
+    {
+        $optionIds = array_values(array_unique($optionIds));
+        $product->productOptions()->whereNotIn('option_id', $optionIds)->delete();
+        $existing = $product->productOptions()->pluck('option_id')->all();
+        foreach (array_diff($optionIds, $existing) as $optionId) {
+            $product->productOptions()->create(['option_id' => $optionId]);
+        }
+    }
+    
     public function index()
     {   
         $categories = Category::latest()->get();
-        return view('admin.products.index', compact('categories'));
+        $options    = Option::orderBy('title')->get(['id', 'title']);
+        return view('admin.products.index', compact('categories', 'options'));
     }
 
     public function data(Request $request)
@@ -50,6 +62,12 @@ class ProductController extends Controller
             ], 404);
         }
 
+        $product->setAttribute(
+            'options',
+            $product->productOptions->pluck('option')->filter()
+                ->map(fn ($o) => ['id' => $o->id, 'title' => $o->title])->values()
+        );
+
         return response()->json($product);
     }
 
@@ -59,6 +77,8 @@ class ProductController extends Controller
             'category_id' => 'required|uuid|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'option_ids'   => 'nullable|array',
+            'option_ids.*' => 'uuid|exists:options,id',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -72,6 +92,8 @@ class ProductController extends Controller
                 'name' => $data['name'],
                 'description' => $data['description'] ?? null,
             ]);
+
+            $this->syncOptions($product, $data['option_ids'] ?? []);
 
             if ($request->hasFile('images')) {
 
@@ -130,6 +152,8 @@ class ProductController extends Controller
             'category_id' => 'required|uuid|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'option_ids'   => 'nullable|array',
+            'option_ids.*' => 'uuid|exists:options,id',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -144,6 +168,7 @@ class ProductController extends Controller
                 'name' => $data['name'],
                 'description' => $data['description'] ?? null,
             ]);
+            $this->syncOptions($product, $data['option_ids'] ?? []);
 
       
             if ($request->hasFile('images')) {
@@ -234,7 +259,7 @@ class ProductController extends Controller
 
                 $image->delete();
             }
-
+            $product->productOptions()->delete();
             $product->delete();
 
             DB::commit();

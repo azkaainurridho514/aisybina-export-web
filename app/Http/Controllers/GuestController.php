@@ -51,15 +51,49 @@ class GuestController extends Controller
 
     public function products(): View
     {
-        return view('products');
+        $categories = Category::latest()->get();
+
+        $products = Product::with('images')
+            ->inRandomOrder()
+            ->get()
+            ->groupBy('category_id')
+            ->flatMap(fn ($group) => $group->take(6));
+
+        return view('products', compact('categories', 'products'));
     }
 
-    public function productsData(): JsonResponse
+    public function category(Category $category): View{
+        $products = Product::with('images')
+            ->where('category_id', $category->id)
+            ->inRandomOrder()
+            ->get();
+        return view('categories', compact('products', 'category'));
+    }
+        
+    public function product(Product $product): View
     {
-        return response()->json([
-            'categories' => Category::orderBy('name')->get(),
-            'products' => Product::with(['category', 'images'])->get(),
-        ]);
+        $product->load('productOptions.option.items');
+
+        $options = json_decode(json_encode(
+            $product->productOptions
+                ->map(fn ($po) => [
+                    'title'       => $po->option->title,
+                    'description' => $po->option->description,
+                    'items'       => $po->option->items
+                        ->map(fn ($item) => ['description' => $item->description])
+                        ->all(),
+                ])
+                ->all()
+        ));
+
+        $related = Product::with('images')
+            ->where('category_id', $product->category_id)
+            ->whereKeyNot($product->getKey())
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('detail', compact('product', 'options', 'related'));
     }
 
     public function contact(): View

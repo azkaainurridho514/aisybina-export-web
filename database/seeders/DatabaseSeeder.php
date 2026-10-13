@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::create([
             'name' => 'Aisybina Export',
-            'email' => 'aisybinaberkahjaya@gmail.com',
-            "password" => Hash::make("@i5yb!na3xp0r7")
+            'email' => 'admin@gmail.com',
+            "password" => Hash::make("123456")
         ]);
 
         DB::table('master')->insert([
@@ -212,6 +212,6 @@ class DatabaseSeeder extends Seeder
     }
 
     public function run(): void{
-        // $this->data();
+        $this->data();
     }
 }   

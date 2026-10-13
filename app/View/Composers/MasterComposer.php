@@ -20,6 +20,8 @@ class MasterComposer
             'about_heading', 'about_description',
         ],
         'products' => ['logo', 'website_name', 'website_slug'],
+        'categories' => ['logo', 'website_name', 'website_slug'],
+        'detail' => ['logo', 'website_name', 'website_slug'],
         'contact'  => ['logo', 'website_name', 'website_slug'],
     ];
 

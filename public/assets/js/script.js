@@ -27,7 +27,7 @@ $(function () {
       );
       var $collapse = $(".navbar-collapse");
       if ($collapse.hasClass("show")) {
-        $collapse.collapse("hide");
+        bootstrap.Collapse.getOrCreateInstance($collapse[0]).hide();
       }
     }
   });

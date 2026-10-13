@@ -12,7 +12,9 @@ class ContactComposer
         'home' => ['email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'],
         'about' => ['email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'],
         'products' => ['email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location', 'product_heading', 'product_subheading',],
-        'contact' => ['heading', 'subheading', 'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location'],
+        'detail' => ['email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location', 'product_heading', 'product_subheading',],
+        'categories' => ['email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location', 'product_heading', 'product_subheading',],
+        'contact' => ['heading', 'subheading', 'email', 'whatsapp', 'tiktok', 'instagram', 'facebook', 'youtube', 'location', 'response_time'],
     ];
 
     public function compose(View $view): void

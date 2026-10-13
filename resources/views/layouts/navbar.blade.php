@@ -1,14 +1,14 @@
 <header>
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center justify-content-center gap-2" href="/">
+            <a class="navbar-brand d-flex align-items-center justify-content-start gap-2" href="/">
                 @if (!empty($master->logo))
-                    <img src="{{ $master->logo }}" alt="{{ $master->website_name ?? '' }}" style="width: 35px; height: 35px; object-fit: contain;">
+                    <img src="{{ asset($master->logo) }}"  alt="{{ $master->website_name ?? '' }}" style="width: 35px; height: 35px; object-fit: contain;">
                 @endif
                 <span>{{ $master->website_name ?? '' }}</span>
                 <span class="brand-dot">.</span>
             </a>
-
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav"
                 aria-expanded="false" aria-label="Toggle navigation">

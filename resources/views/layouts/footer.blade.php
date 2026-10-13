@@ -5,11 +5,6 @@
             <div class="footer-brand">
                 {{ $master->website_name ?? '' }}@if (!empty($master->website_name)).@endif
             </div>
-            {{-- CATATAN: JS lama menaruh "website_slug" di sini sebagai deskripsi
-                 (bukan "website_description"). Sepertinya kurang tepat — cek lagi,
-                 kalau memang mau pakai deskripsi asli tinggal ganti ke
-                 $master->website_description. Untuk sekarang saya samakan
-                 persis dengan perilaku lama supaya tidak diam-diam saya ubah. --}}
             <p class="text-on-forest">{{ $master->website_slug ?? '' }}</p>
 
             @php

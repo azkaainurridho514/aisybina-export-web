@@ -72,6 +72,19 @@
             </select>
           </div>
           <div class="field-group">
+            <label class="field-label">Options</label>
+            <div id="productOptions" class="d-flex flex-column gap-2">
+              @forelse ($options as $option)
+                <label class="d-flex align-items-center gap-2 mb-0">
+                  <input type="checkbox" class="form-check-input mt-0" value="{{ $option->id }}">
+                  <span>{{ $option->title }}</span>
+                </label>
+              @empty
+                <div class="field-hint">Belum ada option. Buat dulu di menu Options.</div>
+              @endforelse
+            </div>
+          </div>
+          <div class="field-group">
             <label class="field-label">Deskripsi</label>
             <div class="quill-editor" id="productDescription" style="min-height:150px;"></div>
           </div>
@@ -85,7 +98,6 @@
     </div>
   </div>
 
-  {{-- Detail (baca saja) --}}
   <div class="modal fade" id="productDetailModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content modal-content-admin">
@@ -101,7 +113,6 @@
     </div>
   </div>
 
-  {{-- Pratinjau foto --}}
   <div class="image-lightbox" id="imageLightbox">
     <button type="button" class="image-lightbox-close" id="imageLightboxClose" aria-label="Close"><i class="bi bi-x-lg"></i></button>
     <img src="" alt="Preview" id="imageLightboxImg">

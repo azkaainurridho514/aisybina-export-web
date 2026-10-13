@@ -19,14 +19,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  {{-- Aset yang belum ada di public/assets memakai CDN dulu. --}}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ \App\Support\Asset::v('assets/css/style-admin.css') }}">
   @stack('styles')
 
   <style>
-    /* Tambahan untuk halaman berbasis server (link asli, bukan div/button) */
     a.admin-nav-link, .admin-pagination a.btn-icon { text-decoration: none; }
     .admin-pagination { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0 0; flex-wrap: wrap; }
     .admin-pagination-info { color: var(--forest-soft, #52685c); font-size: .875rem; }
@@ -79,7 +77,6 @@
 
   @stack('modals')
 
-  {{-- Vendor (CDN). Versi dikunci agar tidak berubah sendiri. --}}
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.25/dist/sweetalert2.all.min.js"></script>

@@ -11,6 +11,7 @@ $(function () {
   var $name = $("#productName");
   var $category = $("#productCategory");
   var $gallery = $("#productGallery");
+  var $options = $("#productOptions");
   var $save = $("#productSave");
   var $search = $("#productSearch");
   var $reset = $("#productSearchReset");
@@ -208,6 +209,10 @@ $(function () {
     $name.val(row ? row.name : "");
     $category.val(row ? row.category_id : "");
     setDescription(row ? row.description : "");
+    var optionIds = ((row && row.options) || []).map(function (o) { return o.id; });
+      $options.find('input[type="checkbox"]').each(function () {
+        $(this).prop("checked", optionIds.indexOf(this.value) !== -1);
+    });
 
     gallery = ((row && row.images) || [])
       .filter(function (pi) { return pi && pi.path; })
@@ -221,7 +226,6 @@ $(function () {
 
   $(document).on("click", '[data-action="create"]', function () { openModal(null); });
 
-  // ===== AJAX GET: detail untuk edit =====
   $(document).on("click", '[data-action="edit"]', function () {
     var $btn = $(this).prop("disabled", true);
 
@@ -236,6 +240,9 @@ $(function () {
     fd.append("name", $.trim($name.val()));
     fd.append("category_id", $category.val());
     fd.append("description", getDescription());
+    $options.find("input:checked").each(function () {
+      fd.append("option_ids[]", this.value);
+    });
 
     var files = gallery.map(function (img) {
       if (img.file) return Promise.resolve(img.file);
@@ -341,10 +348,13 @@ $(function () {
     }
 
     var description = $("<div>").html(DOMPurify.sanitize(row.description || "")).text().trim();
-
+    var optionBadges = (row.options || []).map(function (o) {
+      return '<span class="product-detail-badge me-1">' + escapeHtml(o.title) + "</span>";
+    }).join("");
     html += '<div class="product-detail-info"><dl>' +
       "<dt>Nama Produk</dt><dd>" + escapeHtml(row.name || "—") + "</dd>" +
       "<dt>Kategori</dt><dd>" + (row.category ? '<span class="product-detail-badge">' + escapeHtml(row.category.name) + "</span>" : "—") + "</dd>" +
+      "<dt>Options</dt><dd>" + (optionBadges || "—") + "</dd>" +   
       "<dt>Deskripsi</dt><dd>" + (description ? escapeHtml(description).replace(/\n/g, "<br>") : "—") + "</dd>" +
       "<dt>Jumlah Foto</dt><dd>" + images.length + " foto</dd>" +
       "</dl></div>";

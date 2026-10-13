@@ -135,6 +135,7 @@
         function $field(key) { return $modalEl.find('[data-field="' + key + '"]'); }
 
         function getValue(f) {
+          if (f.get) return f.get($modalEl);
           var $el = $field(f.key);
           if ($el.hasClass("quill-editor")) {
             var quill = $el.data("quill");
@@ -144,6 +145,7 @@
         }
 
         function setValue(f, value) {
+          if (f.set) { f.set($modalEl, value); return; }
           var $el = $field(f.key);
           value = value == null ? "" : value;
 
@@ -188,8 +190,10 @@
           var missing = [];
 
           cfg.fields.forEach(function (f) {
-            payload[f.key] = getValue(f);
-            if (f.required && !payload[f.key]) missing.push(f.label || f.key);
+            var v = getValue(f);
+            payload[f.key] = v;
+            var empty = Array.isArray(v) ? v.length === 0 : !v;
+            if (f.required && empty) missing.push(f.label || f.key);
           });
 
           if (missing.length) {
@@ -217,9 +221,11 @@
         }
 
         $save.on("click", save);
-        $modalEl.on("keydown", 'input[type="text"]', function (e) {
-          if (e.key === "Enter") { e.preventDefault(); save(); }
-        });
+        if (cfg.submitOnEnter !== false) {
+          $modalEl.on("keydown", 'input[type="text"]', function (e) {
+            if (e.key === "Enter") { e.preventDefault(); save(); }
+          });
+        }
 
         // ===== AJAX DELETE =====
         $wrap.on("click", '[data-action="delete"]', function () {

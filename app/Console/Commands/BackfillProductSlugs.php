@@ -12,29 +12,26 @@ class BackfillProductSlugs extends Command
     protected $description = 'Command description';
     public function handle()
     {
-        Product::whereNull("slug")
-            ->chunkById(10, function($products){
-                foreach($products as $product){
+        $total = Product::whereNull('slug')->count();
+
+        $this->info("Produk dengan slug NULL: {$total}");
+
+        Product::whereNull('slug')
+            ->chunkById(10, function ($products) {
+                foreach ($products as $product) {
                     $slug = Str::slug($product->name);
-                    $originalSlug = $slug;
-                    $counter = 1;
+                    
+                    $this->line(
+                        "ID: {$product->id} | Name: {$product->name} | Slug: {$slug}"
+                    );
 
-                    while(
-                        Product::where('slug', $slug)
-                            ->where("id", '!=', $product->id)
-                            ->exists()
-                    ){
-                        $slug = $originalSlug . "-" . $counter;
-                        $counter++;
-                    }
+                    $product->slug = $slug;
+                    $product->save();
 
-                    $product->update([
-                        "slug" => $slug
-                    ]);
+                    $this->line("Slug tersimpan: {$product->slug}");
                 }
             });
 
-        $this->info("Slug created");
         return self::SUCCESS;
     }
 }

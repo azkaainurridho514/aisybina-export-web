@@ -12,7 +12,7 @@ class ViewServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $pages = ['home', 'about', 'products', 'contact'];
+        $pages = ['home', 'about', 'products', 'contact', 'categories', 'detail'];
 
         View::composer($pages, MasterComposer::class);
         View::composer($pages, FooterViewComposer::class);

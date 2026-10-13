@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('option_items', function (Blueprint $table) {
             $table->uuid('id');
             $table->uuid('option_id');
-            $table->string('title');
             $table->string('description'); 
             $table->timestamps();
         });
