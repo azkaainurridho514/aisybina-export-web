@@ -35,13 +35,30 @@ Route::get('/clear-cache', function () {
 Route::get('/', [GuestController::class, 'index'])->name('home');
 Route::get('/about', [GuestController::class, 'about'])->name('about');
 
-Route::get('/sitemap.xml', function () {
-    $products = Product::latest()->get();
 
-    return response()
-        ->view('sitemap', compact('products'))
-        ->header('Content-Type', 'application/xml');
+Route::get('/sitemap.xml', function () {
+    $urls = [
+        url('/'),
+        url('/about'),
+        url('/products'),
+        url('/contact'),
+    ];
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    foreach ($urls as $url) {
+        $xml .= '<url><loc>'
+            . htmlspecialchars($url, ENT_XML1, 'UTF-8')
+            . '</loc></url>';
+    }
+
+    $xml .= '</urlset>';
+
+    return response($xml, 200)
+        ->header('Content-Type', 'application/xml; charset=UTF-8');
 });
+
 
 Route::get('/products', [GuestController::class, 'products'])->name('products');
 
