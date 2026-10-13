@@ -4,30 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Option;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
-    private function syncOptions(Product $product, array $optionIds): void
-    {
-        $optionIds = array_values(array_unique($optionIds));
-        $product->productOptions()->whereNotIn('option_id', $optionIds)->delete();
-        $existing = $product->productOptions()->pluck('option_id')->all();
-        foreach (array_diff($optionIds, $existing) as $optionId) {
-            $product->productOptions()->create(['option_id' => $optionId]);
-        }
-    }
     
     public function index()
     {   
         $categories = Category::latest()->get();
-        $options    = Option::orderBy('title')->get(['id', 'title']);
-        return view('admin.products.index', compact('categories', 'options'));
+        return view('admin.products.index', compact('categories'));
     }
 
     public function data(Request $request)
@@ -54,19 +44,13 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
-        $product = Product::with('category', 'images')->find($id);
+        $product = Product::with('category', 'images', 'options')->find($id);
 
         if (!$product) {
             return response()->json([
                 'message' => 'Data tidak ditemukan.'
             ], 404);
         }
-
-        $product->setAttribute(
-            'options',
-            $product->productOptions->pluck('option')->filter()
-                ->map(fn ($o) => ['id' => $o->id, 'title' => $o->title])->values()
-        );
 
         return response()->json($product);
     }
@@ -77,8 +61,10 @@ class ProductController extends Controller
             'category_id' => 'required|uuid|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'option_ids'   => 'nullable|array',
-            'option_ids.*' => 'uuid|exists:options,id',
+            'options'               => 'nullable|array',
+            'options.*.id'          => 'nullable|uuid',
+            'options.*.title'       => 'nullable|string|max:255',
+            'options.*.description' => 'nullable|string',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -93,7 +79,7 @@ class ProductController extends Controller
                 'description' => $data['description'] ?? null,
             ]);
 
-            $this->syncOptions($product, $data['option_ids'] ?? []);
+            $product->saveOptions($data['options'] ?? []);
 
             if ($request->hasFile('images')) {
 
@@ -152,8 +138,10 @@ class ProductController extends Controller
             'category_id' => 'required|uuid|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'option_ids'   => 'nullable|array',
-            'option_ids.*' => 'uuid|exists:options,id',
+            'options'               => 'nullable|array',
+            'options.*.id'          => 'nullable|uuid',
+            'options.*.title'       => 'nullable|string|max:255',
+            'options.*.description' => 'nullable|string',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -168,7 +156,7 @@ class ProductController extends Controller
                 'name' => $data['name'],
                 'description' => $data['description'] ?? null,
             ]);
-            $this->syncOptions($product, $data['option_ids'] ?? []);
+            $product->saveOptions($data['options'] ?? []);
 
       
             if ($request->hasFile('images')) {
@@ -259,7 +247,9 @@ class ProductController extends Controller
 
                 $image->delete();
             }
-            $product->productOptions()->delete();
+            $optionIds = $product->options()->pluck('options.id');
+            $product->options()->detach();
+            Option::whereIn('id', $optionIds)->delete();
             $product->delete();
 
             DB::commit();

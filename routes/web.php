@@ -18,7 +18,6 @@ use App\Http\Controllers\Admin\OurMissionController;
 use App\Http\Controllers\Admin\OurValueController;
 use App\Http\Controllers\Admin\ChooseUsController;
 use App\Http\Controllers\Admin\AboutItemController;
-use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\GuestController;
 use App\Models\Product;
 
@@ -90,7 +89,6 @@ Route::middleware('auth')
             Route::get('/our-mission', [OurMissionController::class, 'data'])->name('our-mission.data');
             Route::get('/categories', [CategoryController::class, 'data'])->name('categories.data');
             Route::get('/products', [ProductController::class, 'data'])->name('products.data');
-            Route::get('/options', [OptionController::class, 'data'])->name('options.data');
             Route::get('/our-value', [OurValueController::class, 'data'])->name('our-value.data');
             Route::get('/our-process', [OurProcessController::class, 'data'])->name('our-process.data');
             Route::get('/choose-us', [ChooseUsController::class, 'data'])->name('choose-us.data');
@@ -109,7 +107,6 @@ Route::middleware('auth')
             'choose-us'      => ChooseUsController::class,
             'about-items'    => AboutItemController::class,
             'business-hours' => BusinessHourController::class,
-            'options'        => OptionController::class,
         ];
 
 

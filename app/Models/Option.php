@@ -14,14 +14,4 @@ class Option extends Model
         'title',
         'description',
     ];
-
-    public function items()
-    {
-        return $this->hasMany(OptionItem::class, 'option_id');
-    }
-
-    public function productOptions()
-    {
-        return $this->hasMany(ProductOption::class, 'option_id');
-    }
 }

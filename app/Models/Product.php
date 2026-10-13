@@ -17,10 +17,39 @@ class Product extends Model
         'name',
         'description',
     ];
-    
-    public function productOptions()
+    public function options()
     {
-        return $this->hasMany(ProductOption::class, 'product_id');
+        return $this->belongsToMany(Option::class, 'product_options', 'product_id', 'option_id');
+    }
+
+    public function saveOptions(array $rows): void
+    {
+        $existingIds = $this->options()->pluck('options.id')->all();
+        $sync = [];
+
+        foreach ($rows as $row) {
+            $title = trim($row['title'] ?? '');
+            if ($title === '') continue;
+
+            $attrs = [
+                'title' => $title,
+                'description' => $row['description'] ?? null,
+            ];
+
+            $id = $row['id'] ?? null;
+            if ($id && in_array($id, $existingIds, true)) {
+                Option::whereKey($id)->update($attrs);
+                $sync[$id] = [];
+            } else {
+                $option = Option::create($attrs);
+                $sync[$option->id] = ['id' => (string) Str::uuid()];
+            }
+        }
+
+        $removed = array_diff($existingIds, array_keys($sync));
+
+        $this->options()->sync($sync);
+        Option::whereIn('id', $removed)->delete();
     }
 
     public function category()

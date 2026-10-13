@@ -5,6 +5,14 @@
 
 @push('styles')
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+  <style>
+    .product-detail-option {
+      padding: 8px 12px;
+      border-left: 3px solid #c8923a; /* sesuaikan dengan warna tema */
+      background: #faf6ee;
+      border-radius: 6px;
+    }
+  </style>
 @endpush
 
 @section('content')
@@ -73,16 +81,10 @@
           </div>
           <div class="field-group">
             <label class="field-label">Options</label>
-            <div id="productOptions" class="d-flex flex-column gap-2">
-              @forelse ($options as $option)
-                <label class="d-flex align-items-center gap-2 mb-0">
-                  <input type="checkbox" class="form-check-input mt-0" value="{{ $option->id }}">
-                  <span>{{ $option->title }}</span>
-                </label>
-              @empty
-                <div class="field-hint">Belum ada option. Buat dulu di menu Options.</div>
-              @endforelse
-            </div>
+            <div id="productOptions" class="d-flex flex-column gap-2"></div>
+            <button type="button" class="btn-admin btn-admin-outline mt-2" id="productOptionAdd">
+              <i class="bi bi-plus-lg"></i> Tambah Option
+            </button>
           </div>
           <div class="field-group">
             <label class="field-label">Deskripsi</label>

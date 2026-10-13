@@ -3,12 +3,6 @@
 @section('description', \Illuminate\Support\Str::limit(strip_tags($product->description ?? ''), 150) ?: 'Request a quotation for ' . $product->name . ' from Aisybina Export.')
 @push('styles')
     <style>
-        /* ==========================================================================
-   ADDITION — Product detail page
-   Tempel di paling bawah file CSS yang sudah ada. Tidak mengubah aturan lama.
-   ========================================================================== */
-
-/* Breadcrumb ------------------------------------------------------------- */
 .pd-top { padding-bottom: 0; }
 
 .pd-breadcrumb {
@@ -192,27 +186,28 @@
   color: var(--forest);
 }
 .option-list li i { color: var(--gold); font-size: 1.05rem; line-height: 1.5; }
-
 .pd-specs {
-  /* next version */
-  /* display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); */
-  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
   margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .pd-spec {
   padding: 0.8rem 0;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-border);
 }
-/* next version */
-/* .pd-spec:nth-child(odd)  { padding-right: 1rem; }
-.pd-spec:nth-child(even) { padding-left: 1rem; } */
+
+/* item terakhir yang ganjil dibuat selebar penuh */
+.pd-spec:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
 
 .pd-spec .label {
   display: block;
   font-size: 0.8rem;
-  color: var(--forest-soft);
+  color: var(--color-text-muted, #6c757d);
   margin-bottom: 0.15rem;
 }
 
@@ -311,50 +306,21 @@
             @endif
 
             <div class="pd-specs">
-                @if ($category)
+              @if ($product->category)
+                <div class="pd-spec">
+                  <span class="label">Category</span>
+                  <span class="value">{{ $product->category->name }}</span>
+                </div>
+              @endif
+              @if (!empty($options) && count($options) > 0)
+                @foreach ($options as $option)
                   <div class="pd-spec">
-                    <span class="label">Category</span>
-                    <span class="value">{{ $category->name }}</span>
+                    <span class="label">{{ $option->title }}</span>
+                    <span class="value">{{  $option->description  }}</span>
                   </div>
-                @endif
-                <div class="pd-spec">
-                  <span class="label">Origin</span>
-                  <span class="value">Indonesia</span>
-                </div>
-                <div class="pd-spec">
-                  <span class="label">Order type</span>
-                  <span class="value">Export and bulk orders</span>
-                </div>
-                {{-- next version --}}
-                {{-- <div class="pd-spec">
-                  <span class="label">HS code</span>
-                  <span class="value">0901.21</span> 
-                </div>
-                <div class="pd-spec">
-                  <span class="label">Minimum order</span>
-                  <span class="value">1 x 20ft container</span> 
-                </div>
-                <div class="pd-spec">
-                  <span class="label">Lead time</span>
-                  <span class="value">14-21 days</span> 
-                </div>
-                <div class="pd-spec">
-                  <span class="label">Shelf life</span>
-                  <span class="value">12 months</span> 
-                </div>
-                <div class="pd-spec">
-                  <span class="label">Port of loading</span>
-                  <span class="value">Tanjung Perak, Surabaya</span> 
-                </div>
-                <div class="pd-spec">
-                  <span class="label">Payment terms</span>
-                  <span class="value">T/T, L/C at sight</span> 
-                </div>
-                  <div class="pd-spec">
-                  <span class="label">Incoterms</span>
-                  <span class="value">FOB, CIF</span> 
-                </div> --}}
-              </div>
+                @endforeach
+              @endif
+            </div>
 
             <div class="pd-actions">
               <a href="/contact?product={{ $product->name }}" class="btn btn-forest btn-arrow">Request a quote</a>
@@ -373,41 +339,6 @@
       </div>
     </div>
   </section>
-
-  @if (!empty($options) && count($options) > 0)
-    <section class="section bg-cream-dim pd-options">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-lg-7" data-aos="fade-up">
-            <span class="pill-tag"><i class="bi bi-sliders"></i>Specifications</span>
-            <h2 class="mb-2">Available options</h2>
-            <p class="mb-0">What you can choose when ordering {{ $product->name }}.</p>
-          </div>
-        </div>
-
-        <div class="row gy-4">
-          @foreach ($options as $option)
-            <div class="col-md-6 col-lg-4" data-aos="fade-up">
-              <div class="option-card">
-                <h3>{{ $option->title }}</h3>
-                @if (!empty($option->description))
-                  <p class="option-desc">{!! $option->description !!}</p>
-                @endif
-
-                @if (count($option->items) > 0)
-                  <ul class="option-list">
-                    @foreach ($option->items as $item)
-                      <li><i class="bi bi-check2"></i><span>{!! $item->description !!}</span></li>
-                    @endforeach
-                  </ul>
-                @endif
-              </div>
-            </div>
-          @endforeach
-        </div>
-      </div>
-    </section>
-  @endif
 
   @if (isset($related) && $related->isNotEmpty())
     <section class="section">

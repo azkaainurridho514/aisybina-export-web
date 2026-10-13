@@ -219,6 +219,7 @@ $(function () {
       .map(function (pi) { return { url: imageUrl(pi.path), file: null, id: pi.id, existing: true }; });
 
     renderGallery();
+    renderOptions((row && row.options) || []);
     modal.show();
   }
 
@@ -240,8 +241,15 @@ $(function () {
     fd.append("name", $.trim($name.val()));
     fd.append("category_id", $category.val());
     fd.append("description", getDescription());
-    $options.find("input:checked").each(function () {
-      fd.append("option_ids[]", this.value);
+    var n = 0;
+    $options.find(".option-row").each(function () {
+      var title = $.trim($(this).find(".option-title").val());
+      if (!title) return;               // baris kosong dilewati
+      var id = $(this).find(".option-id").val();
+      if (id) fd.append("options[" + n + "][id]", id);
+      fd.append("options[" + n + "][title]", title);
+      fd.append("options[" + n + "][description]", $.trim($(this).find(".option-desc").val()));
+      n++;
     });
 
     var files = gallery.map(function (img) {
@@ -312,6 +320,31 @@ $(function () {
     if (e.key === "Enter") { e.preventDefault(); save(); }
   });
 
+  function optionRow(o) {
+    o = o || {};
+    return '<div class="option-row d-flex gap-2 align-items-start">' +
+      '<input type="hidden" class="option-id" value="' + escapeHtml(o.id || "") + '">' +
+      '<div class="flex-grow-1 d-flex flex-column gap-2">' +
+        '<input type="text" class="form-control-admin option-title" maxlength="255" placeholder="Judul option" value="' + escapeHtml(o.title || "") + '">' +
+        '<textarea class="form-control-admin option-desc" rows="2" placeholder="Deskripsi option">' + escapeHtml(o.description || "") + "</textarea>" +
+      "</div>" +
+      '<button type="button" class="btn-icon danger" data-remove-option title="Hapus"><i class="bi bi-trash3"></i></button>' +
+      "</div>";
+  }
+
+  function renderOptions(list) {
+    $options.html((list || []).map(optionRow).join(""));
+  }
+
+  $("#productOptionAdd").on("click", function () {
+    var $row = $(optionRow()).appendTo($options);
+    $row.find(".option-title").trigger("focus");
+  });
+
+  $options.on("click", "[data-remove-option]", function () {
+    $(this).closest(".option-row").remove();
+  });
+
   // ===== Detail (baca saja) =====
   function detailHtml(row) {
     var images = (row.images || []).filter(function (pi) { return pi && pi.path; }).map(function (pi) { return imageUrl(pi.path); });
@@ -348,13 +381,18 @@ $(function () {
     }
 
     var description = $("<div>").html(DOMPurify.sanitize(row.description || "")).text().trim();
-    var optionBadges = (row.options || []).map(function (o) {
-      return '<span class="product-detail-badge me-1">' + escapeHtml(o.title) + "</span>";
+    var optionList = (row.options || []).map(function (o) {
+      return '<div class="product-detail-option">' +
+        '<div class="fw-semibold">' + escapeHtml(o.title) + "</div>" +
+        (o.description
+          ? '<div class="text-muted small" style="white-space:pre-line;">' + escapeHtml(o.description) + "</div>"
+          : "") +
+        "</div>";
     }).join("");
     html += '<div class="product-detail-info"><dl>' +
       "<dt>Nama Produk</dt><dd>" + escapeHtml(row.name || "—") + "</dd>" +
       "<dt>Kategori</dt><dd>" + (row.category ? '<span class="product-detail-badge">' + escapeHtml(row.category.name) + "</span>" : "—") + "</dd>" +
-      "<dt>Options</dt><dd>" + (optionBadges || "—") + "</dd>" +   
+      "<dt>Options</dt><dd>" + (optionList ? '<div class="d-flex flex-column gap-2">' + optionList + "</div>" : "—") + "</dd>" + 
       "<dt>Deskripsi</dt><dd>" + (description ? escapeHtml(description).replace(/\n/g, "<br>") : "—") + "</dd>" +
       "<dt>Jumlah Foto</dt><dd>" + images.length + " foto</dd>" +
       "</dl></div>";

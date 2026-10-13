@@ -72,16 +72,13 @@ class GuestController extends Controller
         
     public function product(Product $product): View
     {
-        $product->load('productOptions.option.items');
+        $product->load('options');
 
         $options = json_decode(json_encode(
-            $product->productOptions
-                ->map(fn ($po) => [
-                    'title'       => $po->option->title,
-                    'description' => $po->option->description,
-                    'items'       => $po->option->items
-                        ->map(fn ($item) => ['description' => $item->description])
-                        ->all(),
+            $product->options
+                ->map(fn ($option) => [
+                    'title'       => $option->title,
+                    'description' => $option->description,
                 ])
                 ->all()
         ));
